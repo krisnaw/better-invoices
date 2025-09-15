@@ -1,23 +1,12 @@
 "use client"
 
 import * as React from "react"
-import {
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  LifeBuoy,
-  Map,
-  PieChart,
-  Send,
-  Settings2,
-  SquareTerminal,
-} from "lucide-react"
+import {BookOpen, Bot, Command, Frame, LifeBuoy, Map, PieChart, Send, Settings2, SquareTerminal,} from "lucide-react"
 
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
-import { NavSecondary } from "@/components/nav-secondary"
-import { NavUser } from "@/components/nav-user"
+import {NavMain} from "@/components/nav-main"
+import {NavProjects} from "@/components/nav-projects"
+import {NavSecondary} from "@/components/nav-secondary"
+import {NavUser} from "@/components/nav-user"
 import {
   Sidebar,
   SidebarContent,
@@ -36,27 +25,23 @@ const data = {
   },
   navMain: [
     {
-      title: "Playground",
+      title: "Customer",
       url: "#",
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
-          title: "History",
-          url: "#",
+          title: "List",
+          url: "/dashboard/customers",
         },
         {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
+          title: "Create",
+          url: "/dashboard/customers/create",
         },
       ],
     },
     {
-      title: "Models",
+      title: "Invoices",
       url: "#",
       icon: Bot,
       items: [
