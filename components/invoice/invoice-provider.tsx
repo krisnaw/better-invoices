@@ -5,6 +5,7 @@ export const InvoiceContext = createContext({
   invoiceNumber: "",
   issueDate: new Date(),
   dueDate: new Date(),
+  
   setInvoiceNumber: (number: string) => {},
   setIssueDate: (date: Date) => {},
   setDueDate: (date: Date) => {},

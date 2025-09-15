@@ -20,7 +20,7 @@ export function InvoiceForm() {
                 </div>
               </div>
 
-              <div className="text-right text-sm">
+              <div className="text-right text-sm ">
                 <div className="inline-flex items-center gap-4">
                   <InvoiceNumber />
                 </div>
@@ -41,6 +41,7 @@ export function InvoiceForm() {
                   From
                 </div>
                 <div className="mt-2.5">
+
                   <span>Lost Island AB</span>
                   <ul className="text-sm">
                     <li>
