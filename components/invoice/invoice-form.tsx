@@ -1,8 +1,9 @@
 "use client"
-import {InvoiceDate} from "@/components/invoice/invoice-date";
+import {InvoiceDueDate} from "@/components/invoice/invoice-due-date";
 import {useContext} from "react";
 import {InvoiceContext} from "@/components/invoice/invoice-provider";
 import {Input} from "@/components/ui/input";
+import {InvoiceIssueDate} from "@/components/invoice/invoice-issue-date";
 
 export function InvoiceForm() {
 
@@ -34,11 +35,11 @@ export function InvoiceForm() {
                 </div>
 
                 <div className="inline-flex items-center gap-4">
-                  Issue date: <InvoiceDate />
+                  Issue date: <InvoiceIssueDate />
                 </div>
 
                 <div className="inline-flex items-center gap-4">
-                  Due date:
+                  Due date:<InvoiceDueDate />
                 </div>
               </div>
             </div>

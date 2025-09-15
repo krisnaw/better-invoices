@@ -4,7 +4,7 @@ import {InvoiceDatePicker} from "@/components/invoice/invoice-date-picker";
 import {useContext, useState} from "react";
 import {InvoiceContext} from "@/components/invoice/invoice-provider";
 
-export function InvoiceDate() {
+export function InvoiceIssueDate() {
   const {issueDate, setIssueDate} = useContext(InvoiceContext);
   const [isActive, setIsActive] = useState<boolean>(false)
 

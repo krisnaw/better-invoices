@@ -6,6 +6,7 @@ import {useContext} from "react";
 export function InvoiceContainer() {
   const {issueDate} = useContext(InvoiceContext);
   const {invoiceNumber} = useContext(InvoiceContext);
+  const {dueDate} = useContext(InvoiceContext);
   return (
     <>
       <div>
@@ -17,6 +18,9 @@ export function InvoiceContainer() {
             </li>
             <li>
               Issue Date: {issueDate?.toLocaleDateString()}
+            </li>
+            <li>
+              Due Date: {dueDate?.toLocaleDateString()}
             </li>
           </ul>
         </div>
