@@ -1,24 +1,26 @@
 import {Button} from "@/components/ui/button";
 import {Pencil, Save} from "lucide-react";
 import {InvoiceDatePicker} from "@/components/invoice/invoice-date-picker";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {InvoiceContext} from "@/components/invoice/invoice-provider";
 
-type Props = {
-  date: Date,
-  isActive: boolean,
-  onShow: any
-}
+export function InvoiceDate() {
+  const {issueDate, setIssueDate} = useContext(InvoiceContext);
+  const [isActive, setIsActive] = useState<boolean>(false)
 
-export function InvoiceDate({date, isActive, onShow} : Props) {
-  const [curDate, setDate] = useState<Date | undefined>(new Date())
+
+  const onChange = (date: Date) => {
+    setIssueDate(date)
+  }
 
   return (
     <>
-      {isActive ? <InvoiceDatePicker date={curDate} setDate={setDate} /> : <span>{curDate?.toLocaleDateString()}</span>}
+      {isActive ? <InvoiceDatePicker date={issueDate}
+                                     setDate={(date: Date ) => onChange(date)} /> : <span>{issueDate?.toLocaleDateString()}</span>}
 
       {isActive ?
-        <Button variant="ghost" onClick={onShow}><Save /></Button> :
-        <Button variant="ghost" onClick={onShow}><Pencil /></Button>
+        <Button variant="ghost" onClick={() => setIsActive(!isActive)}><Save /></Button> :
+        <Button variant="ghost" onClick={() => setIsActive(!isActive)}><Pencil /></Button>
       }
     </>
   )

@@ -1,9 +1,9 @@
-import {CreateInvoice} from "@/components/invoice/create-invoice";
+import {InvoiceContainer} from "@/components/invoice/invoice-container";
 
 export default function Page() {
   return (
     <div>
-      <CreateInvoice />
+      <InvoiceContainer />
     </div>
   )
 }

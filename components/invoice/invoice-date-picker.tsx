@@ -1,20 +1,15 @@
 "use client"
 
 import * as React from "react"
-import { ChevronDownIcon } from "lucide-react"
+import {ChevronDownIcon} from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
-import { Label } from "@/components/ui/label"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import {Button} from "@/components/ui/button"
+import {Calendar} from "@/components/ui/calendar"
+import {Popover, PopoverContent, PopoverTrigger,} from "@/components/ui/popover"
 
 interface DatePickerProps {
   date: Date | undefined;
-  setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  setDate: (date: Date ) => void;
 }
 
 export function InvoiceDatePicker({date, setDate}: DatePickerProps) {
@@ -40,6 +35,7 @@ export function InvoiceDatePicker({date, setDate}: DatePickerProps) {
             selected={date}
             captionLayout="dropdown"
             onSelect={(date) => {
+              if (!date) return
               setDate(date)
               setOpen(false)
             }}
