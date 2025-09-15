@@ -4,10 +4,8 @@ import {InvoiceIssueDate} from "@/components/invoice/invoice-issue-date";
 import {InvoiceNumber} from "@/components/invoice/invoice-number";
 
 export function InvoiceForm() {
-
   return (
     <div>
-
       <div className="mx-auto w-[210mm] h-[297mm] min-h-screen flex justify-center items-center py-10 font-mono">
         <div className="border border-gray-300 shadow-lg h-full w-full p-6">
 
