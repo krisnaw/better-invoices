@@ -1,5 +1,6 @@
 "use client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import { useRouter } from "next/navigation"
 
 type Invoice = {
@@ -56,7 +57,19 @@ export default function Page() {
                   <td style={{ padding: '10px 8px', borderBottom: '1px solid #f3f4f6' }}>{inv.issueDate}</td>
                   <td style={{ padding: '10px 8px', borderBottom: '1px solid #f3f4f6' }}>{inv.dueDate}</td>
                   <td style={{ padding: '10px 8px', borderBottom: '1px solid #f3f4f6' }}>{currency(inv.amount)}</td>
-                  <td style={{ padding: '10px 8px', borderBottom: '1px solid #f3f4f6' }}>{inv.status}</td>
+                  <td style={{ padding: '10px 8px', borderBottom: '1px solid #f3f4f6' }}>
+                    <Badge
+                      variant={
+                        inv.status === 'Overdue'
+                          ? 'destructive'
+                          : inv.status === 'Paid'
+                            ? 'secondary'
+                            : 'outline'
+                      }
+                    >
+                      {inv.status}
+                    </Badge>
+                  </td>
                 </tr>
               ))}
             </tbody>
