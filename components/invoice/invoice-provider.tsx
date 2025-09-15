@@ -2,7 +2,7 @@
 import React, {createContext, useState} from "react";
 
 export const InvoiceContext = createContext({
-  invoiceNumber: "INV-",
+  invoiceNumber: "",
   issueDate: new Date(),
   dueDate: new Date(),
   setInvoiceNumber: (number: string) => {},
@@ -11,7 +11,7 @@ export const InvoiceContext = createContext({
 })
 
 export function InvoiceProvider({children}: {  children: React.ReactNode }) {
-  const [invoiceNumber, setInvoiceNumber] = useState<string>("")
+  const [invoiceNumber, setInvoiceNumber] = useState<string>("INV-001")
   const [issueDate, setIssueDate] = useState<Date>(new Date())
   const [dueDate, setDueDate] = useState<Date>(new Date())
 
