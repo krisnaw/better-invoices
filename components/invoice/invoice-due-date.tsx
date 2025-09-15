@@ -7,16 +7,21 @@ import {InvoiceContext} from "@/components/invoice/invoice-provider";
 export function InvoiceDueDate() {
   const {dueDate, setDueDate} = useContext(InvoiceContext);
   const [isActive, setIsActive] = useState<boolean>(false)
-
-
-  const onChange = (date: Date) => {
-    setDueDate(date)
-  }
-
   return (
     <>
-      {isActive ? <InvoiceDatePicker date={dueDate}
-                                     setDate={(date: Date ) => onChange(date)} /> : <span>{dueDate?.toLocaleDateString()}</span>}
+
+      <div className="flex items-center gap-2">
+        <div>
+          Due date:
+        </div>
+        <div>
+          {isActive ?
+            <div className="w-32">
+              <InvoiceDatePicker date={dueDate} setDate={(date: Date ) => setDueDate(date)} />
+            </div> :
+            <div  className="w-32">{dueDate?.toLocaleDateString()}</div>}
+        </div>
+      </div>
 
       {isActive ?
         <Button variant="ghost" onClick={() => setIsActive(!isActive)}><Save /></Button> :

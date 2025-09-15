@@ -14,6 +14,9 @@ export function InvoiceProvider({children}: {  children: React.ReactNode }) {
   const [invoiceNumber, setInvoiceNumber] = useState<string>("")
   const [issueDate, setIssueDate] = useState<Date>(new Date())
   const [dueDate, setDueDate] = useState<Date>(new Date())
+
+  const [lineItems, setLineItems] = useState<any[]>([])
+
   return (
     <InvoiceContext.Provider value={{invoiceNumber, issueDate, dueDate, setInvoiceNumber, setIssueDate, setDueDate}}>
       {children}

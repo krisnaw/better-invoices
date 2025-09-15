@@ -1,23 +1,15 @@
 "use client"
 import {InvoiceDueDate} from "@/components/invoice/invoice-due-date";
-import {useContext} from "react";
-import {InvoiceContext} from "@/components/invoice/invoice-provider";
-import {Input} from "@/components/ui/input";
 import {InvoiceIssueDate} from "@/components/invoice/invoice-issue-date";
+import {InvoiceNumber} from "@/components/invoice/invoice-number";
 
 export function InvoiceForm() {
-
-  const {invoiceNumber, setInvoiceNumber} = useContext(InvoiceContext);
 
   return (
     <div>
 
       <div className="mx-auto w-[210mm] h-[297mm] min-h-screen flex justify-center items-center py-10 font-mono">
         <div className="border border-gray-300 shadow-lg h-full w-full p-6">
-
-          <div>
-            <Input value={invoiceNumber} onChange={(e) => setInvoiceNumber(e.target.value as string)} />
-          </div>
 
           <div>
             <div className="grid grid-cols-2 item-start gap-4">
@@ -28,18 +20,17 @@ export function InvoiceForm() {
                 </div>
               </div>
 
-
               <div className="text-right text-sm">
-                <div className="">
-                  Invoice no: INV-0001
+                <div className="inline-flex items-center gap-4">
+                  <InvoiceNumber />
                 </div>
 
                 <div className="inline-flex items-center gap-4">
-                  Issue date: <InvoiceIssueDate />
+                  <InvoiceIssueDate />
                 </div>
 
                 <div className="inline-flex items-center gap-4">
-                  Due date:<InvoiceDueDate />
+                  <InvoiceDueDate />
                 </div>
               </div>
             </div>

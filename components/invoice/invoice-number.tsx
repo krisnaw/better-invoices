@@ -1,25 +1,23 @@
 import {Button} from "@/components/ui/button";
 import {Pencil, Save} from "lucide-react";
-import {InvoiceDatePicker} from "@/components/invoice/invoice-date-picker";
 import {useContext, useState} from "react";
 import {InvoiceContext} from "@/components/invoice/invoice-provider";
+import {Input} from "@/components/ui/input";
 
-export function InvoiceIssueDate() {
-  const {issueDate, setIssueDate} = useContext(InvoiceContext);
+export function InvoiceNumber() {
+  const {invoiceNumber, setInvoiceNumber} = useContext(InvoiceContext);
   const [isActive, setIsActive] = useState<boolean>(false)
   return (
     <>
-
       <div className="flex items-center gap-2">
         <div>
-          Issue date:
+          Invoice no:
         </div>
         <div>
           {isActive ?
-            <div className="w-32">
-              <InvoiceDatePicker date={issueDate} setDate={(date: Date ) => setIssueDate(date)} />
-            </div> :
-            <div  className="w-32">{issueDate?.toLocaleDateString()}</div>}
+            <Input  className="w-32"
+              value={invoiceNumber} onChange={(e) => setInvoiceNumber(e.target.value as string)} /> :
+            <div  className="w-32">{invoiceNumber}</div>}
         </div>
       </div>
 
