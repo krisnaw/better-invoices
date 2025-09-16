@@ -3,12 +3,177 @@ import {InvoiceDueDate} from "@/components/invoice/invoice-due-date";
 import {InvoiceIssueDate} from "@/components/invoice/invoice-issue-date";
 import {InvoiceNumber} from "@/components/invoice/invoice-number";
 import {InvoiceCustomer} from "@/components/invoice/invoice-customer";
+import {inter} from "@/lib/fonts";
+import {
+  Document,
+  Page,
+  PDFDownloadLink,
+  StyleSheet,
+  Text,
+  View,
+} from "@react-pdf/renderer";
+
+const pdfStyles = StyleSheet.create({
+  page: {
+    padding: 32,
+    fontSize: 12,
+    fontFamily: "Helvetica",
+    color: "#111827",
+  },
+  heading: {
+    fontSize: 18,
+    marginBottom: 16,
+  },
+  row: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 8,
+  },
+  section: {
+    marginBottom: 16,
+  },
+  twoColumn: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 24,
+  },
+  column: {
+    flex: 1,
+  },
+  tableHeader: {
+    borderBottom: "1px solid #D1D5DB",
+    paddingBottom: 6,
+    marginBottom: 6,
+  },
+  tableRow: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 4,
+  },
+  totalRow: {
+    marginTop: 12,
+    fontSize: 14,
+    fontWeight: "bold",
+  },
+  cellDescription: {
+    flexBasis: "50%",
+    flexGrow: 1,
+  },
+  cellQuantity: {
+    width: "15%",
+    textAlign: "right",
+    flexShrink: 0,
+  },
+  cellPrice: {
+    width: "20%",
+    textAlign: "right",
+    flexShrink: 0,
+  },
+  cellTotal: {
+    width: "20%",
+    textAlign: "right",
+    flexShrink: 0,
+  },
+});
+
+const invoiceItems = [
+  {description: "Design", quantity: 1, price: 500000},
+  {description: "Development", quantity: 1, price: 500000},
+  {description: "Planning & meeting", quantity: 1, price: 500000},
+];
+
+const InvoiceDocument = () => {
+  const total = invoiceItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  return (
+    <Document>
+      <Page size="A4" style={pdfStyles.page}>
+        <View style={pdfStyles.heading}>
+          <Text>Invoice</Text>
+        </View>
+
+        <View style={pdfStyles.section}>
+          <View style={pdfStyles.row}>
+            <Text>Invoice #: INV-0001</Text>
+            <Text>Issue date: 2024-01-01</Text>
+          </View>
+          <View style={pdfStyles.row}>
+            <Text>Due date: 2024-01-15</Text>
+          </View>
+        </View>
+
+        <View style={[pdfStyles.section, pdfStyles.twoColumn]}>
+          <View style={pdfStyles.column}>
+            <Text>From</Text>
+            <Text>Lost Island AB</Text>
+            <Text>miguel@lostisland.com</Text>
+            <Text>123 Main St, Anytown, CA 12345, USA</Text>
+          </View>
+          <View style={pdfStyles.column}>
+            <Text>To</Text>
+            <Text>Client Name</Text>
+            <Text>client@email.com</Text>
+          </View>
+        </View>
+
+        <View style={pdfStyles.section}>
+          <View style={pdfStyles.tableHeader}>
+            <View style={pdfStyles.tableRow}>
+              <Text style={pdfStyles.cellDescription}>Description</Text>
+              <Text style={pdfStyles.cellQuantity}>Qty</Text>
+              <Text style={pdfStyles.cellPrice}>Price</Text>
+              <Text style={pdfStyles.cellTotal}>Total</Text>
+            </View>
+          </View>
+
+          {invoiceItems.map((item) => (
+            <View key={item.description} style={pdfStyles.tableRow}>
+              <Text style={pdfStyles.cellDescription}>{item.description}</Text>
+              <Text style={pdfStyles.cellQuantity}>{item.quantity}</Text>
+              <Text style={pdfStyles.cellPrice} wrap={false}>
+                Rp{item.price.toLocaleString("id-ID")}
+              </Text>
+              <Text style={pdfStyles.cellTotal} wrap={false}>
+                Rp{(item.price * item.quantity).toLocaleString("id-ID")}
+              </Text>
+            </View>
+          ))}
+
+          <View style={[pdfStyles.tableRow, pdfStyles.totalRow]}>
+            <Text style={pdfStyles.cellDescription}>Total</Text>
+            <Text style={pdfStyles.cellQuantity}></Text>
+            <Text style={pdfStyles.cellPrice}></Text>
+            <Text style={pdfStyles.cellTotal} wrap={false}>
+              Rp{total.toLocaleString("id-ID")}
+            </Text>
+          </View>
+        </View>
+
+        <View>
+          <Text>Payment details: Bank BCA, Account 1234567890</Text>
+          <Text>Note: Thank you for your business!</Text>
+        </View>
+      </Page>
+    </Document>
+  );
+};
 
 export function InvoiceForm() {
   return (
-    <div>
+    <div className={inter.className}>
       <div className="mx-auto w-[210mm] ">
         <div className="border border-gray-300 shadow-lg h-full w-full p-6">
+          <div className="flex justify-end">
+            <PDFDownloadLink
+              document={<InvoiceDocument />}
+              fileName="invoice.pdf"
+              className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50"
+            >
+              {({loading}) => (loading ? "Preparing PDF..." : "Download PDF")}
+            </PDFDownloadLink>
+          </div>
 
           <div>
             <div className="grid grid-cols-2 item-start gap-4">
@@ -82,7 +247,7 @@ export function InvoiceForm() {
                 <th scope="col" className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">
                   Quantity
                 </th>
-                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                <th scope="col" className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">
                   Price
                 </th>
                 <th scope="col" className="py-3.5 pr-4 pl-3 sm:pr-0 text-right">
@@ -97,7 +262,7 @@ export function InvoiceForm() {
                   Design
                 </td>
                 <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500 text-right">1</td>
-                <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500">Rp500.000</td>
+                <td className="px-3 py-4 text-sm whitespace-nowrap text-right text-gray-500">Rp500.000</td>
                 <td className="py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-0">
                   Rp500.000
                 </td>
@@ -108,7 +273,7 @@ export function InvoiceForm() {
                   Development
                 </td>
                 <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500 text-right">1</td>
-                <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500">Rp500.000</td>
+                <td className="px-3 py-4 text-sm whitespace-nowrap text-right text-gray-500">Rp500.000</td>
                 <td className="py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-0">
                   Rp500.000
                 </td>
@@ -119,7 +284,7 @@ export function InvoiceForm() {
                   Planning & meeting
                 </td>
                 <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500 text-right">1</td>
-                <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500">Rp500.000</td>
+                <td className="px-3 py-4 text-sm whitespace-nowrap text-right text-gray-500">Rp500.000</td>
                 <td className="py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-0">
                   Rp500.000
                 </td>
@@ -135,11 +300,11 @@ export function InvoiceForm() {
                 <table className="relative min-w-full divide-y divide-gray-300">
                   <thead>
                   <tr>
-                    <th scope="col" className="py-3.5 pr-3 pl-4 text-left text-sm text-gray-500  sm:pl-0">
+                    <th scope="col" className="py-3.5 pr-3 pl-4 text-left text-sm text-gray-500 sm:pl-0">
                       VAT
                     </th>
                     <th scope="col" className="py-3.5 pr-4 pl-3 sm:pr-0 text-sm text-right">
-                      <span>Rp1.500.000</span>
+                      <span className="whitespace-nowrap">Rp1.500.000</span>
                     </th>
                   </tr>
                   </thead>
