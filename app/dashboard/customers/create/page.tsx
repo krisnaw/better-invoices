@@ -23,7 +23,9 @@ export default function CreateCustomerPage() {
 
     const data = {
       userId: session?.user?.id!,
-      name: String(formData.get("name"))
+      name: String(formData.get("name")),
+      email: String(formData.get("email")),
+      contact: String(formData.get("contact")),
     }
 
     const res = await CreateCustomer(data)
@@ -54,6 +56,17 @@ export default function CreateCustomerPage() {
               <Label htmlFor="name">Name</Label>
               <Input id="name" type="text" name="name" placeholder="Acme Inc." />
             </div>
+
+            <div className="grid gap-3">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" name="email" placeholder="user@example.com" />
+            </div>
+
+            <div className="grid gap-3">
+              <Label htmlFor="contact">Contact Person</Label>
+              <Input id="contact" type="text" name="contact" placeholder="John doe" />
+            </div>
+
           </div>
         </CardContent>
         <CardFooter className="flex justify-end gap-2">

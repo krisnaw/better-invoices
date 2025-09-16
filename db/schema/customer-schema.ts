@@ -8,6 +8,8 @@ export const customersTable = pgTable("customers", {
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   name: varchar({ length: 255 }).notNull(),
+  email: varchar({ length: 255 }).notNull(),
+  contact: varchar({ length: 255 }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .$onUpdate(() => /* @__PURE__ */ new Date())

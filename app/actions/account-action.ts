@@ -17,7 +17,8 @@ export default async function CreateCustomer(FormData: CustomerData): Promise<Ac
     }
   }
 
-  const [inserted] = await db.insert(customersTable).values(validation.data).returning()
+  const [inserted] = await db.insert(customersTable).values(validation.data).returning();
+  console.log(inserted)
 
   if (!inserted) {
     return {
