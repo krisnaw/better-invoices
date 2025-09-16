@@ -10,6 +10,7 @@ import {Button} from "@/components/ui/button"
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from "@/components/ui/card"
 import {Input} from "@/components/ui/input"
 import {Label} from "@/components/ui/label"
+import {Loader2} from "lucide-react";
 
 const initialState: ActionResponse = {
   success: false,
@@ -76,7 +77,10 @@ export function CustomerCreateForm({userId}: CustomerCreateFormProps) {
           <Button variant="outline" type="button" onClick={() => router.back()}>
             Cancel
           </Button>
-          <Button disabled={isPending}>Save Customer</Button>
+          <Button disabled={isPending}>
+            Save
+            {isPending && <Loader2 className="animate-spin" />}
+          </Button>
         </CardFooter>
       </Card>
     </form>
