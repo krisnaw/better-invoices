@@ -1,6 +1,7 @@
 "use client"
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import {Ellipsis} from "lucide-react";
+import Link from "next/link";
 
 export function CustomerItem({customer} : {customer: any}) {
 
@@ -18,7 +19,11 @@ export function CustomerItem({customer} : {customer: any}) {
             <Ellipsis />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem>Edit</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={`/dashboard/customers/${customer.id}/edit`}>
+                Edit
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
