@@ -5,6 +5,10 @@ import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {useActionState} from "react";
 import {ActionResponse} from "@/lib/types";
+import CreateCustomer from "@/app/actions/account-action";
+import {authClient} from "@/lib/auth-client";
+import {toast} from "sonner";
+import {useRouter} from "next/navigation";
 
 const initialState: ActionResponse = {
   success: false,
@@ -13,16 +17,26 @@ const initialState: ActionResponse = {
 }
 
 export default function CreateCustomerPage() {
-
+  const {data: session} = authClient.useSession()
+  const router = useRouter()
   const [state, formAction, isPending] = useActionState<ActionResponse, FormData>(async (prevState, formData) => {
 
-    return {
-      success: true,
-      message: "",
-      error: undefined
+    const data = {
+      userId: session?.user?.id!,
+      name: String(formData.get("name"))
     }
 
+    const res = await CreateCustomer(data)
+    if (!res.success) {
+      toast.error(res.message)
+    }
+
+    toast.success(res.message)
+    router.push(`/dashboard/customers/${res.data}`)
+
+    return res
   }, initialState)
+
   return (
     <form action={formAction}>
       <Card>
@@ -38,7 +52,7 @@ export default function CreateCustomerPage() {
             <h3 className="text-lg font-medium">General Information</h3>
             <div className="grid gap-3">
               <Label htmlFor="name">Name</Label>
-              <Input id="name" type="text" placeholder="Acme Inc." />
+              <Input id="name" type="text" name="name" placeholder="Acme Inc." />
             </div>
           </div>
         </CardContent>

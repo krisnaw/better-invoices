@@ -14,4 +14,7 @@ export const customersTable = pgTable("customers", {
     .notNull(),
 });
 
-const customerInsertSchema = createInsertSchema(customersTable);
+export const customerInsertSchema = createInsertSchema(customersTable).omit({
+  createdAt: true,
+  updatedAt: true,
+})
