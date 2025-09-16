@@ -2,11 +2,12 @@
 import {InvoiceDueDate} from "@/components/invoice/invoice-due-date";
 import {InvoiceIssueDate} from "@/components/invoice/invoice-issue-date";
 import {InvoiceNumber} from "@/components/invoice/invoice-number";
+import {InvoiceCustomer} from "@/components/invoice/invoice-customer";
 
 export function InvoiceForm() {
   return (
     <div>
-      <div className="mx-auto w-[210mm] h-[297mm] min-h-screen flex justify-center items-center py-10 font-mono">
+      <div className="mx-auto w-[210mm] ">
         <div className="border border-gray-300 shadow-lg h-full w-full p-6">
 
           <div>
@@ -65,23 +66,7 @@ export function InvoiceForm() {
                   To
                 </div>
                 <div className="mt-2.5">
-                  <span>Lost Island AB</span>
-                  <ul className="text-sm">
-                    <li>
-                      Email: miguel@lostisland.com
-                    </li>
-
-                    <li>
-                      Phone: 123-456-7890
-                    </li>
-
-                    <li>
-                      Address: 123 Main St, Anytown, CA 12345, USA
-                    </li>
-                    <li>
-                      VAT: 1234567890
-                    </li>
-                  </ul>
+                  <InvoiceCustomer />
                 </div>
               </div>
             </div>
