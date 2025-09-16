@@ -6,6 +6,7 @@ import {Button} from "@/components/ui/button";
 import {authClient} from "@/lib/auth-client";
 import {toast} from "sonner";
 import {useState} from "react";
+import {Loader2} from "lucide-react";
 
 export function AccountForm() {
   const {data: session} = authClient.useSession()
@@ -48,8 +49,11 @@ export function AccountForm() {
                    defaultValue={session?.user?.name}/>
           </div>
         </CardContent>
-        <CardFooter>
-          <Button disabled={isLoading}>Save</Button>
+        <CardFooter className="flex justify-end gap-2">
+          <Button disabled={isLoading}>
+            Save
+            {isLoading && <Loader2 className="animate-spin" />}
+          </Button>
         </CardFooter>
       </Card>
     </form>
