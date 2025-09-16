@@ -1,6 +1,6 @@
 import {integer, pgTable, text, timestamp, varchar} from "drizzle-orm/pg-core";
 import {user} from "@/db/schema/auth-schema";
-import {createInsertSchema} from "drizzle-zod";
+import {createInsertSchema, createSelectSchema} from "drizzle-zod";
 
 export const customersTable = pgTable("customers", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -18,3 +18,5 @@ export const customerInsertSchema = createInsertSchema(customersTable).omit({
   createdAt: true,
   updatedAt: true,
 })
+
+export const customerSelectSchema = createSelectSchema(customersTable);
