@@ -33,8 +33,8 @@ export default async function Customer() {
               {customers.map((customer) => (
                 <tr key={customer.id}>
                   <td style={{ padding: '10px 8px', borderBottom: '1px solid #f3f4f6', whiteSpace: 'nowrap' }}>{customer.name}</td>
-                  <td style={{ padding: '10px 8px', borderBottom: '1px solid #f3f4f6' }}>{customer.name}</td>
-                  <td style={{ padding: '10px 8px', borderBottom: '1px solid #f3f4f6' }}>{customer.name}</td>
+                  <td style={{ padding: '10px 8px', borderBottom: '1px solid #f3f4f6' }}>{customer.contact}</td>
+                  <td style={{ padding: '10px 8px', borderBottom: '1px solid #f3f4f6' }}>{customer.email}</td>
                   <td style={{ padding: '10px 8px', borderBottom: '1px solid #f3f4f6' }}>{customer.name}</td>
                   <td style={{ padding: '10px 8px', borderBottom: '1px solid #f3f4f6' }}>{customer.name}</td>
                 </tr>
