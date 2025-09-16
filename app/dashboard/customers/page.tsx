@@ -4,6 +4,7 @@ import {auth} from "@/lib/auth";
 import {headers} from "next/headers";
 import {redirect} from "next/navigation";
 import {CustomerList} from "@/components/customer/customer-list";
+import {CustomerListSkeleton} from "@/components/customer/customer-list-skeleton";
 import {Suspense} from "react";
 
 export default async function Customer() {
@@ -20,7 +21,7 @@ export default async function Customer() {
         <CardTitle>Customers</CardTitle>
       </CardHeader>
       <CardContent>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<CustomerListSkeleton />}>
           <CustomerList customers={customers} />
         </Suspense>
       </CardContent>
