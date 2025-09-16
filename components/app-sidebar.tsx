@@ -50,8 +50,8 @@ const data = {
           url: "/dashboard/invoice",
         },
         {
-          title: "Explorer",
-          url: "#",
+          title: "Create",
+          url: "/dashboard/invoice/create",
         },
         {
           title: "Quantum",
