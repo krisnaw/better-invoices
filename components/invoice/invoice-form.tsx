@@ -1,178 +1,113 @@
 "use client"
+
+import {useContext, useMemo, useState} from "react";
+
 import {InvoiceDueDate} from "@/components/invoice/invoice-due-date";
 import {InvoiceIssueDate} from "@/components/invoice/invoice-issue-date";
 import {InvoiceNumber} from "@/components/invoice/invoice-number";
 import {InvoiceCustomer} from "@/components/invoice/invoice-customer";
+import {InvoiceContext} from "@/components/invoice/invoice-provider";
 import {inter} from "@/lib/fonts";
-import {
-  Document,
-  Page,
-  PDFDownloadLink,
-  StyleSheet,
-  Text,
-  View,
-} from "@react-pdf/renderer";
+import type {InvoiceLineItem} from "@/lib/invoice-pdf";
 
-const pdfStyles = StyleSheet.create({
-  page: {
-    padding: 32,
-    fontSize: 12,
-    fontFamily: "Helvetica",
-    color: "#111827",
-  },
-  heading: {
-    fontSize: 18,
-    marginBottom: 16,
-  },
-  row: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 8,
-  },
-  section: {
-    marginBottom: 16,
-  },
-  twoColumn: {
-    display: "flex",
-    flexDirection: "row",
-    gap: 24,
-  },
-  column: {
-    flex: 1,
-  },
-  tableHeader: {
-    borderBottom: "1px solid #D1D5DB",
-    paddingBottom: 6,
-    marginBottom: 6,
-  },
-  tableRow: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 4,
-  },
-  totalRow: {
-    marginTop: 12,
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  cellDescription: {
-    flexBasis: "50%",
-    flexGrow: 1,
-  },
-  cellQuantity: {
-    width: "15%",
-    textAlign: "right",
-    flexShrink: 0,
-  },
-  cellPrice: {
-    width: "20%",
-    textAlign: "right",
-    flexShrink: 0,
-  },
-  cellTotal: {
-    width: "20%",
-    textAlign: "right",
-    flexShrink: 0,
-  },
-});
-
-const invoiceItems = [
+const invoiceItems: InvoiceLineItem[] = [
   {description: "Design", quantity: 1, price: 500000},
   {description: "Development", quantity: 1, price: 500000},
   {description: "Planning & meeting", quantity: 1, price: 500000},
 ];
 
-const InvoiceDocument = () => {
-  const total = invoiceItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-  return (
-    <Document>
-      <Page size="A4" style={pdfStyles.page}>
-        <View style={pdfStyles.heading}>
-          <Text>Invoice</Text>
-        </View>
-
-        <View style={pdfStyles.section}>
-          <View style={pdfStyles.row}>
-            <Text>Invoice #: INV-0001</Text>
-            <Text>Issue date: 2024-01-01</Text>
-          </View>
-          <View style={pdfStyles.row}>
-            <Text>Due date: 2024-01-15</Text>
-          </View>
-        </View>
-
-        <View style={[pdfStyles.section, pdfStyles.twoColumn]}>
-          <View style={pdfStyles.column}>
-            <Text>From</Text>
-            <Text>Lost Island AB</Text>
-            <Text>miguel@lostisland.com</Text>
-            <Text>123 Main St, Anytown, CA 12345, USA</Text>
-          </View>
-          <View style={pdfStyles.column}>
-            <Text>To</Text>
-            <Text>Client Name</Text>
-            <Text>client@email.com</Text>
-          </View>
-        </View>
-
-        <View style={pdfStyles.section}>
-          <View style={pdfStyles.tableHeader}>
-            <View style={pdfStyles.tableRow}>
-              <Text style={pdfStyles.cellDescription}>Description</Text>
-              <Text style={pdfStyles.cellQuantity}>Qty</Text>
-              <Text style={pdfStyles.cellPrice}>Price</Text>
-              <Text style={pdfStyles.cellTotal}>Total</Text>
-            </View>
-          </View>
-
-          {invoiceItems.map((item) => (
-            <View key={item.description} style={pdfStyles.tableRow}>
-              <Text style={pdfStyles.cellDescription}>{item.description}</Text>
-              <Text style={pdfStyles.cellQuantity}>{item.quantity}</Text>
-              <Text style={pdfStyles.cellPrice} wrap={false}>
-                Rp{item.price.toLocaleString("id-ID")}
-              </Text>
-              <Text style={pdfStyles.cellTotal} wrap={false}>
-                Rp{(item.price * item.quantity).toLocaleString("id-ID")}
-              </Text>
-            </View>
-          ))}
-
-          <View style={[pdfStyles.tableRow, pdfStyles.totalRow]}>
-            <Text style={pdfStyles.cellDescription}>Total</Text>
-            <Text style={pdfStyles.cellQuantity}></Text>
-            <Text style={pdfStyles.cellPrice}></Text>
-            <Text style={pdfStyles.cellTotal} wrap={false}>
-              Rp{total.toLocaleString("id-ID")}
-            </Text>
-          </View>
-        </View>
-
-        <View>
-          <Text>Payment details: Bank BCA, Account 1234567890</Text>
-          <Text>Note: Thank you for your business!</Text>
-        </View>
-      </Page>
-    </Document>
-  );
+const invoiceFrom = {
+  name: "Lost Island AB",
+  email: "miguel@lostisland.com",
+  phone: "123-456-7890",
+  address: "123 Main St, Anytown, CA 12345, USA",
+  vat: "1234567890",
 };
 
+const invoiceTo = {
+  name: "Client Name",
+  email: "client@email.com",
+};
+
+const paymentDetails = {
+  bank: "BCA",
+  account: "1234567890",
+};
+
+const formatCurrency = (value: number) => `Rp${value.toLocaleString("id-ID")}`;
+
 export function InvoiceForm() {
+  const {invoiceNumber, issueDate, dueDate} = useContext(InvoiceContext);
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  const {total, vatAmount} = useMemo(() => {
+    const lineTotal = invoiceItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    return {
+      total: lineTotal,
+      // VAT is mocked for now to keep parity with the static UI values.
+      vatAmount: lineTotal,
+    };
+  }, []);
+
+  const handleDownload = async () => {
+    try {
+      setIsDownloading(true);
+
+      const issueDateValue = issueDate instanceof Date ? issueDate : new Date(issueDate);
+      const dueDateValue = dueDate instanceof Date ? dueDate : new Date(dueDate);
+
+      const payload = {
+        invoiceNumber,
+        issueDate: issueDateValue.toISOString(),
+        dueDate: dueDateValue.toISOString(),
+        from: invoiceFrom,
+        to: invoiceTo,
+        items: invoiceItems,
+        paymentDetails,
+        note: "Thank you for your business!",
+      };
+
+      const response = await fetch("/api/invoices/pdf", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Unable to generate invoice PDF");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${invoiceNumber || "invoice"}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Failed to download invoice PDF", error);
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
   return (
     <div className={inter.className}>
       <div className="mx-auto w-[210mm] ">
         <div className="border border-gray-300 shadow-lg h-full w-full p-6">
           <div className="flex justify-end">
-            <PDFDownloadLink
-              document={<InvoiceDocument />}
-              fileName="invoice.pdf"
-              className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50"
+            <button
+              type="button"
+              onClick={handleDownload}
+              disabled={isDownloading}
+              className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-70"
             >
-              {({loading}) => (loading ? "Preparing PDF..." : "Download PDF")}
-            </PDFDownloadLink>
+              {isDownloading ? "Preparing PDF..." : "Download PDF"}
+            </button>
           </div>
 
           <div>
@@ -206,21 +141,21 @@ export function InvoiceForm() {
                 </div>
                 <div className="mt-2.5">
 
-                  <span>Lost Island AB</span>
+                  <span>{invoiceFrom.name}</span>
                   <ul className="text-sm">
                     <li>
-                      Email: miguel@lostisland.com
+                      Email: {invoiceFrom.email}
                     </li>
 
                     <li>
-                      Phone: 123-456-7890
+                      Phone: {invoiceFrom.phone}
                     </li>
 
                     <li>
-                      Address: 123 Main St, Anytown, CA 12345, USA
+                      Address: {invoiceFrom.address}
                     </li>
                     <li>
-                      VAT: 1234567890
+                      VAT: {invoiceFrom.vat}
                     </li>
                   </ul>
                 </div>
@@ -257,39 +192,20 @@ export function InvoiceForm() {
               </thead>
               <tbody>
 
-              <tr>
-                <td className="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0 w-1/3">
-                  Design
-                </td>
-                <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500 text-right">1</td>
-                <td className="px-3 py-4 text-sm whitespace-nowrap text-right text-gray-500">Rp500.000</td>
-                <td className="py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-0">
-                  Rp500.000
-                </td>
-              </tr>
-
-              <tr>
-                <td className="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0 w-1/3">
-                  Development
-                </td>
-                <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500 text-right">1</td>
-                <td className="px-3 py-4 text-sm whitespace-nowrap text-right text-gray-500">Rp500.000</td>
-                <td className="py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-0">
-                  Rp500.000
-                </td>
-              </tr>
-
-              <tr>
-                <td className="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0 w-1/3">
-                  Planning & meeting
-                </td>
-                <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500 text-right">1</td>
-                <td className="px-3 py-4 text-sm whitespace-nowrap text-right text-gray-500">Rp500.000</td>
-                <td className="py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-0">
-                  Rp500.000
-                </td>
-              </tr>
-
+              {invoiceItems.map((item) => (
+                <tr key={item.description}>
+                  <td className="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0 w-1/3">
+                    {item.description}
+                  </td>
+                  <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500 text-right">{item.quantity}</td>
+                  <td className="px-3 py-4 text-sm whitespace-nowrap text-right text-gray-500">
+                    {formatCurrency(item.price)}
+                  </td>
+                  <td className="py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-0">
+                    {formatCurrency(item.price * item.quantity)}
+                  </td>
+                </tr>
+              ))}
 
               </tbody>
             </table>
@@ -304,7 +220,7 @@ export function InvoiceForm() {
                       VAT
                     </th>
                     <th scope="col" className="py-3.5 pr-4 pl-3 sm:pr-0 text-sm text-right">
-                      <span className="whitespace-nowrap">Rp1.500.000</span>
+                      <span className="whitespace-nowrap">{formatCurrency(vatAmount)}</span>
                     </th>
                   </tr>
                   </thead>
@@ -315,7 +231,7 @@ export function InvoiceForm() {
                     </td>
 
                     <td className="py-4 pr-4 pl-3 text-right text-xl font-medium whitespace-nowrap sm:pr-0">
-                      Rp1.500.000
+                      {formatCurrency(total)}
                     </td>
                   </tr>
                   </tbody>
@@ -332,10 +248,10 @@ export function InvoiceForm() {
                   Payment details
                 </div>
                 <div className="mt-2.5">
-                  <span>Bank: BCA</span>
+                  <span>Bank: {paymentDetails.bank}</span>
                   <ul className="text-sm">
                     <li>
-                      Account: 1234567890
+                      Account: {paymentDetails.account}
                     </li>
                   </ul>
                 </div>

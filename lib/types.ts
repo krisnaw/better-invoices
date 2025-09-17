@@ -1,4 +1,7 @@
 // Define a type for Zod formatted errors (treeified)
+import {z} from "zod";
+import {invoiceSelectSchema} from "@/db/schema/invoice-schema";
+
 export type ZodFormattedErrors = {
   [field: string]: string[] | ZodFormattedErrors; // recursive for nested objects
 };
@@ -10,3 +13,5 @@ export type ActionResponse = {
   error?: string,
   data?: string | Array<object> | object | number,
 }
+
+export type InvoiceType = z.infer<typeof invoiceSelectSchema>
