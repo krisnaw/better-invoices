@@ -32,11 +32,7 @@ const createEmptyLine = (): InvoiceLine => ({
   price: 0,
 });
 
-const INITIAL_LINE_ITEMS: InvoiceLine[] = [
-  {id: "line-1", description: "Design", quantity: 1, price: 500_000},
-  {id: "line-2", description: "Development", quantity: 1, price: 500_000},
-  {id: "line-3", description: "Planning & meeting", quantity: 1, price: 500_000},
-];
+const INITIAL_LINE_ITEMS: InvoiceLine[] = [];
 
 const calculateTotals = (items: InvoiceLine[]) => {
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -97,9 +93,7 @@ export function InvoiceProvider({children}: {children: React.ReactNode}) {
   }
 
   return (
-    <InvoiceContext.Provider
-      value={value}
-    >
+    <InvoiceContext.Provider value={value}>
       {children}
     </InvoiceContext.Provider>
   );
