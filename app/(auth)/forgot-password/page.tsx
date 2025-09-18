@@ -1,7 +1,7 @@
-import SignIn from "@/components/auth/sign-in";
+import ForgotPassword from "@/components/auth/forgot-password";
 
 export default function ForgotPasswordPage() {
   return (
-    <SignIn />
+    <ForgotPassword />
   )
 }

@@ -6,14 +6,13 @@ import {Button} from "@/components/ui/button";
 import {authClient} from "@/lib/auth-client";
 import {useState} from "react";
 
-export default function ForgotPassword() {
-  const [email, setEmail] = useState("");
+export default function ResetPassword() {
+  const [password, setPassword] = useState("");
   const onClickForgotPassword = async () => {
-    const {data, error} = await authClient.requestPasswordReset({
-      email,
-      redirectTo: "/forgot-password",
+    const {data, error} = await authClient.resetPassword({
+      newPassword: password,
+      token: "token",
     })
-
   };
 
   return (
@@ -26,19 +25,23 @@ export default function ForgotPassword() {
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
+
+
           <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
+            <div className="flex items-center">
+              <Label htmlFor="password">New password</Label>
+            </div>
+
             <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
-              required
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              value={email}
+              id="password"
+              type="password"
+              placeholder="password"
+              autoComplete="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+
 
           <Button type="submit" onClick={onClickForgotPassword}
                   className="w-full">
