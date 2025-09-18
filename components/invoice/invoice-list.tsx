@@ -1,4 +1,5 @@
 "use client"
+
 import {useRouter} from "next/navigation"
 import {InvoiceType} from "@/lib/types";
 
@@ -8,8 +9,18 @@ const currency = (value: number) =>
 export function InvoiceList({invoices}: {invoices: InvoiceType[]}) {
   const router = useRouter()
 
+  const onClickHandler = async () => {
+    const res = await fetch(`/api/send/`, {
+      method: "POST",
+    })
+    if (res.ok) {
+      console.log("success")
+    }
+  }
+
   return (
     <div style={{overflowX: "auto"}}>
+      <button onClick={onClickHandler}>Send</button>
       <table style={{width: "100%", borderCollapse: "collapse"}}>
         <thead>
           <tr>
