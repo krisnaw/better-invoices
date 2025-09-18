@@ -5,15 +5,19 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {authClient} from "@/lib/auth-client";
 import {useState} from "react";
+import {toast} from "sonner";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const onClickForgotPassword = async () => {
-    const {data, error} = await authClient.requestPasswordReset({
+    const {data, error }=await authClient.requestPasswordReset({
       email,
-      redirectTo: "/forgot-password",
+      redirectTo: "http://localhost:3000/reset-password",
     })
 
+    console.log(data, error)
+
+    toast.success("Check your email for a link to reset your password.")
   };
 
   return (

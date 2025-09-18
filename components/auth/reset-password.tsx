@@ -5,14 +5,19 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {authClient} from "@/lib/auth-client";
 import {useState} from "react";
+import {useRouter, useSearchParams} from "next/navigation";
 
 export default function ResetPassword() {
   const [password, setPassword] = useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams()
+  const token = searchParams.get('token')
   const onClickForgotPassword = async () => {
     const {data, error} = await authClient.resetPassword({
       newPassword: password,
-      token: "token",
+      token: String(token),
     })
+    router.push("/login")
   };
 
   return (
