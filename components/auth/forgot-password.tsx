@@ -6,18 +6,34 @@ import {Button} from "@/components/ui/button";
 import {authClient} from "@/lib/auth-client";
 import {useState} from "react";
 import {toast} from "sonner";
+import {Loader2} from "lucide-react";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
   const onClickForgotPassword = async () => {
-    const {data, error }=await authClient.requestPasswordReset({
-      email,
-      redirectTo: "http://localhost:3000/reset-password",
-    })
+    if (!email) {
+      toast.error("Please enter your email address.");
+      return;
+    }
 
-    console.log(data, error)
+    setLoading(true);
 
-    toast.success("Check your email for a link to reset your password.")
+    try {
+      const {error} = await authClient.requestPasswordReset({
+        email,
+        redirectTo: "http://localhost:3000/reset-password",
+      });
+
+      if (error) {
+        toast.error(error.message ?? "Something went wrong. Try again later.");
+        return;
+      }
+
+      toast.success("Check your email for a link to reset your password.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -44,8 +60,9 @@ export default function ForgotPassword() {
             />
           </div>
 
-          <Button type="submit" onClick={onClickForgotPassword} className="w-full">
+          <Button type="submit" onClick={onClickForgotPassword} className="w-full" disabled={loading}>
             Reset password
+            {loading && <Loader2 className="animate-spin" />}
           </Button>
         </div>
       </CardContent>
