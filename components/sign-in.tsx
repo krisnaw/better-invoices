@@ -7,7 +7,7 @@ import {Label} from "@/components/ui/label";
 import {Checkbox} from "@/components/ui/checkbox";
 import {useState} from "react";
 import {Loader2} from "lucide-react";
-import {signIn} from "@/lib/auth-client";
+import {authClient, signIn} from "@/lib/auth-client";
 import Link from "next/link";
 import {toast} from "sonner";
 import {useRouter} from "next/navigation";
@@ -18,6 +18,14 @@ export default function SignIn() {
   const [loading, setLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const router = useRouter();
+
+  const onClickForgotPassword = async () => {
+    toast.info("Forgot password feature is not implemented yet.");
+    const {data, error} = await authClient.requestPasswordReset({
+      email,
+      redirectTo: "/forgot-password",
+    })
+  };
 
   return (
     <Card className="min-w-sm">
