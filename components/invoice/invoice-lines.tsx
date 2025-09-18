@@ -1,6 +1,6 @@
 "use client"
 
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
@@ -12,6 +12,12 @@ const formatCurrency = (value: number) => `Rp${value.toLocaleString("id-ID")}`;
 export function InvoiceLines() {
   const {lineItems, totals, addLineItem, updateLineItem, removeLineItem} = useContext(InvoiceContext);
   const {subtotal, total} = totals;
+
+  useEffect(() => {
+    if (lineItems.length === 0) {
+      addLineItem();
+    }
+  }, [lineItems.length, addLineItem]);
 
   const handleLineChange = <K extends keyof InvoiceLine>(id: number, key: K, value: InvoiceLine[K]) => {
     updateLineItem(id, {[key]: value} as Partial<InvoiceLine>);
