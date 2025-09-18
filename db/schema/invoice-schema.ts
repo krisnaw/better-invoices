@@ -13,6 +13,10 @@ export const invoicesTable = pgTable("invoices", {
     .notNull()
     .references(() => customersTable.id, { onDelete: "cascade" }),
   invoiceNumber: varchar("invoice_number",{ length: 255 }).notNull(),
+
+  status: varchar("status",{ length: 255 }).notNull().default("draft"),
+  currency: varchar("currency",{ length: 255 }).notNull().default("IDR"),
+
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .$onUpdate(() => /* @__PURE__ */ new Date())
