@@ -1,5 +1,6 @@
-import {integer, numeric, pgTable, text, timestamp, varchar} from "drizzle-orm/pg-core";
+import {integer, numeric, pgTable, timestamp, varchar} from "drizzle-orm/pg-core";
 import {invoicesTable} from "@/db/schema/invoice-schema";
+import {createSelectSchema} from "drizzle-zod";
 
 export const invoiceItemsTable = pgTable("invoice_items", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -14,3 +15,7 @@ export const invoiceItemsTable = pgTable("invoice_items", {
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
 });
+
+
+
+export const invoiceItemsSelectSchema = createSelectSchema(invoiceItemsTable);

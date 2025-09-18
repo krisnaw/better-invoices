@@ -1,12 +1,8 @@
 "use client"
 import React, {createContext, useMemo, useState} from "react";
+import {InvoiceItems} from "@/lib/types";
 
-export type InvoiceLine = {
-  id: string;
-  description: string;
-  quantity: number;
-  price: number;
-};
+export type InvoiceLine = Pick<InvoiceItems, "id" | "name" | "quantity" | "price">;
 
 type InvoiceContextValue = {
   invoiceNumber: string;
@@ -21,21 +17,23 @@ type InvoiceContextValue = {
   setIssueDate: (date: Date) => void;
   setDueDate: (date: Date) => void;
   addLineItem: () => void;
-  updateLineItem: (id: string, updates: Partial<InvoiceLine>) => void;
-  removeLineItem: (id: string) => void;
+  updateLineItem: (id: number, updates: Partial<InvoiceLine>) => void;
+  removeLineItem: (id: number) => void;
 };
 
 const createEmptyLine = (): InvoiceLine => ({
-  id: Math.random().toString(36).slice(2, 9),
-  description: "",
+  id: Date.now(),
+  name: "",
   quantity: 1,
-  price: 0,
+  price: "0",
 });
 
-const INITIAL_LINE_ITEMS: InvoiceLine[] = [];
+const INITIAL_LINE_ITEMS: InvoiceLine[] = [
+  {id: 1, name: "Design", quantity: 1, price: "500000"},
+];
 
 const calculateTotals = (items: InvoiceLine[]) => {
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = items.reduce((sum, item) => sum + Number(item.price || 0) * item.quantity, 0);
   return {
     subtotal,
     total: subtotal,
@@ -68,13 +66,13 @@ export function InvoiceProvider({children}: {children: React.ReactNode}) {
     setLineItems((previous) => [...previous, createEmptyLine()]);
   };
 
-  const updateLineItem = (id: string, updates: Partial<InvoiceLine>) => {
+  const updateLineItem = (id: number, updates: Partial<InvoiceLine>) => {
     setLineItems((previous) =>
       previous.map((item) => (item.id === id ? {...item, ...updates} : item)),
     );
   };
 
-  const removeLineItem = (id: string) => {
+  const removeLineItem = (id: number) => {
     setLineItems((previous) => previous.filter((item) => item.id !== id));
   };
 

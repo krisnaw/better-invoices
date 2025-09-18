@@ -13,7 +13,7 @@ export function InvoiceLines() {
   const {lineItems, totals, addLineItem, updateLineItem, removeLineItem} = useContext(InvoiceContext);
   const {subtotal, total} = totals;
 
-  const handleLineChange = <K extends keyof InvoiceLine>(id: string, key: K, value: InvoiceLine[K]) => {
+  const handleLineChange = <K extends keyof InvoiceLine>(id: number, key: K, value: InvoiceLine[K]) => {
     updateLineItem(id, {[key]: value} as Partial<InvoiceLine>);
   };
 
@@ -38,15 +38,16 @@ export function InvoiceLines() {
           </thead>
           <tbody className="divide-y divide-gray-200">
             {lineItems.map((line) => {
-              const lineTotal = line.quantity * line.price;
+              const price = Number(line.price || 0);
+              const lineTotal = line.quantity * price;
 
               return (
                 <tr key={line.id}>
                   <td className="w-1/3 whitespace-nowrap pl-4 py-4 text-sm font-medium text-gray-900 sm:pl-1">
                     <Input
-                      value={line.description}
+                      value={line.name}
                       placeholder="Describe the work"
-                      onChange={(event) => handleLineChange(line.id, "description", event.target.value)}
+                      onChange={(event) => handleLineChange(line.id, "name", event.target.value)}
                     />
                   </td>
                   <td className="whitespace-nowrap px-3 py-4 text-right text-sm text-gray-500">
@@ -54,7 +55,9 @@ export function InvoiceLines() {
                       type="number"
                       min={1}
                       value={line.quantity}
-                      onChange={(event) => handleLineChange(line.id, "quantity", Number(event.target.value) || 0)}
+                      onChange={(event) =>
+                        handleLineChange(line.id, "quantity", Number(event.target.value) || 0)
+                      }
                       className="text-right"
                     />
                   </td>
@@ -63,7 +66,7 @@ export function InvoiceLines() {
                       type="number"
                       min={0}
                       value={line.price}
-                      onChange={(event) => handleLineChange(line.id, "price", Number(event.target.value) || 0)}
+                      onChange={(event) => handleLineChange(line.id, "price", event.target.value)}
                       className="text-right"
                     />
                   </td>
