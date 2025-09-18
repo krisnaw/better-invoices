@@ -9,18 +9,8 @@ const currency = (value: number) =>
 export function InvoiceList({invoices}: {invoices: InvoiceType[]}) {
   const router = useRouter()
 
-  const onClickHandler = async () => {
-    const res = await fetch(`/api/send/`, {
-      method: "POST",
-    })
-    if (res.ok) {
-      console.log("success")
-    }
-  }
-
   return (
     <div style={{overflowX: "auto"}}>
-      <button onClick={onClickHandler}>Send</button>
       <table style={{width: "100%", borderCollapse: "collapse"}}>
         <thead>
           <tr>
@@ -33,21 +23,36 @@ export function InvoiceList({invoices}: {invoices: InvoiceType[]}) {
           </tr>
         </thead>
         <tbody>
-          {invoices.map((invoice: InvoiceType) => (
-            <tr
-              key={invoice.id}
-              onClick={() => router.push(`/dashboard/invoice/${invoice.id}`)}
-              style={{cursor: "pointer"}}
-            >
-              <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6", whiteSpace: "nowrap"}}>{invoice.invoiceNumber}</td>
-              <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.invoiceNumber}</td>
-              <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.invoiceNumber}</td>
-              <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.invoiceNumber}</td>
-              <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.invoiceNumber}</td>
-              <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>
+          {invoices.length === 0 ? (
+            <tr>
+              <td
+                colSpan={6}
+                style={{
+                  padding: "24px 16px",
+                  textAlign: "center",
+                  color: "#6b7280",
+                  fontSize: "14px",
+                }}
+              >
+                No invoices found. Create a new invoice to get started.
               </td>
             </tr>
-          ))}
+          ) : (
+            invoices.map((invoice: InvoiceType) => (
+              <tr
+                key={invoice.id}
+                onClick={() => router.push(`/dashboard/invoice/${invoice.id}`)}
+                style={{cursor: "pointer"}}
+              >
+                <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6", whiteSpace: "nowrap"}}>{invoice.invoiceNumber}</td>
+                <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.invoiceNumber}</td>
+                <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.invoiceNumber}</td>
+                <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.invoiceNumber}</td>
+                <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.invoiceNumber}</td>
+                <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}></td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

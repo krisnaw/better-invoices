@@ -1,6 +1,6 @@
 "use client"
 
-import {useContext, useMemo, useState} from "react";
+import {useContext, useMemo} from "react";
 
 import {InvoiceDueDate} from "@/components/invoice/invoice-due-date";
 import {InvoiceIssueDate} from "@/components/invoice/invoice-issue-date";
@@ -38,8 +38,6 @@ const formatCurrency = (value: number) => `Rp${value.toLocaleString("id-ID")}`;
 
 export function InvoiceForm() {
   const {invoiceNumber, issueDate, dueDate} = useContext(InvoiceContext);
-  const [isDownloading, setIsDownloading] = useState(false);
-
   const {total, vatAmount} = useMemo(() => {
     const lineTotal = invoiceItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     return {
@@ -49,66 +47,11 @@ export function InvoiceForm() {
     };
   }, []);
 
-  const handleDownload = async () => {
-    try {
-      setIsDownloading(true);
-
-      const issueDateValue = issueDate instanceof Date ? issueDate : new Date(issueDate);
-      const dueDateValue = dueDate instanceof Date ? dueDate : new Date(dueDate);
-
-      const payload = {
-        invoiceNumber,
-        issueDate: issueDateValue.toISOString(),
-        dueDate: dueDateValue.toISOString(),
-        from: invoiceFrom,
-        to: invoiceTo,
-        items: invoiceItems,
-        paymentDetails,
-        note: "Thank you for your business!",
-      };
-
-      const response = await fetch("/api/invoices/pdf", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        throw new Error("Unable to generate invoice PDF");
-      }
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `${invoiceNumber || "invoice"}.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Failed to download invoice PDF", error);
-    } finally {
-      setIsDownloading(false);
-    }
-  };
 
   return (
     <div className={inter.className}>
       <div className="mx-auto w-[210mm] ">
         <div className="border border-gray-300 shadow-lg h-full w-full p-6">
-          <div className="flex justify-end">
-            <button
-              type="button"
-              onClick={handleDownload}
-              disabled={isDownloading}
-              className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-70"
-            >
-              {isDownloading ? "Preparing PDF..." : "Download PDF"}
-            </button>
-          </div>
 
           <div>
             <div className="grid grid-cols-2 item-start gap-4">
@@ -119,7 +62,7 @@ export function InvoiceForm() {
                 </div>
               </div>
 
-              <div className="text-right text-sm ">
+              <div className="text-right text-sm space-y-1.5">
                 <div className="inline-flex items-center gap-4">
                   <InvoiceNumber />
                 </div>

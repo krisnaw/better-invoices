@@ -1,5 +1,6 @@
 import {useContext} from "react";
 import {InvoiceContext} from "@/components/invoice/invoice-provider";
+import {Input} from "@/components/ui/input";
 
 export function InvoiceNumber() {
   const {invoiceNumber, setInvoiceNumber} = useContext(InvoiceContext);
@@ -9,7 +10,7 @@ export function InvoiceNumber() {
         Invoice no:
       </div>
       <div>
-        <input className="max-w-32 pl-3.5 py-2"
+        <Input className="max-w-48"
                value={invoiceNumber} onChange={(e) => setInvoiceNumber(e.target.value as string)} />
       </div>
     </div>
