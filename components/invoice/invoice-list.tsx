@@ -3,9 +3,6 @@
 import {useRouter} from "next/navigation"
 import {InvoiceWithCustomer} from "@/lib/types";
 
-const currency = (value: number) =>
-  new Intl.NumberFormat("en-US", {style: "currency", currency: "USD"}).format(value)
-
 export function InvoiceList({invoices}: {invoices: InvoiceWithCustomer[]}) {
   const router = useRouter()
 
@@ -48,7 +45,7 @@ export function InvoiceList({invoices}: {invoices: InvoiceWithCustomer[]}) {
                 <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.customer.name}</td>
                 <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.invoiceNumber}</td>
                 <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.invoiceNumber}</td>
-                <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.invoiceNumber}</td>
+                <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.status}</td>
                 <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}></td>
               </tr>
             ))
