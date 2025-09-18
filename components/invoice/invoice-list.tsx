@@ -2,10 +2,13 @@
 
 import {useRouter} from "next/navigation"
 import {InvoiceWithCustomer} from "@/lib/types";
+import {Button} from "@/components/ui/button";
+import {useQueryState} from "nuqs";
 
 export function InvoiceList({invoices}: {invoices: InvoiceWithCustomer[]}) {
   const router = useRouter()
-
+  const [type, setType] = useQueryState('type')
+  const [invoiceId, setInvoiceId] = useQueryState('invoiceId')
   return (
     <div style={{overflowX: "auto"}}>
       <table style={{width: "100%", borderCollapse: "collapse"}}>
@@ -46,7 +49,14 @@ export function InvoiceList({invoices}: {invoices: InvoiceWithCustomer[]}) {
                 <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.invoiceNumber}</td>
                 <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.invoiceNumber}</td>
                 <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.status}</td>
-                <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}></td>
+                <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>
+                  <Button onClick={() => {
+                    setType('edit')
+                    setInvoiceId(String(invoice.id))
+                  }}>
+                    Edit
+                  </Button>
+                </td>
               </tr>
             ))
           )}
