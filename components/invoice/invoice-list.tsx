@@ -1,12 +1,12 @@
 "use client"
 
 import {useRouter} from "next/navigation"
-import {InvoiceType} from "@/lib/types";
+import {InvoiceWithCustomer} from "@/lib/types";
 
 const currency = (value: number) =>
   new Intl.NumberFormat("en-US", {style: "currency", currency: "USD"}).format(value)
 
-export function InvoiceList({invoices}: {invoices: InvoiceType[]}) {
+export function InvoiceList({invoices}: {invoices: InvoiceWithCustomer[]}) {
   const router = useRouter()
 
   return (
@@ -38,14 +38,14 @@ export function InvoiceList({invoices}: {invoices: InvoiceType[]}) {
               </td>
             </tr>
           ) : (
-            invoices.map((invoice: InvoiceType) => (
+            invoices.map((invoice: InvoiceWithCustomer) => (
               <tr
                 key={invoice.id}
                 onClick={() => router.push(`/dashboard/invoice/${invoice.id}`)}
                 style={{cursor: "pointer"}}
               >
                 <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6", whiteSpace: "nowrap"}}>{invoice.invoiceNumber}</td>
-                <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.invoiceNumber}</td>
+                <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.customer.name}</td>
                 <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.invoiceNumber}</td>
                 <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.invoiceNumber}</td>
                 <td style={{padding: "10px 8px", borderBottom: "1px solid #f3f4f6"}}>{invoice.invoiceNumber}</td>

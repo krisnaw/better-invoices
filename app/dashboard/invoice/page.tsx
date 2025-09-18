@@ -13,7 +13,8 @@ export default async function InvoicePage() {
     headers: await headers(),
   })
 
-  const invoices = await getInvoices()
+  const invoices = await getInvoices();
+  console.log(invoices)
 
   if (!session) {
     redirect("/login")
