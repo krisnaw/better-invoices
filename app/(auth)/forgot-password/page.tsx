@@ -1,6 +1,6 @@
 import SignIn from "@/components/auth/sign-in";
 
-export default function LoginPage() {
+export default function ForgotPasswordPage() {
   return (
     <SignIn />
   )

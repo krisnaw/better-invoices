@@ -11,8 +11,8 @@ const PDFViewer = nextDynamic(
 
 export default function Page() {
   return (
-    <div className="h-screen w-full">
-      <PDFViewer>
+    <div className="flex h-screen w-full items-center justify-center bg-slate-50">
+      <PDFViewer style={{width: "80%", height: "100%", boxShadow: "0 25px 45px rgba(15, 23, 42, 0.15)"}}>
         <InvoiceTemplate />
       </PDFViewer>
     </div>
