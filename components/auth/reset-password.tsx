@@ -6,17 +6,33 @@ import {Button} from "@/components/ui/button";
 import {authClient} from "@/lib/auth-client";
 import {useState} from "react";
 import {useRouter, useSearchParams} from "next/navigation";
+import {toast} from "sonner";
+import {Loader2} from "lucide-react";
 
 export default function ResetPassword() {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams()
+  const [loading, setLoading] = useState(false)
   const token = searchParams.get('token')
+
+  if (!token) {
+    return <div>Invalid token</div>
+  }
+
   const onClickForgotPassword = async () => {
-    const {data, error} = await authClient.resetPassword({
+    if (!password) {
+      toast.error("Please enter a new password")
+      return
+    }
+
+    setLoading(true)
+    await authClient.resetPassword({
       newPassword: password,
       token: String(token),
     })
+    toast.success("Password reset successfully")
+    setLoading(false)
     router.push("/login")
   };
 
@@ -30,8 +46,6 @@ export default function ResetPassword() {
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
-
-
           <div className="grid gap-2">
             <div className="flex items-center">
               <Label htmlFor="password">New password</Label>
@@ -47,10 +61,9 @@ export default function ResetPassword() {
             />
           </div>
 
-
-          <Button type="submit" onClick={onClickForgotPassword}
-                  className="w-full">
+          <Button type="submit" onClick={onClickForgotPassword} className="w-full" disabled={loading}>
             Reset password
+            {loading && <Loader2 className="animate-spin" />}
           </Button>
         </div>
       </CardContent>

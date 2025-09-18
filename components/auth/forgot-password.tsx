@@ -44,8 +44,7 @@ export default function ForgotPassword() {
             />
           </div>
 
-          <Button type="submit" onClick={onClickForgotPassword}
-                  className="w-full">
+          <Button type="submit" onClick={onClickForgotPassword} className="w-full">
             Reset password
           </Button>
         </div>
