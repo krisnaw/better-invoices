@@ -34,7 +34,7 @@ export function WorkflowSection({
           <ul className="space-y-8">
             {steps.map((item, index) => (
               <li key={item.title} className="flex gap-5">
-                <span className="mt-1 flex size-8 items-center justify-center rounded-full border border-border/70 bg-background text-sm font-semibold">
+                <span className="mt-1 flex size-8 items-center justify-center rounded-none border border-border/70 bg-background text-sm font-semibold">
                   {(index + 1).toString().padStart(2, "0")}
                 </span>
                 <div className="space-y-2">
@@ -44,20 +44,20 @@ export function WorkflowSection({
               </li>
             ))}
           </ul>
-          <div className="grid gap-4 rounded-3xl border border-border/60 bg-background/80 p-8 shadow-[0_35px_80px_-60px_rgba(14,116,244,0.35)] backdrop-blur-sm dark:bg-background/40">
+          <div className="grid gap-4 rounded-none border border-border/60 bg-background/80 p-8 shadow-[0_35px_80px_-60px_rgba(14,116,244,0.35)] backdrop-blur-sm dark:bg-background/40">
             <p className="text-sm font-semibold text-muted-foreground">What teams love</p>
             <div className="grid gap-3">
               {highlights.map((item) => (
                 <div
                   key={item}
-                  className="flex items-center gap-3 rounded-xl border border-border/50 bg-muted/50 p-4 text-sm text-muted-foreground"
+                  className="flex items-center gap-3 rounded-none border border-border/50 bg-muted/50 p-4 text-sm text-muted-foreground"
                 >
                   <CheckCircle2 className="size-4 text-primary" />
                   <span>{item}</span>
                 </div>
               ))}
             </div>
-            <div className="flex items-center gap-3 rounded-2xl border border-primary/20 bg-primary/10 p-5">
+            <div className="flex items-center gap-3 rounded-none border border-primary/20 bg-primary/10 p-5">
               <ShieldCheck className="size-5 text-primary" />
               <div className="space-y-1 text-sm text-muted-foreground">
                 <p className="font-medium text-foreground">Security as a foundation</p>

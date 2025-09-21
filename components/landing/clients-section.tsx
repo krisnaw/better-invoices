@@ -17,11 +17,11 @@ export function ClientsSection({ logos }: { logos: string[] }) {
             From boutique studios to recurring service pros, Better Invoices keeps client payments on track while you stay focused on the work you love.
           </p>
         </div>
-        <div className="grid gap-6 rounded-[28px] border border-border/60 bg-background/80 p-8 backdrop-blur-sm dark:bg-background/50 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid gap-6 rounded-none border border-border/60 bg-background/80 p-8 backdrop-blur-sm dark:bg-background/50 sm:grid-cols-2 md:grid-cols-3">
           {logos.map((logo) => (
             <div
               key={logo}
-              className="group flex h-24 items-center justify-center rounded-2xl border border-border/40 bg-muted/40 text-sm font-semibold tracking-wide text-muted-foreground transition-transform duration-200 hover:-translate-y-1 hover:border-primary/30 hover:text-foreground"
+              className="group flex h-24 items-center justify-center rounded-none border border-border/40 bg-muted/40 text-sm font-semibold tracking-wide text-muted-foreground transition-transform duration-200 hover:-translate-y-1 hover:border-primary/30 hover:text-foreground"
             >
               <span className="opacity-80 group-hover:opacity-100">{logo}</span>
             </div>

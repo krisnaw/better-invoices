@@ -32,7 +32,7 @@ export function ReviewsSection({ reviews }: { reviews: Review[] }) {
           {reviews.map((review, index) => (
             <div
               key={review.name}
-              className="flex h-full flex-col gap-6 rounded-3xl border border-border/40 bg-card/70 p-6 text-left shadow-[0_25px_80px_-65px_rgba(14,116,244,0.35)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:border-primary/40 dark:bg-card/40"
+              className="flex h-full flex-col gap-6 rounded-none border border-border/40 bg-card/70 p-6 text-left shadow-[0_25px_80px_-65px_rgba(14,116,244,0.35)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:border-primary/40 dark:bg-card/40"
             >
               <p className="text-sm text-muted-foreground">“{review.quote}”</p>
               <div className="flex items-center gap-3">

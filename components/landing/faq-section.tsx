@@ -30,7 +30,7 @@ export function FaqSection({ faqs }: { faqs: FaqItem[] }) {
           {faqs.map((item) => (
             <details
               key={item.question}
-              className="group rounded-2xl border border-border/60 bg-background/80 p-6 shadow-[0_25px_60px_-55px_rgba(14,116,244,0.35)] transition-all open:border-primary/40 open:shadow-[0_30px_80px_-55px_rgba(14,116,244,0.4)] dark:bg-background/40"
+              className="group rounded-none border border-border/60 bg-background/80 p-6 shadow-[0_25px_60px_-55px_rgba(14,116,244,0.35)] transition-all open:border-primary/40 open:shadow-[0_30px_80px_-55px_rgba(14,116,244,0.4)] dark:bg-background/40"
             >
               <summary className="flex cursor-pointer items-center justify-between gap-4 text-left text-base font-semibold text-foreground [&::-webkit-details-marker]:hidden">
                 <span>{item.question}</span>

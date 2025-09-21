@@ -60,7 +60,7 @@ export function HeroSection({ metrics }: { metrics: Metric[] }) {
             </dl>
           </div>
 
-          <div className="relative isolate overflow-hidden rounded-[28px] border bg-card/60 p-8 shadow-[0_40px_120px_-60px_rgba(14,116,244,0.35)] backdrop-blur-sm dark:bg-card/40">
+          <div className="relative isolate overflow-hidden rounded-none border bg-card/60 p-8 shadow-[0_40px_120px_-60px_rgba(14,116,244,0.35)] backdrop-blur-sm dark:bg-card/40">
             <div className="absolute -left-32 -top-36 size-60 rounded-full bg-primary/10 blur-[120px]" aria-hidden />
             <div className="absolute -right-24 -bottom-32 size-64 rounded-full bg-secondary/30 blur-[150px] dark:bg-secondary/10" aria-hidden />
             <div className="relative flex flex-col gap-6">
@@ -72,7 +72,7 @@ export function HeroSection({ metrics }: { metrics: Metric[] }) {
                 <Badge className="bg-primary text-primary-foreground">Live</Badge>
               </div>
               <div className="grid gap-4">
-                <div className="rounded-xl border border-border/70 bg-background/80 p-4 shadow-sm dark:bg-background/40">
+                <div className="rounded-none border border-border/70 bg-background/80 p-4 shadow-sm dark:bg-background/40">
                   <div className="flex items-center justify-between text-sm font-medium">
                     <span>AI Consulting Retainer</span>
                     <span className="text-primary">$8,400</span>
@@ -85,7 +85,7 @@ export function HeroSection({ metrics }: { metrics: Metric[] }) {
                     </span>
                   </div>
                 </div>
-                <div className="rounded-xl border border-border/70 bg-background/80 p-4 shadow-sm dark:bg-background/40">
+                <div className="rounded-none border border-border/70 bg-background/80 p-4 shadow-sm dark:bg-background/40">
                   <div className="flex items-center justify-between text-sm font-medium">
                     <span>Product Design Sprint</span>
                     <span className="text-primary">$12,200</span>
@@ -98,11 +98,11 @@ export function HeroSection({ metrics }: { metrics: Metric[] }) {
                     </span>
                   </div>
                 </div>
-                <div className="rounded-xl border border-dashed border-border/60 bg-muted/40 p-4 text-xs text-muted-foreground">
+                <div className="rounded-none border border-dashed border-border/60 bg-muted/40 p-4 text-xs text-muted-foreground">
                   Create your next invoice in under 30 seconds.
                 </div>
               </div>
-              <div className="flex items-center gap-3 rounded-2xl border border-border/60 bg-background/80 p-4 text-sm shadow-sm dark:bg-background/40">
+              <div className="flex items-center gap-3 rounded-none border border-border/60 bg-background/80 p-4 text-sm shadow-sm dark:bg-background/40">
                 <ShieldCheck className="size-4 text-primary" />
                 <p className="text-pretty text-muted-foreground">
                   Shared client portals and automated reminders keep projects moving without awkward follow-ups.

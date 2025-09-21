@@ -40,9 +40,9 @@ export function FeaturesSection({ features }: { features: Feature[] }) {
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="group relative flex h-full flex-col gap-5 rounded-3xl border border-border/50 bg-card/70 p-7 text-left transition-transform duration-200 ease-out hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_30px_80px_-50px_rgba(14,116,244,0.4)] dark:bg-card/40"
+                className="group relative flex h-full flex-col gap-5 rounded-none border border-border/50 bg-card/70 p-7 text-left transition-transform duration-200 ease-out hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_30px_80px_-50px_rgba(14,116,244,0.4)] dark:bg-card/40"
               >
-                <div className="flex size-12 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10 text-primary">
+                <div className="flex size-12 items-center justify-center rounded-none border border-primary/20 bg-primary/10 text-primary">
                   <feature.icon className="size-5" />
                 </div>
                 <div className="space-y-2">

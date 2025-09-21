@@ -10,7 +10,7 @@ export function FinalCtaSection() {
       id="final-cta"
       className="mx-auto max-w-7xl px-6 py-24 sm:px-8 lg:px-12"
     >
-      <div className="rounded-[32px] border border-border/70 bg-gradient-to-br from-primary/15 via-secondary/25 to-accent/20 p-12 shadow-[0_45px_120px_-60px_rgba(14,116,244,0.45)] dark:from-primary/20 dark:via-secondary/30 dark:to-accent/30">
+      <div className="rounded-none border border-border/70 bg-gradient-to-br from-primary/15 via-secondary/25 to-accent/20 p-12 shadow-[0_45px_120px_-60px_rgba(14,116,244,0.45)] dark:from-primary/20 dark:via-secondary/30 dark:to-accent/30">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-center">
           <div className="space-y-6">
             <Badge variant="outline" className="border-primary/20 bg-background/50 text-primary">
@@ -37,7 +37,7 @@ export function FinalCtaSection() {
               </Button>
             </div>
           </div>
-          <div className="space-y-4 rounded-3xl border border-border/60 bg-background/80 p-8 text-sm shadow-[0_25px_80px_-60px_rgba(14,116,244,0.35)] backdrop-blur-sm dark:bg-background/40">
+          <div className="space-y-4 rounded-none border border-border/60 bg-background/80 p-8 text-sm shadow-[0_25px_80px_-60px_rgba(14,116,244,0.35)] backdrop-blur-sm dark:bg-background/40">
             <div className="flex items-center gap-3 border-b border-border/60 pb-4">
               <div className="flex size-10 items-center justify-center rounded-full bg-primary/15 text-primary">
                 <Sparkles className="size-5" />
