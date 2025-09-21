@@ -4,7 +4,7 @@ import {useQueryState} from "nuqs";
 
 export default function ButtonCreateInvoice() {
 
-  const [type, setType] = useQueryState('type', { shallow: true})
+  const [type, setType] = useQueryState('type')
 
   return (
     <div>

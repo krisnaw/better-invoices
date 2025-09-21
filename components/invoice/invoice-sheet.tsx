@@ -1,27 +1,32 @@
 "use client"
 
-import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger,} from "@/components/ui/sheet"
+import {Sheet, SheetClose, SheetContent, SheetHeader,} from "@/components/ui/sheet"
 import {useQueryState} from "nuqs";
 import {InvoiceContainer} from "@/components/invoice/invoice-container";
+import {useRouter} from "next/navigation";
 
 export default function InvoiceSheet() {
   const [type] = useQueryState('type')
-  return (
-    <Sheet open={type === "create"}>
-      <SheetTrigger>Open</SheetTrigger>
-      <SheetContent className="w-[600px]">
-        <SheetHeader>
-          <SheetTitle>Are you absolutely sure?</SheetTitle>
-          <SheetDescription>
-            This action cannot be undone. This will permanently delete your account
-            and remove your data from our servers.
-          </SheetDescription>
-        </SheetHeader>
+  const [invoiceId] = useQueryState('invoiceId')
+  const router = useRouter()
 
+  console.log(type, invoiceId)
+
+  const onClickClose = () => {
+    router.push('/dashboard/invoice')
+  }
+
+  return (
+    <Sheet open={type === "create" || type === "edit" && invoiceId !== undefined}>
+      <SheetContent className="w-full sm:max-w-4xl">
+        <SheetHeader>
+          <SheetClose asChild>
+            <button onClick={onClickClose}>Close</button>
+          </SheetClose>
+        </SheetHeader>
         <div>
           <InvoiceContainer />
         </div>
-
       </SheetContent>
     </Sheet>
   )

@@ -8,7 +8,6 @@ import {auth} from "@/lib/auth"
 import {getInvoices} from "@/db/query/invoice-query";
 import ButtonCreateInvoice from "@/components/invoice/button-create-invoice";
 import InvoiceSheet from "@/components/invoice/invoice-sheet";
-import InvoiceEditSheet from "@/components/invoice/invoice-edit-sheet";
 
 export default async function InvoicePage() {
   const session = await auth.api.getSession({
@@ -36,7 +35,6 @@ export default async function InvoicePage() {
         </CardContent>
       </Card>
       <InvoiceSheet />
-      <InvoiceEditSheet />
     </div>
   )
 }

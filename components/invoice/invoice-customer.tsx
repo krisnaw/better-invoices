@@ -12,17 +12,21 @@ import {CustomerType} from "@/lib/types";
 import {authClient} from "@/lib/auth-client";
 import {InvoiceContext} from "@/components/invoice/invoice-provider";
 import {useRouter} from "next/navigation";
+import {useQueryState} from "nuqs";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export function InvoiceCustomer() {
+  const [type, setType] = useQueryState('type')
+  const [invoiceId, setInvoiceId] = useQueryState('invoiceId')
+  
   const [open, setOpen] = useState(false);
   const [customerId, setCustomerId] = useState<number | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
   const {data: customers, isLoading} = useSWR<CustomerType[]>(`/api/customers`, fetcher);
   const {data: session} = authClient.useSession();
-  const {invoiceNumber, invoiceId, setInvoiceId} = useContext(InvoiceContext);
+  const {invoiceNumber} = useContext(InvoiceContext);
   const router = useRouter()
 
   const customer = useMemo(
@@ -34,10 +38,6 @@ export function InvoiceCustomer() {
     setOpen(false);
     setCustomerId(id);
 
-    if (id === null) {
-      setInvoiceId(null);
-      return;
-    }
 
     if (!session?.user?.id) {
       toast.error("You need to be signed in to save the invoice draft.");
@@ -56,7 +56,6 @@ export function InvoiceCustomer() {
             customerId: id,
             invoiceNumber,
             userId: session.user.id,
-            invoiceId,
           }),
         });
 
@@ -68,7 +67,7 @@ export function InvoiceCustomer() {
         const {invoice} = await response.json();
         if (invoice?.id) {
           setInvoiceId(invoice.id);
-          router.push(`/dashboard/invoice/${invoice.id}/edit`);
+          setType('edit')
           toast.success("Invoice draft saved.");
         }
       } catch (error) {

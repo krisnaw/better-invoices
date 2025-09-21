@@ -1,6 +1,7 @@
 import {AppSidebar} from "@/components/app-sidebar"
 import {Separator} from "@/components/ui/separator"
 import {SidebarInset, SidebarProvider, SidebarTrigger,} from "@/components/ui/sidebar"
+import {NuqsAdapter} from 'nuqs/adapters/next/app'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -17,7 +18,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          {children}
+          <NuqsAdapter >
+            {children}
+          </NuqsAdapter>
+
         </div>
       </SidebarInset>
     </SidebarProvider>
