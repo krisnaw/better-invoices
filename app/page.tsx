@@ -86,6 +86,8 @@ const reviews: Review[] = [
     role: "Founder, Tidepool Studio",
     initials: "SG",
     avatarSeed: 47,
+    image:
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=160&h=160&q=80",
   },
   {
     quote:

@@ -11,7 +11,7 @@ export function FaqSection({ faqs }: { faqs: FaqItem[] }) {
   return (
     <section
       id="faq"
-      className="border-t border-border/60 bg-[linear-gradient(180deg,rgba(37,99,235,0.05),rgba(255,255,255,0))] py-24"
+      className="border-t border-border/60 bg-background py-24"
     >
       <div className="mx-auto flex max-w-4xl flex-col gap-10 px-6 sm:px-8 lg:px-12">
         <div className="space-y-4 text-center">
@@ -30,7 +30,7 @@ export function FaqSection({ faqs }: { faqs: FaqItem[] }) {
           {faqs.map((item) => (
             <details
               key={item.question}
-              className="group rounded-none border border-border/60 bg-background/80 p-6 shadow-[0_25px_60px_-55px_rgba(14,116,244,0.35)] transition-all open:border-primary/40 open:shadow-[0_30px_80px_-55px_rgba(14,116,244,0.4)] dark:bg-background/40"
+              className="group rounded-none border border-border/60 bg-background/80 p-6 shadow-[0_25px_60px_-55px_rgba(26,67,168,0.33)] transition-all open:border-primary/40 open:shadow-[0_30px_80px_-55px_rgba(26,67,168,0.38)] dark:bg-background/40"
             >
               <summary className="flex cursor-pointer items-center justify-between gap-4 text-left text-base font-semibold text-foreground [&::-webkit-details-marker]:hidden">
                 <span>{item.question}</span>

@@ -12,14 +12,8 @@ export function FeaturesSection({ features }: { features: Feature[] }) {
   return (
     <section
       id="features"
-      className="relative overflow-hidden border-b border-border/60 bg-[linear-gradient(180deg,rgba(37,99,235,0.08)_0%,rgba(255,255,255,0)_85%)]"
+      className="relative overflow-hidden border-b border-border/60 bg-background"
     >
-      <div className="pointer-events-none absolute inset-x-0 -top-48 h-48 bg-[radial-gradient(60%_60%_at_50%_100%,rgba(56,189,248,0.25),transparent)]" aria-hidden />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(14,116,244,0.16)_1px,transparent_0)] [background-size:36px_36px] opacity-50"
-      />
-
       <div className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto flex max-w-5xl flex-col gap-12 text-center">
           <div className="space-y-4">
@@ -40,7 +34,7 @@ export function FeaturesSection({ features }: { features: Feature[] }) {
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="group relative flex h-full flex-col gap-5 rounded-none border border-border/50 bg-card/70 p-7 text-left transition-transform duration-200 ease-out hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_30px_80px_-50px_rgba(14,116,244,0.4)] dark:bg-card/40"
+                className="group relative flex h-full flex-col gap-5 rounded-none border border-border/50 bg-card/70 p-7 text-left transition-transform duration-200 ease-out hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_30px_80px_-50px_rgba(26,67,168,0.38)] dark:bg-card/40"
               >
                 <div className="flex size-12 items-center justify-center rounded-none border border-primary/20 bg-primary/10 text-primary">
                   <feature.icon className="size-5" />

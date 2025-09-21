@@ -7,13 +7,14 @@ export type Review = {
   role: string;
   initials: string;
   avatarSeed?: number;
+  image?: string;
 };
 
 export function ReviewsSection({ reviews }: { reviews: Review[] }) {
   return (
     <section
       id="reviews"
-      className="border-b border-border/60 bg-[linear-gradient(180deg,rgba(14,116,244,0.08),rgba(255,255,255,0))] py-24"
+      className="border-b border-border/60 bg-background py-24"
     >
       <div className="mx-auto flex max-w-7xl flex-col gap-12 px-6 sm:px-8 lg:px-12">
         <div className="space-y-4 text-center">
@@ -32,13 +33,16 @@ export function ReviewsSection({ reviews }: { reviews: Review[] }) {
           {reviews.map((review, index) => (
             <div
               key={review.name}
-              className="flex h-full flex-col gap-6 rounded-none border border-border/40 bg-card/70 p-6 text-left shadow-[0_25px_80px_-65px_rgba(14,116,244,0.35)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:border-primary/40 dark:bg-card/40"
+              className="flex h-full flex-col gap-6 rounded-none border border-border/40 bg-card/70 p-6 text-left shadow-[0_25px_80px_-65px_rgba(26,67,168,0.33)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:border-primary/40 dark:bg-card/40"
             >
               <p className="text-sm text-muted-foreground">“{review.quote}”</p>
               <div className="flex items-center gap-3">
                 <Avatar className="size-12 border border-border/60 bg-primary/10">
                   <AvatarImage
-                    src={`https://i.pravatar.cc/150?img=${review.avatarSeed ?? index + 12}`}
+                    src={
+                      review.image ??
+                      `https://i.pravatar.cc/150?img=${review.avatarSeed ?? index + 12}`
+                    }
                     alt={`${review.name} avatar`}
                   />
                   <AvatarFallback className="bg-primary/15 text-sm font-semibold text-primary">

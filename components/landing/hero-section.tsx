@@ -17,8 +17,8 @@ export function HeroSection({ metrics }: { metrics: Metric[] }) {
         aria-hidden
         className={cn(
           "pointer-events-none absolute inset-0",
-          "bg-[radial-gradient(120%_120%_at_50%_0%,rgba(37,99,235,0.18),transparent_68%)]",
-          "dark:bg-[radial-gradient(110%_110%_at_50%_-10%,rgba(56,189,248,0.25),transparent_70%)]"
+          "bg-[radial-gradient(120%_120%_at_50%_0%,rgba(31,58,138,0.22),transparent_68%)]",
+          "dark:bg-[radial-gradient(110%_110%_at_50%_-10%,rgba(58,91,180,0.28),transparent_70%)]"
         )}
       />
 
@@ -60,7 +60,7 @@ export function HeroSection({ metrics }: { metrics: Metric[] }) {
             </dl>
           </div>
 
-          <div className="relative isolate overflow-hidden rounded-none border bg-card/60 p-8 shadow-[0_40px_120px_-60px_rgba(14,116,244,0.35)] backdrop-blur-sm dark:bg-card/40">
+          <div className="relative isolate overflow-hidden rounded-none border bg-card/60 p-8 shadow-[0_40px_120px_-60px_rgba(26,67,168,0.34)] backdrop-blur-sm dark:bg-card/40">
             <div className="absolute -left-32 -top-36 size-60 rounded-full bg-primary/10 blur-[120px]" aria-hidden />
             <div className="absolute -right-24 -bottom-32 size-64 rounded-full bg-secondary/30 blur-[150px] dark:bg-secondary/10" aria-hidden />
             <div className="relative flex flex-col gap-6">

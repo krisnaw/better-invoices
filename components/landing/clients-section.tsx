@@ -2,7 +2,7 @@ export function ClientsSection({ logos }: { logos: string[] }) {
   return (
     <section
       id="clients"
-      className="border-b bg-[linear-gradient(180deg,rgba(13,148,233,0.08),rgba(37,99,235,0.02),rgba(255,255,255,0))]"
+      className="border-b bg-background"
       aria-labelledby="clients-heading"
     >
       <div className="mx-auto flex max-w-7xl flex-col gap-10 px-6 py-20 sm:px-8 lg:px-12">

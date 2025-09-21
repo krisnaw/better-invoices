@@ -16,7 +16,7 @@ export function WorkflowSection({
   return (
     <section
       id="workflow"
-      className="border-y bg-[linear-gradient(180deg,rgba(37,99,235,0.06),rgba(255,255,255,0))] py-24"
+      className="border-y bg-background py-24"
     >
       <div className="mx-auto flex max-w-7xl flex-col gap-12 px-6 sm:px-8 lg:px-12">
         <div className="space-y-4">
@@ -44,7 +44,7 @@ export function WorkflowSection({
               </li>
             ))}
           </ul>
-          <div className="grid gap-4 rounded-none border border-border/60 bg-background/80 p-8 shadow-[0_35px_80px_-60px_rgba(14,116,244,0.35)] backdrop-blur-sm dark:bg-background/40">
+          <div className="grid gap-4 rounded-none border border-border/60 bg-background/80 p-8 shadow-[0_35px_80px_-60px_rgba(26,67,168,0.33)] backdrop-blur-sm dark:bg-background/40">
             <p className="text-sm font-semibold text-muted-foreground">What teams love</p>
             <div className="grid gap-3">
               {highlights.map((item) => (
