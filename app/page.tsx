@@ -1,102 +1,191 @@
-import Image from "next/image";
+import Link from "next/link";
+import {ArrowRight, Eye, FileStack, Sparkles} from "lucide-react";
+
+import {HeroSection, type Metric} from "@/components/landing/hero-section";
+import {ClientsSection} from "@/components/landing/clients-section";
+import {type Feature, FeaturesSection} from "@/components/landing/features-section";
+import {MidCtaSection} from "@/components/landing/mid-cta-section";
+import {WorkflowSection, type WorkflowStep} from "@/components/landing/workflow-section";
+import {type Review, ReviewsSection} from "@/components/landing/reviews-section";
+import {FinalCtaSection} from "@/components/landing/final-cta-section";
+import {type FaqItem, FaqSection} from "@/components/landing/faq-section";
+import {LandingHeader, type NavLink} from "@/components/landing/header";
+import {LandingFooter, type FooterSection} from "@/components/landing/footer";
+import {Button} from "@/components/ui/button";
+import {Badge} from "@/components/ui/badge";
+
+const metrics: Metric[] = [
+  { value: "2.8x", label: "Faster payment turnaround" },
+  { value: "96%", label: "Invoices paid on time" },
+  { value: "12h", label: "Finance hours saved weekly" },
+];
+
+const features: Feature[] = [
+  {
+    title: "Invoice management that feels effortless",
+    description:
+      "Create, duplicate, and organize invoices with product catalogs, localized tax logic, and saved client preferences in one clean workspace.",
+    icon: FileStack,
+  },
+  {
+    title: "See when clients open and view",
+    description:
+      "Real-time read receipts and status timelines show exactly when customers opened, downloaded, and paid every invoice.",
+    icon: Eye,
+  },
+  {
+    title: "Automations that stay polite",
+    description:
+      "Smart nudges escalate automatically while keeping your brand voice, so you get paid without chasing manually.",
+    icon: Sparkles,
+  },
+];
+
+const workflows: WorkflowStep[] = [
+  {
+    title: "Compose in seconds",
+    description:
+      "Brand-aligned templates with product catalogs, tax logic, and multi-currency support baked in.",
+  },
+  {
+    title: "Automate follow-ups",
+    description:
+      "Gentle nudges escalate to firm reminders, while your team stays focused on work that matters.",
+  },
+  {
+    title: "Collect and reconcile",
+    description:
+      "Card, ACH, and bank transfer support with auto-ledger reconciliation for your ERP.",
+  },
+];
+
+const highlights = [
+  "Multi-entity ready from day one",
+  "Realtime status sync into your tools",
+  "Late fees and renewals auto-applied",
+  "Global tax compliance handled",
+];
+
+const clientLogos = [
+  "Linear",
+  "Polar",
+  "Superhuman",
+  "Arc",
+  "Mercury",
+  "Pitch",
+  "Vercel",
+  "Figma",
+  "Webflow",
+];
+
+const reviews: Review[] = [
+  {
+    quote:
+      "We replaced three different tools with Better Invoices and now ship every retainer invoice in under five minutes.",
+    name: "Sasha Grant",
+    role: "Founder, Tidepool Studio",
+    initials: "SG",
+    avatarSeed: 47,
+  },
+  {
+    quote:
+      "My clients pay faster because they can see the whole timeline and pay in a single click—no more chasing awkwardly.",
+    name: "Jordan Lee",
+    role: "Fractional COO",
+    initials: "JL",
+    avatarSeed: 32,
+  },
+  {
+    quote:
+      "The read receipts and automation rules are a lifesaver. I finally know who opened what and when to follow up.",
+    name: "Priya Desai",
+    role: "Owner, Lumen Accounting",
+    initials: "PD",
+    avatarSeed: 64,
+  },
+];
+
+const faqs: FaqItem[] = [
+  {
+    question: "Can I import my existing invoices and clients?",
+    answer:
+      "Yes. Upload CSVs or connect QuickBooks/Xero and we’ll migrate your client directory, product catalog, and historical invoices at no additional cost.",
+  },
+  {
+    question: "Will my clients need an account to pay?",
+    answer:
+      "No. Clients receive a branded link where they can review, download, and pay via card, ACH, or transfer without creating an account.",
+  },
+  {
+    question: "Do you support multiple currencies and taxes?",
+    answer:
+      "Absolutely. Configure per-client currencies, add region-specific tax presets, and let Better Invoices handle the calculations for each line item.",
+  },
+  {
+    question: "Is there a free trial?",
+    answer:
+      "You get a 14-day free trial with full access. No credit card required until you’re ready to go live.",
+  },
+];
+
+const navLinks: NavLink[] = [
+  { label: "Product", href: "#features" },
+  { label: "Clients", href: "#clients" },
+  { label: "Workflow", href: "#workflow" },
+  { label: "Reviews", href: "#reviews" },
+  { label: "Security", href: "#workflow" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Pricing", href: "/register" },
+  { label: "Resources", href: "mailto:founders@betterinvoices.app" },
+];
+
+const footerSections: FooterSection[] = [
+  {
+    title: "Product",
+    links: [
+      { label: "Overview", href: "#hero" },
+      { label: "Features", href: "#features" },
+      { label: "Workflow", href: "#workflow" },
+      { label: "Roadmap", href: "mailto:founders@betterinvoices.app" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "About", href: "mailto:founders@betterinvoices.app" },
+      { label: "Careers", href: "mailto:founders@betterinvoices.app" },
+      { label: "Press", href: "mailto:founders@betterinvoices.app" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "Customer stories", href: "#features" },
+      { label: "Support", href: "mailto:support@betterinvoices.app" },
+      { label: "Status", href: "https://status.betterinvoices.app" },
+    ],
+  },
+];
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const currentYear = new Date().getFullYear();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+  return (
+    <div className="flex min-h-screen flex-col bg-background">
+      <LandingHeader links={navLinks} />
+
+      <main className="flex-1">
+        <HeroSection metrics={metrics} />
+        <ClientsSection logos={clientLogos} />
+        <FeaturesSection features={features} />
+        <MidCtaSection />
+        <WorkflowSection steps={workflows} highlights={highlights} />
+        <ReviewsSection reviews={reviews} />
+        <FinalCtaSection />
+        <FaqSection faqs={faqs} />
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="/register"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Sign up
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+      <LandingFooter sections={footerSections} currentYear={currentYear} />
     </div>
   );
 }
