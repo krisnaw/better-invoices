@@ -57,8 +57,6 @@ export default function Page() {
       setLineItems((prevLineItems) => prevLineItems.filter((item) => item.id !== index))
    }
 
-   const totalPrice = lineItems.reduce((total, item) => total + item.total, 0)
-
    const handlePriceChange = (value: number, id: string) => {
       const updateLineItems = lineItems.map((item) => {
          if (item.id === id) {
@@ -86,6 +84,8 @@ export default function Page() {
       })
       setLineItems(updateLineItems)
    }
+
+   const totalPrice = lineItems.reduce((total, item) => total + item.total, 0)
 
    return (
        <div className="py-24">
