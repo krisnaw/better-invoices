@@ -15,7 +15,6 @@ type LineItem = {
    description: string;
    quantity: number;
    price: number;
-   total: number;
 }
 
 // type InvoiceType = {
@@ -37,7 +36,6 @@ export default function Page() {
          description: 'Design and program new company website.',
          quantity: 1,
          price: 100,
-         total: 100,
       },
    ])
 
@@ -48,7 +46,6 @@ export default function Page() {
          description: `Type description here`,
          quantity: 1,
          price: 100,
-         total: 100,
       }
       setLineItems((prevState) => [...prevState, newItem])
    }
@@ -85,7 +82,7 @@ export default function Page() {
       setLineItems(updateLineItems)
    }
 
-   const totalPrice = lineItems.reduce((total, item) => total + item.total, 0)
+   const totalPrice = lineItems.reduce((total, item) => total + (item.quantity * item.price), 0)
 
    return (
        <div className="py-24">
@@ -211,7 +208,7 @@ export default function Page() {
                                    </td>
 
                                    <td className="py-5 pr-4 pl-3 text-right text-sm text-gray-900 sm:pr-2">
-                                      {project.total}
+                                      {project.quantity * project.price}
                                    </td>
 
                                    <td>
