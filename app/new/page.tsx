@@ -7,14 +7,15 @@ import {Textarea} from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
 import {Plus, Trash} from "lucide-react";
 import {AnimatePresence, motion} from "framer-motion";
+import {InvoiceDate} from "@/app/invoice/invoice-date";
 
 type LineItem = {
    id: string;
    name: string,
    description: string;
    quantity: number;
-   rate: number;
    price: string;
+   total: string;
 }
 
 type InvoiceType = {
@@ -35,8 +36,8 @@ export default function Page() {
          name: 'Website redesign',
          description: 'Design and program new company website.',
          quantity: 1,
-         rate: 1,
          price: "100",
+         total: "100",
       },
    ])
 
@@ -45,9 +46,9 @@ export default function Page() {
          id: uuid,
          name: "product name",
          description: `Type description here`,
-         quantity: 0,
-         rate: 0,
+         quantity: 1,
          price: "100",
+         total: "100",
       }
       setLineItems((prevState) => [...prevState, newItem])
    }
@@ -56,22 +57,35 @@ export default function Page() {
       setLineItems((prevLineItems) => prevLineItems.filter((item) => item.id !== index))
    }
 
-   const totalPrice = lineItems.reduce((total, item) => total + parseFloat(item.price), 0)
+   const totalPrice = lineItems.reduce((total, item) => total + parseFloat(item.total), 0)
+
    const handlePriceChange = (value: string, id: string) => {
-      console.log(value)
-      console.log("new changes")
       const updateLineItems = lineItems.map((item) => {
          if (item.id === id) {
             return {
                ...item,
                price: value,
+               total: (item.quantity * parseFloat(item.price)) as unknown as string
             }
          }
          return item
       })
-      setLineItems((prevState) => updateLineItems)
+      setLineItems(updateLineItems)
    }
-   console.log("rendered")
+
+   const handleQuantityChange = (value: number, id: string) => {
+      const updateLineItems = lineItems.map((item) => {
+         if (item.id === id) {
+            return {
+               ...item,
+               quantity: value,
+               total: (value * parseFloat(item.price)) as unknown as string
+            }
+         }
+         return item
+      })
+      setLineItems(updateLineItems)
+   }
 
    return (
        <div className="h-screen mx-auto max-w-5xl p-4 gap-x-2">
@@ -94,7 +108,7 @@ export default function Page() {
                          Invoice date
                       </div>
                       <div className="mt-1.5">
-                         <Input value={invoiceNumber} onChange={(e) => setInvoiceNumber(e.target.value)}/>
+                         <InvoiceDate/>
                       </div>
                    </div>
 
@@ -154,6 +168,9 @@ export default function Page() {
                              className="py-3.5 pr-4 pl-3 text-right text-sm font-semibold text-gray-900 sm:table-cell">
                             Price
                          </th>
+                         <th scope="col" className="py-3.5 pr-4 pl-3 text-right text-sm font-semibold text-gray-900 sm:pr-0">
+                            Total
+                         </th>
                          <th>
                             <span className="sr-only">Actions</span>
                          </th>
@@ -163,9 +180,9 @@ export default function Page() {
                       <AnimatePresence>
                          {lineItems.map((project, index) => (
                              <motion.tr
-                                 initial={{ opacity: 0, scale: 0 }}
-                                 animate={{ opacity: 1, scale: 1 }}
-                                 exit={{ opacity: 0, scale: 0 }}
+                                 initial={{opacity: 0, scale: 0}}
+                                 animate={{opacity: 1, scale: 1}}
+                                 exit={{opacity: 0, scale: 0}}
                                  key={project.id} className="border-b border-gray-200">
 
                                 <td className="max-w-10 py-5 pr-3 pl-4 text-sm sm:pl-0">
@@ -178,13 +195,19 @@ export default function Page() {
                                 </td>
 
                                 <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">
-                                   <Input type="number" name="project_quantity" defaultValue={project.quantity}/>
+                                   <Input min="1" required
+                                       onChange={(e) => handleQuantityChange(Number(e.target.value), project.id)}
+                                       type="number" name="project_quantity" defaultValue={project.quantity}/>
+                                </td>
+
+                                <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">
+                                   <Input
+                                       onChange={(e) => handlePriceChange(e.target.value, project.id)}
+                                       type="number" name="project_price" defaultValue={project.price}/>
                                 </td>
 
                                 <td className="py-5 pr-4 pl-3 text-right text-sm text-gray-900 sm:pr-2">
-                                   <Input
-                                       onChange={(e) => handlePriceChange(e.target.value, project.id)}
-                                       type="number" name="project_rate" defaultValue={project.price}/>
+                                   {project.total}
                                 </td>
 
                                 <td>
