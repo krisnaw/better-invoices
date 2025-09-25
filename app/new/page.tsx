@@ -3,6 +3,7 @@
 import InvoiceHeader from "@/app/new/invoice-header";
 import InvoiceMain from "@/app/new/invoice-main";
 import InvoiceFooter from "@/app/new/invoice-footer";
+import React from "react";
 
 export type LineItem = {
    id: string;
@@ -56,8 +57,16 @@ function reducer(prevState: State, action: Action): State {
       case 'reset':
          return initialState
       default:
+         return prevState;
    }
 }
+
+interface InvoiceContextType {
+   state: State;
+   dispatch: React.Dispatch<Action>;
+}
+
+const InvoiceContext = React.createContext<InvoiceContextType | undefined>(undefined);
 
 export default function Page() {
    return (
