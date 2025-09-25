@@ -6,44 +6,10 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/
 import {Textarea} from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
 import {Plus, Trash} from "lucide-react";
-
-const projects = [
-   {
-      id: 1,
-      name: 'Logo redesign',
-      description: 'New logo and digital asset playbook.',
-      hours: '20.0',
-      rate: '$100.00',
-      price: '$2,000.00',
-   },
-   {
-      id: 2,
-      name: 'Website redesign',
-      description: 'Design and program new company website.',
-      quantity: '52.0',
-      rate: '$100.00',
-      price: '$5,200.00',
-   },
-   {
-      id: 3,
-      name: 'Business cards',
-      description: 'Design and production of 3.5" x 2.0" business cards.',
-      hours: '12.0',
-      rate: '$100.00',
-      price: '$1,200.00',
-   },
-   {
-      id: 4,
-      name: 'T-shirt design',
-      description: 'Three t-shirt design concepts.',
-      hours: '4.0',
-      rate: '$100.00',
-      price: '$400.00',
-   },
-]
-
+import {AnimatePresence, motion} from "framer-motion";
 
 type LineItem = {
+   id: string;
    name: string,
    description: string;
    quantity: number;
@@ -62,8 +28,10 @@ export default function Page() {
    const [from, setFrom] = useState<string>("Acme Inc.")
    const [customer, setCustomer] = useState<string>("Customer")
    const [invoiceNumber, setInvoiceNumber] = useState<string>("INV-00001")
+   const uuid = crypto.randomUUID()
    const [lineItems, setLineItems] = useState<LineItem[]>([
       {
+         id: uuid,
          name: 'Website redesign',
          description: 'Design and program new company website.',
          quantity: 1,
@@ -73,24 +41,23 @@ export default function Page() {
    ])
 
    const onClickAddLineItem = () => {
-      const newItem : LineItem = {
+      const newItem: LineItem = {
+         id: uuid,
          name: "product name",
-         description: "Type new product" + (lineItems.length + 1) + " here",
+         description: `Type description here`,
          quantity: 0,
          rate: 0,
          price: "100",
       }
-      setLineItems((prevState) => [newItem, ...lineItems])
+      setLineItems((prevState) => [...prevState, newItem])
    }
 
-   const onClickRemoveLineItem = (index: number) => {
-      const newLineItems = [...lineItems]
-      newLineItems.splice(index, 1)
-      setLineItems(newLineItems)
+   const onClickRemoveLineItem = (index: string) => {
+      setLineItems((prevLineItems) => prevLineItems.filter((item) => item.id !== index))
    }
 
    return (
-       <div className="h-screen mx-auto max-w-7xl p-4 gap-x-2">
+       <div className="h-screen mx-auto max-w-5xl p-4 gap-x-2">
           <div className="divide-y divide-gray-200 overflow-scroll rounded-lg bg-white shadow-sm">
              <div className="px-4 py-5 sm:px-6">
 
@@ -101,7 +68,7 @@ export default function Page() {
                          Invoice number
                       </div>
                       <div className="mt-1.5">
-                         <Input value={invoiceNumber} onChange={(e) => setInvoiceNumber(e.target.value)} />
+                         <Input value={invoiceNumber} onChange={(e) => setInvoiceNumber(e.target.value)}/>
                       </div>
                    </div>
 
@@ -110,7 +77,7 @@ export default function Page() {
                          Invoice date
                       </div>
                       <div className="mt-1.5">
-                         <Input value={invoiceNumber} onChange={(e) => setInvoiceNumber(e.target.value)} />
+                         <Input value={invoiceNumber} onChange={(e) => setInvoiceNumber(e.target.value)}/>
                       </div>
                    </div>
 
@@ -119,7 +86,7 @@ export default function Page() {
                          From
                       </div>
                       <div className="mt-1.5">
-                         <Textarea className="w-full" value={from} onChange={(e) => setFrom(e.target.value)} />
+                         <Textarea className="w-full" value={from} onChange={(e) => setFrom(e.target.value)}/>
                       </div>
                    </div>
                    <div className="col-span-1">
@@ -130,7 +97,7 @@ export default function Page() {
                          <Select
                              value={customer} onValueChange={(value: string) => setCustomer(value)}>
                             <SelectTrigger className="w-full">
-                               <SelectValue placeholder="Theme" />
+                               <SelectValue placeholder="Theme"/>
                             </SelectTrigger>
                             <SelectContent>
                                <SelectItem value="light">Light</SelectItem>
@@ -151,20 +118,23 @@ export default function Page() {
                 <div className="-mx-4 mt-8 flow-root sm:mx-0">
                    <table className="min-w-full">
                       <colgroup>
-                         <col className="w-full sm:w-1/2" />
-                         <col className="sm:w-1/6" />
-                         <col className="sm:w-1/6" />
-                         <col className="sm:w-1/6" />
+                         <col className="w-full sm:w-1/2"/>
+                         <col className="sm:w-1/6"/>
+                         <col className="sm:w-1/6"/>
+                         <col className="sm:w-1/6"/>
                       </colgroup>
                       <thead className="border-b border-gray-300 text-gray-900">
                       <tr>
-                         <th scope="col" className="py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-900 sm:pl-0">
+                         <th scope="col"
+                             className="py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-900 sm:pl-0">
                             Description
                          </th>
-                         <th scope="col" className="hidden px-3 py-3.5 text-right text-sm font-semibold text-gray-900 sm:table-cell">
+                         <th scope="col"
+                             className="hidden px-3 py-3.5 text-right text-sm font-semibold text-gray-900 sm:table-cell">
                             Quantity
                          </th>
-                         <th scope="col" className="py-3.5 pr-4 pl-3 text-right text-sm font-semibold text-gray-900 sm:pr-2">
+                         <th scope="col"
+                             className="py-3.5 pr-4 pl-3 text-right text-sm font-semibold text-gray-900 sm:table-cell">
                             Price
                          </th>
                          <th>
@@ -173,43 +143,51 @@ export default function Page() {
                       </tr>
                       </thead>
                       <tbody>
-                      {lineItems.map((project, index) => (
-                          <tr key={index} className="border-b border-gray-200">
+                      <AnimatePresence>
+                         {lineItems.map((project, index) => (
+                             <motion.tr
+                                 initial={{ opacity: 0, scale: 0 }}
+                                 animate={{ opacity: 1, scale: 1 }}
+                                 exit={{ opacity: 0, scale: 0 }}
+                                 key={project.id} className="border-b border-gray-200">
 
-                             <td className="max-w-0 py-5 pr-3 pl-4 text-sm sm:pl-0">
-                                <div className="font-medium text-gray-900">
-                                   <Input type="text" name="project_name" defaultValue={project.name}  />
-                                </div>
-                                <div className="mt-1 truncate text-gray-500">
-                                   <Input type="text" name="project_description" defaultValue={project.description} />
-                                </div>
-                             </td>
+                                <td className="max-w-10 py-5 pr-3 pl-4 text-sm sm:pl-0">
+                                   <div className="font-medium text-gray-900 max-w-sm">
+                                      {project.id}
+                                      <Input type="text" name="project_name" defaultValue={project.name}/>
+                                   </div>
+                                   <div className="mt-1 truncate text-gray-500">
+                                      <Input type="text" name="project_description" defaultValue={project.description}/>
+                                   </div>
+                                </td>
 
-                             <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">
-                                <Input type="number" name="project_quantity" defaultValue={project.quantity} />
-                             </td>
+                                <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">
+                                   <Input type="number" name="project_quantity" defaultValue={project.quantity}/>
+                                </td>
 
-                             <td className="py-5 pr-4 pl-3 text-right text-sm text-gray-500 sm:pr-2">
-                                <Input type="number" name="project_rate" defaultValue={project.price} />
-                             </td>
+                                <td className="py-5 pr-4 pl-3 text-right text-sm text-gray-500 sm:pr-2">
+                                   <Input type="number" name="project_rate" defaultValue={project.price}/>
+                                </td>
 
-                             <td>
-                                <Button variant="ghost" size="icon"
-                                        onClick={() => onClickRemoveLineItem(index)}>
-                                   <Trash />
-                                </Button>
-                             </td>
-                          </tr>
-                      ))}
+                                <td>
+                                   <Button variant="ghost" size="icon"
+                                           onClick={() => onClickRemoveLineItem(project.id)}>
+                                      <Trash/>
+                                   </Button>
+                                </td>
+                             </motion.tr>
+                         ))}
+                      </AnimatePresence>
                       </tbody>
                       <tfoot>
                       <tr>
-                         <th scope="row" className="pt-6 pr-3 pl-4 text-left text-sm font-normal text-gray-500 sm:hidden">
+                         <th scope="row"
+                             className="pt-6 pr-3 pl-4 text-left text-sm font-normal text-gray-500 sm:hidden">
                             Actions
                          </th>
                          <td colSpan={5} className="pt-6 pr-4 pl-3 text-right text-sm text-gray-500 sm:pr-0">
                             <Button size="icon" onClick={onClickAddLineItem}>
-                               <Plus />
+                               <Plus/>
                             </Button>
                          </td>
                       </tr>
@@ -225,5 +203,6 @@ export default function Page() {
 
           </div>
        </div>
+
    )
 }
