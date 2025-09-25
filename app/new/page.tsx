@@ -36,7 +36,7 @@ export default function Page() {
          description: 'Design and program new company website.',
          quantity: 1,
          rate: 1,
-         price: '$5,200.00',
+         price: "100",
       },
    ])
 
@@ -55,6 +55,23 @@ export default function Page() {
    const onClickRemoveLineItem = (index: string) => {
       setLineItems((prevLineItems) => prevLineItems.filter((item) => item.id !== index))
    }
+
+   const totalPrice = lineItems.reduce((total, item) => total + parseFloat(item.price), 0)
+   const handlePriceChange = (value: string, id: string) => {
+      console.log(value)
+      console.log("new changes")
+      const updateLineItems = lineItems.map((item) => {
+         if (item.id === id) {
+            return {
+               ...item,
+               price: value,
+            }
+         }
+         return item
+      })
+      setLineItems((prevState) => updateLineItems)
+   }
+   console.log("rendered")
 
    return (
        <div className="h-screen mx-auto max-w-5xl p-4 gap-x-2">
@@ -153,7 +170,6 @@ export default function Page() {
 
                                 <td className="max-w-10 py-5 pr-3 pl-4 text-sm sm:pl-0">
                                    <div className="font-medium text-gray-900 max-w-sm">
-                                      {project.id}
                                       <Input type="text" name="project_name" defaultValue={project.name}/>
                                    </div>
                                    <div className="mt-1 truncate text-gray-500">
@@ -165,8 +181,10 @@ export default function Page() {
                                    <Input type="number" name="project_quantity" defaultValue={project.quantity}/>
                                 </td>
 
-                                <td className="py-5 pr-4 pl-3 text-right text-sm text-gray-500 sm:pr-2">
-                                   <Input type="number" name="project_rate" defaultValue={project.price}/>
+                                <td className="py-5 pr-4 pl-3 text-right text-sm text-gray-900 sm:pr-2">
+                                   <Input
+                                       onChange={(e) => handlePriceChange(e.target.value, project.id)}
+                                       type="number" name="project_rate" defaultValue={project.price}/>
                                 </td>
 
                                 <td>
@@ -197,6 +215,10 @@ export default function Page() {
              </div>
 
              <div className="px-4 py-4 sm:px-6">
+
+                <div className='text-4xl'>
+                   {totalPrice}
+                </div>
                 {/* Content goes here */}
                 {/* We use less vertical padding on card footers at all sizes than on headers or body sections */}
              </div>
