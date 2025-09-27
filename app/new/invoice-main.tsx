@@ -3,7 +3,7 @@ import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {Plus, Trash} from "lucide-react";
 import {useState} from "react";
-import {LineItem} from "@/app/new/page";
+import {LineItem} from "@/app/new/invoice-provider";
 
 export default function InvoiceMain() {
    const uuid = crypto.randomUUID()
@@ -61,6 +61,7 @@ export default function InvoiceMain() {
    }
 
    const totalPrice = lineItems.reduce((total, item) => total + (item.quantity * item.price), 0)
+
    return (
        <div className="px-4 py-5 sm:px-6">
           <div className="-mx-4 mt-8 flow-root sm:mx-0">
@@ -94,13 +95,14 @@ export default function InvoiceMain() {
                    </th>
                 </tr>
                 </thead>
-                <tbody>
-                <AnimatePresence>
+                <tbody className="overflow-hidden">
+                <AnimatePresence mode="sync" initial={false}>
                    {lineItems.map((project, index) => (
                        <motion.tr
-                           initial={{opacity: 0, scale: 0}}
-                           animate={{opacity: 1, scale: 1}}
-                           exit={{opacity: 0, scale: 0}}
+                           initial={{ x: "100%", opacity: 0 }}
+                           animate={{ opacity: 1, x: 0, }}
+                           transition={{ ease: "easeOut", duration: 0.5, type: "spring", bounce: 0 }}
+                           exit={{ opacity: 0, scale: 0, x: "110%",  }}
                            key={project.id} className="border-b border-gray-200">
 
                           <td className="max-w-0 py-5 pr-3 pl-4 text-sm sm:pl-0">
@@ -131,10 +133,12 @@ export default function InvoiceMain() {
                           </td>
 
                           <td>
-                             <Button variant="ghost" size="icon"
-                                     onClick={() => onClickRemoveLineItem(project.id)}>
-                                <Trash/>
-                             </Button>
+                             {lineItems.length >  1 && (
+                                 <Button variant="ghost" size="icon"
+                                         onClick={() => onClickRemoveLineItem(project.id)}>
+                                    <Trash/>
+                                 </Button>
+                             )}
                           </td>
                        </motion.tr>
                    ))}
