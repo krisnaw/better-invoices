@@ -19,7 +19,7 @@ export default function InvoiceMain() {
 
    const {state: invoiceState, dispatch} = useContext(InvoiceContext);
 
-   const onClickAddLineItem = () => {
+   const addItem = () => {
       const newItem: LineItem = {
          id: uuid,
          name: "product name",
@@ -32,9 +32,10 @@ export default function InvoiceMain() {
 
    }
 
-   // const onClickRemoveLineItem = (index: string) => {
-   //    setLineItems((prevLineItems) => prevLineItems.filter((item) => item.id !== index))
-   // }
+   const removeItem = (index: string) => {
+      dispatch({ type: "remove-line-item", id: index})
+   }
+
    //
    // const handlePriceChange = (value: number, id: string) => {
    //    const updateLineItems = lineItems.map((item) => {
@@ -138,7 +139,7 @@ export default function InvoiceMain() {
 
                           <td>
                              {invoiceState.lineItems.length >  1 && (
-                                 <Button variant="ghost" size="icon">
+                                 <Button onClick={() => removeItem(project.id)} variant="ghost" size="icon">
                                     <Trash/>
                                  </Button>
                              )}
@@ -154,7 +155,7 @@ export default function InvoiceMain() {
                       Actions
                    </th>
                    <td colSpan={5} className="pt-6 pr-4 pl-3 text-right text-sm text-gray-500 sm:pr-0">
-                      <Button size="icon" onClick={onClickAddLineItem}>
+                      <Button size="icon" onClick={addItem}>
                          <Plus/>
                       </Button>
                    </td>
