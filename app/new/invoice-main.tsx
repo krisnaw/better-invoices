@@ -2,12 +2,12 @@ import {AnimatePresence, motion} from "framer-motion";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {Plus, Trash} from "lucide-react";
-import {useState} from "react";
-import {LineItem} from "@/app/new/invoice-provider";
+import {useContext, useState} from "react";
+import {InvoiceContext, LineItem} from "@/app/new/invoice-provider";
 
 export default function InvoiceMain() {
    const uuid = crypto.randomUUID()
-   const [lineItems, setLineItems] = useState<LineItem[]>([
+   const [_, setLineItems] = useState<LineItem[]>([
       {
          id: uuid,
          name: 'Website redesign',
@@ -17,6 +17,8 @@ export default function InvoiceMain() {
       },
    ])
 
+   const {state: invoiceState, dispatch} = useContext(InvoiceContext);
+
    const onClickAddLineItem = () => {
       const newItem: LineItem = {
          id: uuid,
@@ -25,42 +27,44 @@ export default function InvoiceMain() {
          quantity: 1,
          price: 100,
       }
-      setLineItems((prevState) => [...prevState, newItem])
+
+      dispatch({ type: "add-line-item", payload: newItem });
+
    }
 
-   const onClickRemoveLineItem = (index: string) => {
-      setLineItems((prevLineItems) => prevLineItems.filter((item) => item.id !== index))
-   }
-
-   const handlePriceChange = (value: number, id: string) => {
-      const updateLineItems = lineItems.map((item) => {
-         if (item.id === id) {
-            return {
-               ...item,
-               price: value,
-               total: item.quantity * value
-            }
-         }
-         return item
-      })
-      setLineItems(updateLineItems)
-   }
-
-   const handleQuantityChange = (value: number, id: string) => {
-      const updateLineItems = lineItems.map((item) => {
-         if (item.id === id) {
-            return {
-               ...item,
-               quantity: value,
-               total: value * item.price
-            }
-         }
-         return item
-      })
-      setLineItems(updateLineItems)
-   }
-
-   const totalPrice = lineItems.reduce((total, item) => total + (item.quantity * item.price), 0)
+   // const onClickRemoveLineItem = (index: string) => {
+   //    setLineItems((prevLineItems) => prevLineItems.filter((item) => item.id !== index))
+   // }
+   //
+   // const handlePriceChange = (value: number, id: string) => {
+   //    const updateLineItems = lineItems.map((item) => {
+   //       if (item.id === id) {
+   //          return {
+   //             ...item,
+   //             price: value,
+   //             total: item.quantity * value
+   //          }
+   //       }
+   //       return item
+   //    })
+   //    setLineItems(updateLineItems)
+   // }
+   //
+   // const handleQuantityChange = (value: number, id: string) => {
+   //    const updateLineItems = lineItems.map((item) => {
+   //       if (item.id === id) {
+   //          return {
+   //             ...item,
+   //             quantity: value,
+   //             total: value * item.price
+   //          }
+   //       }
+   //       return item
+   //    })
+   //    setLineItems(updateLineItems)
+   // }
+   //
+   // const totalPrice = lineItems.reduce((total, item) => total + (item.quantity * item.price), 0)
 
    return (
        <div className="px-4 py-5 sm:px-6">
@@ -97,7 +101,7 @@ export default function InvoiceMain() {
                 </thead>
                 <tbody className="overflow-hidden">
                 <AnimatePresence mode="sync" initial={false}>
-                   {lineItems.map((project, index) => (
+                   {invoiceState.lineItems.map((project, index) => (
                        <motion.tr
                            initial={{ x: "100%", opacity: 0 }}
                            animate={{ opacity: 1, x: 0, }}
@@ -117,14 +121,14 @@ export default function InvoiceMain() {
                           <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">
                              <Input min="1" required
                                     className="text-right"
-                                    onChange={(e) => handleQuantityChange(Number(e.target.value), project.id)}
+                                    // onChange={(e) => handleQuantityChange(Number(e.target.value), project.id)}
                                     type="number" name="project_quantity" defaultValue={project.quantity}/>
                           </td>
 
                           <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">
                              <Input step="10"
                                     className="text-right"
-                                    onChange={(e) => handlePriceChange(Number(e.target.value), project.id)}
+                                    // onChange={(e) => handlePriceChange(Number(e.target.value), project.id)}
                                     type="number" name="project_price" defaultValue={project.price}/>
                           </td>
 
@@ -133,9 +137,8 @@ export default function InvoiceMain() {
                           </td>
 
                           <td>
-                             {lineItems.length >  1 && (
-                                 <Button variant="ghost" size="icon"
-                                         onClick={() => onClickRemoveLineItem(project.id)}>
+                             {invoiceState.lineItems.length >  1 && (
+                                 <Button variant="ghost" size="icon">
                                     <Trash/>
                                  </Button>
                              )}

@@ -2,6 +2,8 @@
 
 import React from "react";
 
+const uuid = crypto.randomUUID()
+
 export type LineItem = {
    id: string;
    name: string,
@@ -16,32 +18,31 @@ interface State {
 }
 
 type Action =
-    | { type: 'add-line-item' }
+    | { type: 'add-line-item', payload: LineItem }
     | { type: 'remove-line-item', id: string }
     | { type: 'reset' };
 
-const uuid = crypto.randomUUID()
 
-const initialState: State = {
+const initialInvoiceState: State = {
    lineItems: [
       {
          id: uuid,
-         name: "Product name",
-         description: `Product description`,
+         name: "Product name: Provider",
+         description: `Product description: Provider`,
          quantity: 1,
          price: 100,
       }
    ],
-   totalPrice: 0,
+   totalPrice: 100,
 };
 
-function reducer(prevState: State, action: Action): State {
+function invoiceReducer(prevState: State, action: Action): State {
    switch (action.type) {
       case 'add-line-item':
          return {
             ...prevState,
             lineItems: [...prevState.lineItems, {
-               id: uuid,
+               id: crypto.randomUUID(),
                name: "Product name",
                description: `Product description`,
                quantity: 1,
@@ -54,7 +55,7 @@ function reducer(prevState: State, action: Action): State {
             lineItems: prevState.lineItems.filter((item) => item.id !== action.id)
          }
       case 'reset':
-         return initialState
+         return initialInvoiceState
       default:
          return prevState;
    }
@@ -65,16 +66,19 @@ interface InvoiceContextType {
    dispatch: React.Dispatch<Action>;
 }
 
-export const InvoiceContext = React.createContext<InvoiceContextType | undefined>(undefined);
+export const InvoiceContext = React.createContext<InvoiceContextType>(null as unknown as {
+   state: State,
+   dispatch: React.Dispatch<Action>,
+});
 
 type Props = {
    children: React.ReactNode;
 }
 
 export default function InvoiceProvider({ children } : Props) {
-   const [state, dispatch] = React.useReducer(reducer, initialState);
+   const [invoiceState, dispatch] = React.useReducer(invoiceReducer, initialInvoiceState);
    return (
-       <InvoiceContext.Provider value={{ state, dispatch }}>
+       <InvoiceContext.Provider value={{ state: invoiceState, dispatch }}>
           {children}
        </InvoiceContext.Provider>
    )
