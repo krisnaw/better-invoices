@@ -2,12 +2,13 @@ import {Input} from "@/components/ui/input";
 import {InvoiceDate} from "@/app/invoice/invoice-date";
 import {Textarea} from "@/components/ui/textarea";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {InvoiceContext} from "@/app/new/invoice-provider";
 
 export default function InvoiceHeader() {
-   const [from, setFrom] = useState<string>("Acme Inc.")
    const [customer, setCustomer] = useState<string>("Customer")
-   const [invoiceNumber, setInvoiceNumber] = useState<string>("INV-00001")
+   const {state: invoiceState, dispatch} = useContext(InvoiceContext);
+
    return (
        <div className="px-4 py-5 sm:px-6">
           <div className=" grid grid-cols-2 gap-4">
@@ -16,7 +17,9 @@ export default function InvoiceHeader() {
                    Invoice number
                 </div>
                 <div className="mt-1.5">
-                   <Input  />
+                   <Input value={invoiceState.invoiceNumber}
+                          onChange={e => dispatch({ type: "update-invoice-number", payload: e.target.value })    }
+                   />
                 </div>
              </div>
 

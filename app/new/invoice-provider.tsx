@@ -19,9 +19,10 @@ interface State {
 }
 
 type Action =
-    | { type: 'add-line-item', payload: LineItem }
+    | { type: 'update-invoice-number', payload: string }
+    | { type: 'add-line-item' }
     | { type: 'remove-line-item', id: string }
-    | { type: 'update-line-item', id: string, payload: Partial<LineItem>}
+    | { type: 'update-line-item', id: string, payload: Partial<LineItem> }
     | { type: 'reset' };
 
 const initialInvoiceState: State = {
@@ -40,6 +41,12 @@ const initialInvoiceState: State = {
 
 function invoiceReducer(prevState: State, action: Action): State {
    switch (action.type) {
+      case "update-invoice-number":
+         return {
+            ...prevState,
+            invoiceNumber: action.payload,
+            totalPrice: prevState.totalPrice,
+         }
       case 'add-line-item':
          const newItems = [...prevState.lineItems, {
             id: crypto.randomUUID(),
@@ -64,7 +71,7 @@ function invoiceReducer(prevState: State, action: Action): State {
          }
       case 'update-line-item':
          const updatedLineItems = prevState.lineItems.map((item) => (
-             item.id === action.id ? { ...item, ...action.payload } : item
+             item.id === action.id ? {...item, ...action.payload} : item
          ))
          const totalPrice = updatedLineItems.reduce((total, item) => total + (item.quantity * item.price), 0)
          return {
@@ -93,10 +100,10 @@ type Props = {
    children: React.ReactNode;
 }
 
-export default function InvoiceProvider({ children } : Props) {
+export default function InvoiceProvider({children}: Props) {
    const [invoiceState, dispatch] = React.useReducer(invoiceReducer, initialInvoiceState);
    return (
-       <InvoiceContext.Provider value={{ state: invoiceState, dispatch }}>
+       <InvoiceContext.Provider value={{state: invoiceState, dispatch}}>
           {children}
        </InvoiceContext.Provider>
    )

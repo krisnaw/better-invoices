@@ -2,33 +2,14 @@ import {AnimatePresence, motion} from "framer-motion";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
 import {Plus, Trash} from "lucide-react";
-import {useContext, useState} from "react";
-import {InvoiceContext, LineItem} from "@/app/new/invoice-provider";
+import {useContext} from "react";
+import {InvoiceContext} from "@/app/new/invoice-provider";
 
 export default function InvoiceMain() {
-   const uuid = crypto.randomUUID()
-   const [_, setLineItems] = useState<LineItem[]>([
-      {
-         id: uuid,
-         name: 'Website redesign',
-         description: 'Design and program new company website.',
-         quantity: 1,
-         price: 100,
-      },
-   ])
-
    const {state: invoiceState, dispatch} = useContext(InvoiceContext);
 
    const addItem = () => {
-      const newItem: LineItem = {
-         id: uuid,
-         name: "product name",
-         description: `Type description here`,
-         quantity: 1,
-         price: 100,
-      }
-
-      dispatch({ type: "add-line-item", payload: newItem });
+      dispatch({ type: "add-line-item" });
    }
 
    const handlePriceChange = (value: number, id: string) => {
