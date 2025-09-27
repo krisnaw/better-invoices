@@ -65,7 +65,7 @@ interface InvoiceContextType {
    dispatch: React.Dispatch<Action>;
 }
 
-const InvoiceContext = React.createContext<InvoiceContextType | undefined>(undefined);
+export const InvoiceContext = React.createContext<InvoiceContextType | undefined>(undefined);
 
 type Props = {
    children: React.ReactNode;
