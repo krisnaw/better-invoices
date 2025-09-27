@@ -29,43 +29,16 @@ export default function InvoiceMain() {
       }
 
       dispatch({ type: "add-line-item", payload: newItem });
-
    }
 
-   const removeItem = (index: string) => {
-      dispatch({ type: "remove-line-item", id: index})
+   const handlePriceChange = (value: number, id: string) => {
+      dispatch({ type: "update-line-item", id: id, payload: {price: value} })
    }
 
-   //
-   // const handlePriceChange = (value: number, id: string) => {
-   //    const updateLineItems = lineItems.map((item) => {
-   //       if (item.id === id) {
-   //          return {
-   //             ...item,
-   //             price: value,
-   //             total: item.quantity * value
-   //          }
-   //       }
-   //       return item
-   //    })
-   //    setLineItems(updateLineItems)
-   // }
-   //
-   // const handleQuantityChange = (value: number, id: string) => {
-   //    const updateLineItems = lineItems.map((item) => {
-   //       if (item.id === id) {
-   //          return {
-   //             ...item,
-   //             quantity: value,
-   //             total: value * item.price
-   //          }
-   //       }
-   //       return item
-   //    })
-   //    setLineItems(updateLineItems)
-   // }
-   //
-   // const totalPrice = lineItems.reduce((total, item) => total + (item.quantity * item.price), 0)
+   const handleQuantityChange = (value: number, id: string) => {
+      dispatch({ type: "update-line-item", id: id, payload: {quantity: value} })
+   }
+
 
    return (
        <div className="px-4 py-5 sm:px-6">
@@ -122,14 +95,14 @@ export default function InvoiceMain() {
                           <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">
                              <Input min="1" required
                                     className="text-right"
-                                    // onChange={(e) => handleQuantityChange(Number(e.target.value), project.id)}
+                                    onChange={(e) => handleQuantityChange(Number(e.target.value), project.id)}
                                     type="number" name="project_quantity" defaultValue={project.quantity}/>
                           </td>
 
                           <td className="hidden px-3 py-5 text-right text-sm text-gray-500 sm:table-cell">
                              <Input step="10"
                                     className="text-right"
-                                    // onChange={(e) => handlePriceChange(Number(e.target.value), project.id)}
+                                    onChange={(e) => handlePriceChange(Number(e.target.value), project.id)}
                                     type="number" name="project_price" defaultValue={project.price}/>
                           </td>
 
@@ -139,7 +112,8 @@ export default function InvoiceMain() {
 
                           <td>
                              {invoiceState.lineItems.length >  1 && (
-                                 <Button onClick={() => removeItem(project.id)} variant="ghost" size="icon">
+                                 <Button onClick={() => dispatch({ type: "remove-line-item", id: project.id})}
+                                         variant="ghost" size="icon">
                                     <Trash/>
                                  </Button>
                              )}

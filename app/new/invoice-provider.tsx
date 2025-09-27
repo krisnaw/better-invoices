@@ -13,6 +13,7 @@ export type LineItem = {
 }
 
 interface State {
+   invoiceNumber: string
    lineItems: LineItem[];
    totalPrice: number;
 }
@@ -20,10 +21,11 @@ interface State {
 type Action =
     | { type: 'add-line-item', payload: LineItem }
     | { type: 'remove-line-item', id: string }
+    | { type: 'update-line-item', id: string, payload: Partial<LineItem>}
     | { type: 'reset' };
 
-
 const initialInvoiceState: State = {
+   invoiceNumber: 'INV',
    lineItems: [
       {
          id: uuid,
@@ -39,20 +41,36 @@ const initialInvoiceState: State = {
 function invoiceReducer(prevState: State, action: Action): State {
    switch (action.type) {
       case 'add-line-item':
+         const newItems = [...prevState.lineItems, {
+            id: crypto.randomUUID(),
+            name: "Product name",
+            description: `Product description`,
+            quantity: 1,
+            price: 100,
+         }]
+         const total = newItems.reduce((total, item) => total + (item.quantity * item.price), 0)
          return {
             ...prevState,
-            lineItems: [...prevState.lineItems, {
-               id: crypto.randomUUID(),
-               name: "Product name",
-               description: `Product description`,
-               quantity: 1,
-               price: 100,
-            }]
+            lineItems: newItems,
+            totalPrice: total,
          }
       case 'remove-line-item':
+         const filteredLineItems = prevState.lineItems.filter((item) => item.id !== action.id);
+         const newTotal = filteredLineItems.reduce((total, item) => total + item.price, 0)
          return {
             ...prevState,
-            lineItems: prevState.lineItems.filter((item) => item.id !== action.id)
+            lineItems: filteredLineItems,
+            totalPrice: newTotal,
+         }
+      case 'update-line-item':
+         const updatedLineItems = prevState.lineItems.map((item) => (
+             item.id === action.id ? { ...item, ...action.payload } : item
+         ))
+         const totalPrice = updatedLineItems.reduce((total, item) => total + (item.quantity * item.price), 0)
+         return {
+            ...prevState,
+            lineItems: updatedLineItems,
+            totalPrice: totalPrice,
          }
       case 'reset':
          return initialInvoiceState
