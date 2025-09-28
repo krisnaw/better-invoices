@@ -5,18 +5,19 @@ import React from "react";
 const uuid = crypto.randomUUID()
 
 export type LineItem = {
-   id: string;
-   name: string,
-   description: string;
-   quantity: number;
-   price: number;
+   id: string
+   name: string
+   description: string
+   quantity: number
+   price: number
 }
 
 interface State {
    invoiceNumber: string
    invoiceDate: Date
-   lineItems: LineItem[];
-   totalPrice: number;
+   customer: string
+   lineItems: LineItem[]
+   totalPrice: number
 }
 
 type Action =
@@ -30,6 +31,7 @@ type Action =
 const initialInvoiceState: State = {
    invoiceNumber: 'INV',
    invoiceDate: new Date(),
+   customer: "",
    lineItems: [
       {
          id: uuid,
@@ -48,7 +50,6 @@ function invoiceReducer(prevState: State, action: Action): State {
          return {
             ...prevState,
             invoiceNumber: action.payload,
-            totalPrice: prevState.totalPrice,
          }
       case "update-invoice-date":
          return {
