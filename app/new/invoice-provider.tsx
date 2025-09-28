@@ -14,12 +14,14 @@ export type LineItem = {
 
 interface State {
    invoiceNumber: string
+   invoiceDate: Date
    lineItems: LineItem[];
    totalPrice: number;
 }
 
 type Action =
     | { type: 'update-invoice-number', payload: string }
+    | { type: 'update-invoice-date', payload: Date }
     | { type: 'add-line-item' }
     | { type: 'remove-line-item', id: string }
     | { type: 'update-line-item', id: string, payload: Partial<LineItem> }
@@ -27,6 +29,7 @@ type Action =
 
 const initialInvoiceState: State = {
    invoiceNumber: 'INV',
+   invoiceDate: new Date(),
    lineItems: [
       {
          id: uuid,
@@ -46,6 +49,11 @@ function invoiceReducer(prevState: State, action: Action): State {
             ...prevState,
             invoiceNumber: action.payload,
             totalPrice: prevState.totalPrice,
+         }
+      case "update-invoice-date":
+         return {
+            ...prevState,
+            invoiceDate: action.payload,
          }
       case 'add-line-item':
          const newItems = [...prevState.lineItems, {

@@ -30,7 +30,7 @@ export default function InvoiceHeader() {
                    Invoice date
                 </div>
                 <div className="mt-1.5">
-                   <InvoiceDate/>
+                   <InvoiceDate />
                 </div>
              </div>
 
