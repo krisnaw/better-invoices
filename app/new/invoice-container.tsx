@@ -1,3 +1,5 @@
+"use client"
+
 import InvoiceHeader from "@/app/new/invoice-header";
 import InvoiceMain from "@/app/new/invoice-main";
 import InvoiceFooter from "@/app/new/invoice-footer";

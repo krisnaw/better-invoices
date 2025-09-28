@@ -21,6 +21,8 @@ export default function InvoiceHeader() {
                           onChange={e => dispatch({ type: "update-invoice-number", payload: e.target.value })    }
                    />
                 </div>
+
+                <button className="onC">submit</button>
              </div>
 
              <div className="col-span-1">
