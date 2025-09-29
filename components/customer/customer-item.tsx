@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-
 import {CustomerType} from "@/lib/types"
 import {TableCell, TableRow} from "@/components/ui/table"
 import {CustomerActions} from "@/components/customer/customer-actions"
