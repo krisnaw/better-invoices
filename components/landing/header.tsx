@@ -1,44 +1,42 @@
-import Link from "next/link";
+'use client'
 
+import Link from 'next/link'
+
+import {NavLink} from "@/components/landing/nav-link";
+import {Logo} from "@/components/landing/logo";
+import {Container} from "@/components/landing/container";
 import {Button} from "@/components/ui/button";
 
-export type NavLink = {
-  label: string;
-  href: string;
-};
-
-export function LandingHeader({ links }: { links: NavLink[] }) {
+export function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b border-border/80 bg-white backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-5 sm:px-8 lg:px-12">
-        <Link href="/" className="font-semibold tracking-tight text-foreground">
-          Better Invoices
-        </Link>
-        {/*<nav className="hidden items-center gap-8 text-sm font-medium text-muted-foreground md:flex">*/}
-        {/*  {links.map((link) => (*/}
-        {/*    <Link*/}
-        {/*      key={link.label}*/}
-        {/*      href={link.href}*/}
-        {/*      className="transition-colors hover:text-foreground"*/}
-        {/*    >*/}
-        {/*      {link.label}*/}
-        {/*    </Link>*/}
-        {/*  ))}*/}
-        {/*</nav>*/}
-        <div className="hidden items-center gap-3 md:flex">
-          <Button asChild variant="ghost">
-            <Link href="/login">Log in</Link>
-          </Button>
-        </div>
-        <div className="flex items-center gap-3 md:hidden">
-          <Button asChild size="sm" variant="ghost">
-            <Link href="/login">Log in</Link>
-          </Button>
-          <Button asChild size="sm">
-            <Link href="/register">Get started</Link>
-          </Button>
-        </div>
-      </div>
+    <header className="py-10">
+      <Container>
+        <nav className="relative z-50 flex justify-between">
+          <div className="flex items-center md:gap-x-12">
+            <Link href="#" aria-label="Home">
+              <Logo className="h-10 w-auto" />
+            </Link>
+            <div className="hidden md:flex md:gap-x-6">
+              <NavLink href="#features">Features</NavLink>
+              <NavLink href="#testimonials">Testimonials</NavLink>
+              <NavLink href="#pricing">Pricing</NavLink>
+            </div>
+          </div>
+          <div className="flex items-center gap-x-5 md:gap-x-8">
+            <div className="hidden md:block">
+              <NavLink href="/login">Sign in</NavLink>
+            </div>
+            <Button  color="blue">
+              <span>
+                Get started <span className="hidden lg:inline">today</span>
+              </span>
+            </Button>
+            <div className="-mr-1 md:hidden">
+
+            </div>
+          </div>
+        </nav>
+      </Container>
     </header>
-  );
+  )
 }
