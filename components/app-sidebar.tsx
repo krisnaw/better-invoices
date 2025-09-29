@@ -6,13 +6,13 @@ import {Bot, Command, Frame, LifeBuoy, Map, PieChart, Send, SquareTerminal,} fro
 import {NavMain} from "@/components/nav-main"
 import {NavUser} from "@/components/nav-user"
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
+   Sidebar,
+   SidebarContent,
+   SidebarFooter,
+   SidebarHeader,
+   SidebarMenu,
+   SidebarMenuButton,
+   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
 const data = {
@@ -24,19 +24,9 @@ const data = {
   navMain: [
     {
       title: "Customer",
-      url: "#",
+       url: "/dashboard/customers",
       icon: SquareTerminal,
       isActive: true,
-      items: [
-        {
-          title: "List",
-          url: "/dashboard/customers",
-        },
-        {
-          title: "Create",
-          url: "/dashboard/customers/create",
-        },
-      ],
     },
     {
       title: "Invoices",
