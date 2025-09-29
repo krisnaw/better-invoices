@@ -1,10 +1,16 @@
 import {getCustomerById} from "@/db/query/customer-query";
-import {Card, CardHeader, CardTitle} from "@/components/ui/card";
+import {Card, CardAction, CardHeader, CardTitle} from "@/components/ui/card";
+import {redirect} from "next/navigation";
+import {CustomerActions} from "@/components/customer/customer-actions";
 
 export default async function CustomerDetailPage({params}: { params: Promise<{ id: number }> }) {
-  const { id } = await params;
+  const {id} = await params;
 
   const customer = await getCustomerById(id)
+
+  if (!customer) {
+    redirect('/dashboard/customers')
+  }
 
   return (
     <div>
@@ -12,6 +18,9 @@ export default async function CustomerDetailPage({params}: { params: Promise<{ i
         <CardHeader>
           <CardTitle>{customer.name}</CardTitle>
         </CardHeader>
+        <CardAction>
+          <CustomerActions customerId={customer.id}/>
+        </CardAction>
       </Card>
     </div>
   )
