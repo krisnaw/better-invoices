@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Badge } from "@/components/ui/badge";
+import {Badge} from "@/components/ui/badge";
 
 export type FooterSection = {
   title: string;
@@ -34,27 +34,27 @@ export function LandingFooter({
               </Badge>
             </div>
           </div>
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-            {sections.map((section) => (
-              <div key={section.title} className="space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                  {section.title}
-                </p>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  {section.links.map((link) => (
-                    <li key={link.label}>
-                      <Link
-                        href={link.href}
-                        className="transition-colors hover:text-foreground"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          {/*<div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">*/}
+          {/*  {sections.map((section) => (*/}
+          {/*    <div key={section.title} className="space-y-3">*/}
+          {/*      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">*/}
+          {/*        {section.title}*/}
+          {/*      </p>*/}
+          {/*      <ul className="space-y-2 text-sm text-muted-foreground">*/}
+          {/*        {section.links.map((link) => (*/}
+          {/*          <li key={link.label}>*/}
+          {/*            <Link*/}
+          {/*              href={link.href}*/}
+          {/*              className="transition-colors hover:text-foreground"*/}
+          {/*            >*/}
+          {/*              {link.label}*/}
+          {/*            </Link>*/}
+          {/*          </li>*/}
+          {/*        ))}*/}
+          {/*      </ul>*/}
+          {/*    </div>*/}
+          {/*  ))}*/}
+          {/*</div>*/}
         </div>
         <div className="flex flex-col gap-4 border-t border-border/60 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <p>© {currentYear} Better Invoices. Built with care for small businesses and independents.</p>

@@ -1,18 +1,12 @@
-import Link from "next/link";
-import {ArrowRight, Eye, FileStack, Sparkles} from "lucide-react";
+import {Eye, FileStack, Sparkles} from "lucide-react";
 
 import {HeroSection, type Metric} from "@/components/landing/hero-section";
-import {ClientsSection} from "@/components/landing/clients-section";
-import {type Feature, FeaturesSection} from "@/components/landing/features-section";
-import {MidCtaSection} from "@/components/landing/mid-cta-section";
-import {WorkflowSection, type WorkflowStep} from "@/components/landing/workflow-section";
-import {type Review, ReviewsSection} from "@/components/landing/reviews-section";
-import {FinalCtaSection} from "@/components/landing/final-cta-section";
-import {type FaqItem, FaqSection} from "@/components/landing/faq-section";
+import {type Feature} from "@/components/landing/features-section";
+import {type WorkflowStep} from "@/components/landing/workflow-section";
+import {type Review} from "@/components/landing/reviews-section";
+import {type FaqItem} from "@/components/landing/faq-section";
 import {LandingHeader, type NavLink} from "@/components/landing/header";
-import {LandingFooter, type FooterSection} from "@/components/landing/footer";
-import {Button} from "@/components/ui/button";
-import {Badge} from "@/components/ui/badge";
+import {type FooterSection, LandingFooter} from "@/components/landing/footer";
 
 const metrics: Metric[] = [
   { value: "2.8x", label: "Faster payments after switching" },
@@ -178,13 +172,13 @@ export default function Home() {
 
       <main className="flex-1">
         <HeroSection metrics={metrics} />
-        <ClientsSection logos={clientLogos} />
-        <FeaturesSection features={features} />
-        <MidCtaSection />
-        <WorkflowSection steps={workflows} highlights={highlights} />
-        <ReviewsSection reviews={reviews} />
-        <FinalCtaSection />
-        <FaqSection faqs={faqs} />
+        {/*<ClientsSection logos={clientLogos} />*/}
+        {/*<FeaturesSection features={features} />*/}
+        {/*<MidCtaSection />*/}
+        {/*<WorkflowSection steps={workflows} highlights={highlights} />*/}
+        {/*<ReviewsSection reviews={reviews} />*/}
+        {/*<FinalCtaSection />*/}
+        {/*<FaqSection faqs={faqs} />*/}
       </main>
 
       <LandingFooter sections={footerSections} currentYear={currentYear} />
