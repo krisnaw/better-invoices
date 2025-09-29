@@ -1,7 +1,7 @@
 import {integer, pgTable, text, timestamp, varchar} from "drizzle-orm/pg-core";
 import {relations} from "drizzle-orm";
 import {user} from "@/db/schema/auth-schema";
-import {customersTable} from "@/db/schema/customer-schema";
+import {customer} from "@/db/schema/customer-schema";
 import {createSelectSchema} from "drizzle-zod";
 
 export const invoicesTable = pgTable("invoices", {
@@ -11,7 +11,7 @@ export const invoicesTable = pgTable("invoices", {
     .references(() => user.id, { onDelete: "cascade" }),
   customerId: integer("customer_id")
     .notNull()
-    .references(() => customersTable.id, { onDelete: "cascade" }),
+    .references(() => customer.id, { onDelete: "cascade" }),
   invoiceNumber: varchar("invoice_number",{ length: 255 }).notNull(),
 
   status: varchar("status",{ length: 255 }).notNull().default("draft"),
@@ -26,8 +26,8 @@ export const invoicesTable = pgTable("invoices", {
 export const invoiceSelectSchema = createSelectSchema(invoicesTable);
 
 export const invoicesRelations = relations(invoicesTable, ({one}) => ({
-  customer: one(customersTable, {
+  customer: one(customer, {
     fields: [invoicesTable.customerId],
-    references: [customersTable.id],
+    references: [customer.id],
   }),
 }));

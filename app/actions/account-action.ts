@@ -1,6 +1,6 @@
 "use server"
 import {ActionResponse} from "@/lib/types";
-import {customerInsertSchema, customersTable} from "@/db/schema/customer-schema";
+import {customer, customerInsertSchema} from "@/db/schema/customer-schema";
 import {eq} from "drizzle-orm";
 import {z} from "zod";
 import {db} from "@/db/db-connection";
@@ -18,7 +18,7 @@ export default async function CreateCustomer(FormData: CustomerData): Promise<Ac
     }
   }
 
-  const [inserted] = await db.insert(customersTable).values(validation.data).returning();
+  const [inserted] = await db.insert(customer).values(validation.data).returning();
   console.log(inserted)
 
   if (!inserted) {
@@ -54,10 +54,10 @@ export async function UpdateCustomer(FormData: CustomerUpdateData): Promise<Acti
   const {id, ...payload} = validation.data
 
   const [updated] = await db
-    .update(customersTable)
+    .update(customer)
     .set(payload)
-    .where(eq(customersTable.id, id))
-    .returning({id: customersTable.id})
+    .where(eq(customer.id, id))
+    .returning({id: customer.id})
 
   if (!updated) {
     return {

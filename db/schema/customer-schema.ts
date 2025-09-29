@@ -2,7 +2,7 @@ import {integer, pgTable, text, timestamp, varchar} from "drizzle-orm/pg-core";
 import {user} from "@/db/schema/auth-schema";
 import {createInsertSchema, createSelectSchema} from "drizzle-zod";
 
-export const customersTable = pgTable("customers", {
+export const customer = pgTable("customers", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   userId: text("user_id")
     .notNull()
@@ -16,9 +16,9 @@ export const customersTable = pgTable("customers", {
     .notNull(),
 });
 
-export const customerInsertSchema = createInsertSchema(customersTable).omit({
+export const customerInsertSchema = createInsertSchema(customer).omit({
   createdAt: true,
   updatedAt: true,
 })
 
-export const customerSelectSchema = createSelectSchema(customersTable);
+export const customerSelectSchema = createSelectSchema(customer);
