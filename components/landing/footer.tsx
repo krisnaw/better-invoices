@@ -15,7 +15,7 @@ export function LandingFooter({
   currentYear: number;
 }) {
   return (
-    <footer className="border-t border-border/70 bg-muted/30">
+    <footer className="border-t border-border/70 bg-white">
       <div className="mx-auto flex max-w-7xl flex-col gap-16 px-6 py-16 sm:px-8 lg:px-12">
         <div className="grid gap-12 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
           <div className="space-y-4">
@@ -26,10 +26,10 @@ export function LandingFooter({
               The modern invoicing OS for SMEs and freelancers who expect more from their tools.
             </p>
             <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
-              <Badge variant="outline" className="border-primary/10 bg-background/80 text-primary">
+              <Badge variant="outline" className="border-primary/10 bg-white text-primary">
                 SOC2 in progress
               </Badge>
-              <Badge variant="outline" className="border-primary/10 bg-background/80 text-primary">
+              <Badge variant="outline" className="border-primary/10 bg-white text-primary">
                 PCI compliant
               </Badge>
             </div>

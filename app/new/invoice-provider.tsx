@@ -12,11 +12,14 @@ export type LineItem = {
    price: number
 }
 
-interface State {
+type InvoiceState = {
    invoiceNumber: string
    invoiceDate: Date
    customer: string
    lineItems: LineItem[]
+}
+
+type State = InvoiceState & {
    totalPrice: number
 }
 
@@ -28,7 +31,7 @@ type Action =
     | { type: 'update-line-item', id: string, payload: Partial<LineItem> }
     | { type: 'reset' };
 
-const initialInvoiceState: State = {
+const initialInvoiceState: InvoiceState = {
    invoiceNumber: 'INV',
    invoiceDate: new Date(),
    customer: "",
@@ -41,10 +44,9 @@ const initialInvoiceState: State = {
          price: 100,
       }
    ],
-   totalPrice: 100,
 };
 
-function invoiceReducer(prevState: State, action: Action): State {
+function invoiceReducer(prevState: InvoiceState, action: Action): InvoiceState {
    switch (action.type) {
       case "update-invoice-number":
          return {
@@ -64,29 +66,23 @@ function invoiceReducer(prevState: State, action: Action): State {
             quantity: 1,
             price: 100,
          }]
-         const total = newItems.reduce((total, item) => total + (item.quantity * item.price), 0)
          return {
             ...prevState,
             lineItems: newItems,
-            totalPrice: total,
          }
       case 'remove-line-item':
          const filteredLineItems = prevState.lineItems.filter((item) => item.id !== action.id);
-         const newTotal = filteredLineItems.reduce((total, item) => total + item.price, 0)
          return {
             ...prevState,
             lineItems: filteredLineItems,
-            totalPrice: newTotal,
          }
       case 'update-line-item':
          const updatedLineItems = prevState.lineItems.map((item) => (
              item.id === action.id ? {...item, ...action.payload} : item
          ))
-         const totalPrice = updatedLineItems.reduce((total, item) => total + (item.quantity * item.price), 0)
          return {
             ...prevState,
             lineItems: updatedLineItems,
-            totalPrice: totalPrice,
          }
       case 'reset':
          return initialInvoiceState
@@ -109,10 +105,19 @@ type Props = {
    children: React.ReactNode;
 }
 
+function calculateTotalPrice(lineItems: LineItem[]): number {
+   return lineItems.reduce((total, item) => total + (item.quantity * item.price), 0)
+}
+
 export default function InvoiceProvider({children}: Props) {
    const [invoiceState, dispatch] = React.useReducer(invoiceReducer, initialInvoiceState);
+   const totalPrice = React.useMemo(() => calculateTotalPrice(invoiceState.lineItems), [invoiceState.lineItems]);
+   const stateWithTotal = React.useMemo<State>(() => ({
+      ...invoiceState,
+      totalPrice,
+   }), [invoiceState, totalPrice]);
    return (
-       <InvoiceContext.Provider value={{state: invoiceState, dispatch}}>
+       <InvoiceContext.Provider value={{state: stateWithTotal, dispatch}}>
           {children}
        </InvoiceContext.Provider>
    )

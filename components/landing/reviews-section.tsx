@@ -12,20 +12,17 @@ export type Review = {
 
 export function ReviewsSection({ reviews }: { reviews: Review[] }) {
   return (
-    <section
-      id="reviews"
-      className="border-b border-border/60 bg-background py-24"
-    >
+    <section id="reviews" className="border-b border-border/60 bg-white py-24">
       <div className="mx-auto flex max-w-7xl flex-col gap-12 px-6 sm:px-8 lg:px-12">
         <div className="space-y-4 text-center">
           <Badge variant="outline" className="mx-auto border-primary/20 bg-primary/5 text-primary">
-            Stories from the field
+            Proof from modern finance teams
           </Badge>
           <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-            Lean teams invoice faster and get paid sooner.
+            Teams that switch cut collection time by double digits.
           </h2>
           <p className="mx-auto max-w-3xl text-pretty text-base text-muted-foreground sm:text-lg">
-            Hear how freelancers, studios, and SMEs use Better Invoices to automate follow-ups, stay organized, and keep cashflow predictable.
+            Operators, studio founders, and accountants share how Better Invoices gives them visibility into every approval cycle and keeps receivables on schedule.
           </p>
         </div>
 
@@ -33,7 +30,7 @@ export function ReviewsSection({ reviews }: { reviews: Review[] }) {
           {reviews.map((review, index) => (
             <div
               key={review.name}
-              className="flex h-full flex-col gap-6 rounded-none border border-border/40 bg-card/70 p-6 text-left shadow-[0_25px_80px_-65px_rgba(26,67,168,0.33)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:border-primary/40 dark:bg-card/40"
+              className="flex h-full flex-col gap-6 rounded-none border border-border/40 bg-white p-6 text-left shadow-[0_25px_80px_-65px_rgba(26,67,168,0.33)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:border-primary/40"
             >
               <p className="text-sm text-muted-foreground">“{review.quote}”</p>
               <div className="flex items-center gap-3">

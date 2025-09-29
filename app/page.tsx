@@ -15,55 +15,55 @@ import {Button} from "@/components/ui/button";
 import {Badge} from "@/components/ui/badge";
 
 const metrics: Metric[] = [
-  { value: "2.8x", label: "Faster payment turnaround" },
-  { value: "96%", label: "Invoices paid on time" },
-  { value: "12h", label: "Finance hours saved weekly" },
+  { value: "2.8x", label: "Faster payments after switching" },
+  { value: "96%", label: "Invoices paid before the due date" },
+  { value: "12h", label: "Weekly finance hours given back" },
 ];
 
 const features: Feature[] = [
   {
-    title: "Invoice management that feels effortless",
+    title: "Launch invoices in under a minute",
     description:
-      "Create, duplicate, and organize invoices with product catalogs, localized tax logic, and saved client preferences in one clean workspace.",
+      "Reuse saved services, currencies, and tax presets so every invoice ships polished and on-brand without spreadsheet gymnastics.",
     icon: FileStack,
   },
   {
-    title: "See when clients open and view",
+    title: "Know exactly who opened what",
     description:
-      "Real-time read receipts and status timelines show exactly when customers opened, downloaded, and paid every invoice.",
+      "Real-time view timelines show every open, download, and click so you can follow up with context instead of guesswork.",
     icon: Eye,
   },
   {
-    title: "Automations that stay polite",
+    title: "Follow-up automations clients appreciate",
     description:
-      "Smart nudges escalate automatically while keeping your brand voice, so you get paid without chasing manually.",
+      "Schedule polite nudges, late-fee escalations, and payment receipts that speak in your brand voice and keep cash moving.",
     icon: Sparkles,
   },
 ];
 
 const workflows: WorkflowStep[] = [
   {
-    title: "Compose in seconds",
+    title: "Draft",
     description:
-      "Brand-aligned templates with product catalogs, tax logic, and multi-currency support baked in.",
+      "Start from an approved template, pull in products, and personalize terms with guardrails for your team.",
   },
   {
-    title: "Automate follow-ups",
+    title: "Send & track",
     description:
-      "Gentle nudges escalate to firm reminders, while your team stays focused on work that matters.",
+      "Share a single client link with embedded payments and know the moment it’s reviewed, approved, and paid.",
   },
   {
-    title: "Collect and reconcile",
+    title: "Reconcile automatically",
     description:
-      "Card, ACH, and bank transfer support with auto-ledger reconciliation for your ERP.",
+      "Sync payouts to your ledger, trigger project kickoffs, and keep finance reports updated without manual entry.",
   },
 ];
 
 const highlights = [
-  "Multi-entity ready from day one",
-  "Realtime status sync into your tools",
-  "Late fees and renewals auto-applied",
-  "Global tax compliance handled",
+  "One client portal for invoices, proposals, and receipts",
+  "Instant notifications when decision-makers view",
+  "Late fees and retainers collected on autopilot",
+  "Exports built for your accounting stack",
 ];
 
 const clientLogos = [
@@ -81,7 +81,7 @@ const clientLogos = [
 const reviews: Review[] = [
   {
     quote:
-      "We replaced three different tools with Better Invoices and now ship every retainer invoice in under five minutes.",
+      "We collapsed three tools into Better Invoices and cut our payment cycle from 18 days to 6—clients love the portal.",
     name: "Sasha Grant",
     role: "Founder, Tidepool Studio",
     initials: "SG",
@@ -91,7 +91,7 @@ const reviews: Review[] = [
   },
   {
     quote:
-      "My clients pay faster because they can see the whole timeline and pay in a single click—no more chasing awkwardly.",
+      "Our ops team tracks every approval without asking. Read receipts plus automated nudges keep cashflow predictable.",
     name: "Jordan Lee",
     role: "Fractional COO",
     initials: "JL",
@@ -99,7 +99,7 @@ const reviews: Review[] = [
   },
   {
     quote:
-      "The read receipts and automation rules are a lifesaver. I finally know who opened what and when to follow up.",
+      "Seeing exactly who opened what means we follow up with context—and we recovered four overdue retainers in the first month.",
     name: "Priya Desai",
     role: "Owner, Lumen Accounting",
     initials: "PD",
@@ -109,24 +109,24 @@ const reviews: Review[] = [
 
 const faqs: FaqItem[] = [
   {
-    question: "Can I import my existing invoices and clients?",
+    question: "How fast can we launch?",
+    answer:
+      "Most teams ship their first live invoice the same day. Import branding, taxes, and product catalogs with guided onboarding from our team.",
+  },
+  {
+    question: "Can you migrate our existing invoices and clients?",
     answer:
       "Yes. Upload CSVs or connect QuickBooks/Xero and we’ll migrate your client directory, product catalog, and historical invoices at no additional cost.",
   },
   {
-    question: "Will my clients need an account to pay?",
+    question: "Will clients need an account to pay?",
     answer:
       "No. Clients receive a branded link where they can review, download, and pay via card, ACH, or transfer without creating an account.",
   },
   {
-    question: "Do you support multiple currencies and taxes?",
+    question: "Do you support global taxes and currencies?",
     answer:
       "Absolutely. Configure per-client currencies, add region-specific tax presets, and let Better Invoices handle the calculations for each line item.",
-  },
-  {
-    question: "Is there a free trial?",
-    answer:
-      "You get a 14-day free trial with full access. No credit card required until you’re ready to go live.",
   },
 ];
 
@@ -173,7 +173,7 @@ export default function Home() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col bg-white">
       <LandingHeader links={navLinks} />
 
       <main className="flex-1">

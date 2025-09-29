@@ -9,20 +9,17 @@ export type FaqItem = {
 
 export function FaqSection({ faqs }: { faqs: FaqItem[] }) {
   return (
-    <section
-      id="faq"
-      className="border-t border-border/60 bg-background py-24"
-    >
+    <section id="faq" className="border-t border-border/60 bg-white py-24">
       <div className="mx-auto flex max-w-4xl flex-col gap-10 px-6 sm:px-8 lg:px-12">
         <div className="space-y-4 text-center">
           <Badge variant="outline" className="mx-auto border-primary/20 bg-primary/5 text-primary">
-            FAQ
+            Frequently asked
           </Badge>
           <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-            Answers for busy teams.
+            Everything you need to go live with confidence.
           </h2>
           <p className="text-pretty text-base text-muted-foreground sm:text-lg">
-            Everything you need to get live quickly, migrate safely, and keep clients informed from day one.
+            Migration, client experience, and compliance questions answered so you can roll out Better Invoices without surprises.
           </p>
         </div>
 
@@ -30,7 +27,7 @@ export function FaqSection({ faqs }: { faqs: FaqItem[] }) {
           {faqs.map((item) => (
             <details
               key={item.question}
-              className="group rounded-none border border-border/60 bg-background/80 p-6 shadow-[0_25px_60px_-55px_rgba(26,67,168,0.33)] transition-all open:border-primary/40 open:shadow-[0_30px_80px_-55px_rgba(26,67,168,0.38)] dark:bg-background/40"
+              className="group rounded-none border border-border/60 bg-white p-6 shadow-[0_25px_60px_-55px_rgba(26,67,168,0.33)] transition-all open:border-primary/40 open:shadow-[0_30px_80px_-55px_rgba(26,67,168,0.38)]"
             >
               <summary className="flex cursor-pointer items-center justify-between gap-4 text-left text-base font-semibold text-foreground [&::-webkit-details-marker]:hidden">
                 <span>{item.question}</span>

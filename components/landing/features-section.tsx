@@ -12,7 +12,7 @@ export function FeaturesSection({ features }: { features: Feature[] }) {
   return (
     <section
       id="features"
-      className="relative overflow-hidden border-b border-border/60 bg-background"
+      className="relative overflow-hidden border-b border-border/60 bg-white"
     >
       <div className="relative mx-auto max-w-7xl px-6 py-20 sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto flex max-w-5xl flex-col gap-12 text-center">
@@ -34,7 +34,7 @@ export function FeaturesSection({ features }: { features: Feature[] }) {
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className="group relative flex h-full flex-col gap-5 rounded-none border border-border/50 bg-card/70 p-7 text-left transition-transform duration-200 ease-out hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_30px_80px_-50px_rgba(26,67,168,0.38)] dark:bg-card/40"
+                className="group relative flex h-full flex-col gap-5 rounded-none border border-border/50 bg-white p-7 text-left transition-transform duration-200 ease-out hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_30px_80px_-50px_rgba(26,67,168,0.38)]"
               >
                 <div className="flex size-12 items-center justify-center rounded-none border border-primary/20 bg-primary/10 text-primary">
                   <feature.icon className="size-5" />

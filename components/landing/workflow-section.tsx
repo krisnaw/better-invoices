@@ -14,27 +14,24 @@ export function WorkflowSection({
   highlights: string[];
 }) {
   return (
-    <section
-      id="workflow"
-      className="border-y bg-background py-24"
-    >
+    <section id="workflow" className="border-y bg-white py-24">
       <div className="mx-auto flex max-w-7xl flex-col gap-12 px-6 sm:px-8 lg:px-12">
         <div className="space-y-4">
           <Badge variant="outline" className="border-primary/20 bg-primary/5 text-primary">
-            Workflow
+            How teams use Better Invoices
           </Badge>
           <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-            Automate the path from quote to cash.
+            A repeatable path from draft to paid in three steps.
           </h2>
           <p className="max-w-2xl text-base text-muted-foreground">
-            Every touchpoint is orchestrated so you can spend time serving clients— not chasing overdue balances.
+            Give every teammate a playbook. Draft faster, share a single source of truth with clients, and reconcile payments automatically—no follow-up spreadsheets required.
           </p>
         </div>
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1fr)]">
           <ul className="space-y-8">
             {steps.map((item, index) => (
               <li key={item.title} className="flex gap-5">
-                <span className="mt-1 flex size-8 items-center justify-center rounded-none border border-border/70 bg-background text-sm font-semibold">
+                <span className="mt-1 flex size-8 items-center justify-center rounded-none border border-border/70 bg-white text-sm font-semibold">
                   {(index + 1).toString().padStart(2, "0")}
                 </span>
                 <div className="space-y-2">
@@ -44,13 +41,13 @@ export function WorkflowSection({
               </li>
             ))}
           </ul>
-          <div className="grid gap-4 rounded-none border border-border/60 bg-background/80 p-8 shadow-[0_35px_80px_-60px_rgba(26,67,168,0.33)] backdrop-blur-sm dark:bg-background/40">
+          <div className="grid gap-4 rounded-none border border-border/60 bg-white p-8 shadow-[0_35px_80px_-60px_rgba(26,67,168,0.33)] backdrop-blur-sm">
             <p className="text-sm font-semibold text-muted-foreground">What teams love</p>
             <div className="grid gap-3">
               {highlights.map((item) => (
                 <div
                   key={item}
-                  className="flex items-center gap-3 rounded-none border border-border/50 bg-muted/50 p-4 text-sm text-muted-foreground"
+                  className="flex items-center gap-3 rounded-none border border-border/50 bg-white p-4 text-sm text-muted-foreground"
                 >
                   <CheckCircle2 className="size-4 text-primary" />
                   <span>{item}</span>
