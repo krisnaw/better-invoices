@@ -47,7 +47,7 @@ export function CustomerCreateForm({userId}: CustomerCreateFormProps) {
 
   return (
     <form action={formAction}>
-      <Card>
+      <Card className="max-w-md">
         <CardHeader>
           <CardTitle>Create customer</CardTitle>
           <CardDescription>
@@ -56,9 +56,8 @@ export function CustomerCreateForm({userId}: CustomerCreateFormProps) {
         </CardHeader>
         <CardContent className="grid gap-6">
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">General Information</h3>
             <div className="grid gap-3">
-              <Label htmlFor="name">Name</Label>
+              <Label htmlFor="name">Company Name</Label>
               <Input id="name" type="text" name="name" placeholder="Acme Inc." required />
             </div>
 
