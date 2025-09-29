@@ -31,7 +31,6 @@ export function CustomerItem({customer}: { customer: CustomerType }) {
           <TableCell>{customer.name}</TableCell>
           <TableCell>{customer.contact}</TableCell>
           <TableCell>{customer.email}</TableCell>
-          <TableCell>{customer.name}</TableCell>
           <TableCell className="text-right">
              <DropdownMenu>
                 <DropdownMenuTrigger asChild>

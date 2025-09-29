@@ -11,6 +11,7 @@ export async function getCustomersByUserId(userId: string) {
 }
 
 export async function getCustomerById(id: number) {
-  const customer = await db.select().from(customer).where(eq(customer.id, id)).limit(1);
-  return customer[0]
+   return db.query.customer.findFirst({
+      where: (customer, {eq}) => (eq(customer.id, id)),
+   });
 }

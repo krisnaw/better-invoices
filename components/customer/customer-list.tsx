@@ -1,25 +1,17 @@
 "use client"
 
-import { CustomerItem } from "@/components/customer/customer-item"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { CustomerType } from "@/lib/types"
+import {CustomerItem} from "@/components/customer/customer-item"
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
+import {CustomerType} from "@/lib/types"
 
 export function CustomerList({ customers }: { customers: CustomerType[] }) {
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Name</TableHead>
+          <TableHead>Company Name</TableHead>
           <TableHead>Contact Person</TableHead>
           <TableHead>Email</TableHead>
-          <TableHead>Company</TableHead>
           <TableHead className="text-right">Actions</TableHead>
         </TableRow>
       </TableHeader>
