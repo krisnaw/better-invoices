@@ -26,7 +26,7 @@ export function Header() {
             <div className="hidden md:block">
               <NavLink href="/login">Sign in</NavLink>
             </div>
-            <Button  color="blue">
+            <Button className="rounded-full" size="lg">
               <span>
                 Get started <span className="hidden lg:inline">today</span>
               </span>

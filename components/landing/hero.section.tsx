@@ -9,7 +9,7 @@ import logoTuple from '@/public/logos/tuple.svg'
 import {Container} from "@/components/landing/container";
 import {Button} from "@/components/ui/button";
 
-export function Hero() {
+export function HeroSection() {
   return (
     <Container className="pt-20 pb-16 text-center lg:pt-32">
       <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
@@ -28,8 +28,8 @@ export function Hero() {
         for small businesses.
       </h1>
       <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
-        Most bookkeeping software is accurate, but hard to use. We make the
-        opposite trade-off, and hope you don’t get audited.
+        Create beautiful invoices with ease. Our simple and intuitive interface helps
+        you manage your billing professionally and efficiently.
       </p>
       <div className="mt-10 flex justify-center gap-x-6">
         <Button >Get 6 months free</Button>
