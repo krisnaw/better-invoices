@@ -1,25 +1,41 @@
 "use client"
-import {CustomerItem} from "@/components/customer/customer-item";
 
-export function CustomerList({customers} : {customers: any[]}) {
+import { CustomerItem } from "@/components/customer/customer-item"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { CustomerType } from "@/lib/types"
+
+export function CustomerList({ customers }: { customers: CustomerType[] }) {
   return (
-    <div style={{ overflowX: 'auto' }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <thead>
-        <tr>
-          <th style={{ textAlign: 'left', padding: '8px', borderBottom: '1px solid #e5e7eb' }}>Name</th>
-          <th style={{ textAlign: 'left', padding: '8px', borderBottom: '1px solid #e5e7eb' }}>Contact Person</th>
-          <th style={{ textAlign: 'left', padding: '8px', borderBottom: '1px solid #e5e7eb' }}>Email</th>
-          <th style={{ textAlign: 'left', padding: '8px', borderBottom: '1px solid #e5e7eb' }}>Company</th>
-          <th style={{ textAlign: 'left', padding: '8px', borderBottom: '1px solid #e5e7eb' }}>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {customers.map((customer) => (
-          <CustomerItem key={customer.id} customer={customer} />
-        ))}
-        </tbody>
-      </table>
-    </div>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Name</TableHead>
+          <TableHead>Contact Person</TableHead>
+          <TableHead>Email</TableHead>
+          <TableHead>Company</TableHead>
+          <TableHead className="text-right">Actions</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {customers.length ? (
+          customers.map((customer) => (
+            <CustomerItem key={customer.id} customer={customer} />
+          ))
+        ) : (
+          <TableRow>
+            <TableCell colSpan={5} className="text-center text-muted-foreground">
+              No customers yet.
+            </TableCell>
+          </TableRow>
+        )}
+      </TableBody>
+    </Table>
   )
 }

@@ -1,33 +1,43 @@
 "use client"
-import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
-import {Ellipsis} from "lucide-react";
-import Link from "next/link";
 
-export function CustomerItem({customer} : {customer: any}) {
+import Link from "next/link"
+import { Ellipsis } from "lucide-react"
 
-  // handle detele
+import { CustomerType } from "@/lib/types"
+import { Button } from "@/components/ui/button"
+import {
+  TableCell,
+  TableRow,
+} from "@/components/ui/table"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
+export function CustomerItem({ customer }: { customer: CustomerType }) {
   return (
-    <tr>
-      <td style={{ padding: '10px 8px', borderBottom: '1px solid #f3f4f6', whiteSpace: 'nowrap' }}>{customer.name}</td>
-      <td style={{ padding: '10px 8px', borderBottom: '1px solid #f3f4f6' }}>{customer.contact}</td>
-      <td style={{ padding: '10px 8px', borderBottom: '1px solid #f3f4f6' }}>{customer.email}</td>
-      <td style={{ padding: '10px 8px', borderBottom: '1px solid #f3f4f6' }}>{customer.name}</td>
-      <td style={{ padding: '10px 8px', borderBottom: '1px solid #f3f4f6' }}>
+    <TableRow>
+      <TableCell>{customer.name}</TableCell>
+      <TableCell>{customer.contact}</TableCell>
+      <TableCell>{customer.email}</TableCell>
+      <TableCell>{customer.name}</TableCell>
+      <TableCell className="text-right">
         <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Ellipsis />
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" aria-label="Open customer actions">
+              <Ellipsis className="h-4 w-4" />
+            </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem>
-              <Link href={`/dashboard/customers/${customer.id}/edit`}>
-                Edit
-              </Link>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem asChild>
+              <Link href={`/dashboard/customers/${customer.id}/edit`}>Edit</Link>
             </DropdownMenuItem>
             <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      </td>
-    </tr>
+      </TableCell>
+    </TableRow>
   )
 }
