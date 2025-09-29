@@ -1,19 +1,14 @@
 "use client"
 
 import Link from "next/link"
-import { useActionState } from "react"
-import { Ellipsis, Loader2 } from "lucide-react"
-import { toast } from "sonner"
+import {useActionState} from "react"
+import {Ellipsis, Loader2} from "lucide-react"
+import {toast} from "sonner"
 
-import { ActionResponse } from "@/lib/types"
-import { customerDeleteAction } from "@/app/actions/customer/customer-delete.action"
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import {ActionResponse} from "@/lib/types"
+import {customerDeleteAction} from "@/app/actions/customer/customer-delete.action"
+import {Button} from "@/components/ui/button"
+import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,} from "@/components/ui/dropdown-menu"
 
 type CustomerActionsProps = {
   customerId: number
@@ -40,7 +35,7 @@ export function CustomerActions({ customerId }: CustomerActionsProps) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" aria-label="Open customer actions">
-          <Ellipsis className="h-4 w-4" />
+          <Ellipsis />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
