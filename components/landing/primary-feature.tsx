@@ -141,10 +141,9 @@ export function PrimaryFeature() {
                     </div>
                     <motion.div
                       initial={{opacity: 0, x: 100}}
-                      animate={{opacity: 1, x: 0}}
+                      whileInView={{opacity: 1, x: 0}}
+                      viewport={{once: true, amount: 0.4}}
                       transition={{duration: 1}}
-
-
                       className="mt-10 w-180 overflow-hidden rounded-xl bg-slate-50 shadow-xl shadow-blue-900/20 sm:w-auto lg:mt-0 lg:w-271.25">
                       <Image
                         className="w-full"
