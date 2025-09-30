@@ -1,61 +1,98 @@
-"use client"
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
-import {Label} from "@/components/ui/label";
-import {Input} from "@/components/ui/input";
+"use client";
+
 import {Button} from "@/components/ui/button";
-import {authClient} from "@/lib/auth-client";
-import {toast} from "sonner";
-import {useState} from "react";
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
+import {Input} from "@/components/ui/input";
+import {Label} from "@/components/ui/label";
+import {useActionState} from "react";
 import {Loader2} from "lucide-react";
+import {ActionResponse, SessionUserType} from "@/lib/types";
+import {toast} from "sonner";
+// import {UploadButton} from "@/lib/uploadthing";
+import {updateAccount} from "@/app/actions/account/account.update.action";
 
-export function AccountForm() {
-  const {data: session} = authClient.useSession()
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+export default function AccountForm({user}: { user: SessionUserType | undefined }) {
+  // const [image, setImage] = useState<string>(user?.image ?? "");
+  const [, formAction, isPending] = useActionState<ActionResponse, FormData>(async (_, formData: FormData) => {
+    const data = {
+      id: formData.get("id") as string,
+      email: formData.get("email") as string,
+      name: formData.get("name") as string,
+      // image: image
+    }
+    const res = await updateAccount(data)
 
-  const onSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsLoading(true)
-    const formData = new FormData(e.currentTarget)
-    const username = formData.get("name")
-    await authClient.updateUser(
-      {name: String(username)},
-      {
-        onSuccess: () => {
-          console.log("User updated successfully");
-          toast.success("User updated successfully")
-          setIsLoading(false)
-        },
-        onError: (error) => {
-          console.error("Error updating user:", error);
-          toast.error("Error updating user")
-          setIsLoading(false)
-        },
-      });
-  }
+    if (!res.success) {
+      toast.error(res.message)
+    }
+
+    toast.success(res.message)
+
+    return res
+  }, {
+    success: false,
+    message: ""
+  })
+
+  if (!user) return null
+
 
   return (
-    <form onSubmit={onSubmitForm}>
-      <Card className="max-w-sm">
+    <form action={formAction}>
+      <input type="hidden" name="id" value={user.id} />
+      <input type="hidden" name="email" value={user.email} />
+      <Card className="min-w-sm max-w-sm">
         <CardHeader>
-          <CardTitle>Full name</CardTitle>
+          <CardTitle>Account</CardTitle>
           <CardDescription>
-            Your username is your public display name.
+            Update your display name and profile avatar.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="name">Username</Label>
-            <Input id="name" name="name" type="text" placeholder="Username" required
-                   defaultValue={session?.user?.name}/>
+          <div className="grid gap-6">
+            {/*<div>*/}
+            {/*  <div className="col-span-full flex items-center gap-x-8">*/}
+            {/*    /!* eslint-disable-next-line @next/next/no-img-element *!/*/}
+            {/*    <img*/}
+            {/*      alt="User avatar"*/}
+            {/*      src={image}*/}
+            {/*      className="size-24 flex-none rounded-lg bg-gray-100 object-cover outline -outline-offset-1 outline-black/5"*/}
+            {/*    />*/}
+            {/*    <div>*/}
+            {/*      <UploadButton*/}
+            {/*        endpoint="imageUploader"*/}
+            {/*        onClientUploadComplete={(res) => {*/}
+            {/*          // Do something with the response*/}
+            {/*          setImage(res[0].appUrl)*/}
+            {/*          toast.info("Upload Completed");*/}
+            {/*        }}*/}
+            {/*        onUploadError={(error: Error) => {*/}
+            {/*          // Do something with the error.*/}
+            {/*          toast.error(`ERROR! ${error.message}`);*/}
+            {/*        }}*/}
+            {/*      />*/}
+            {/*    </div>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
+            <div className="grid gap-2">
+              <Label htmlFor="name">Name</Label>
+              <Input
+                id="name"
+                name="name"
+                placeholder="Your name"
+                autoComplete="name"
+                defaultValue={user.name}
+              />
+            </div>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-end gap-2">
-          <Button disabled={isLoading}>
-            Save
-            {isLoading && <Loader2 className="animate-spin" />}
+        <CardFooter>
+          <Button disabled={isPending} type="submit">
+            Save changes
+            {isPending && <Loader2 className="animate-spin"/>}
           </Button>
         </CardFooter>
       </Card>
     </form>
-  )
+  );
 }

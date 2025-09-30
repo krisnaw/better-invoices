@@ -2,6 +2,7 @@ import {z} from "zod";
 import {invoiceSelectSchema} from "@/db/schema/invoice-schema";
 import {customerSelectSchema} from "@/db/schema/customer-schema";
 import {invoiceItemsSelectSchema} from "@/db/schema/invoice-item-schema";
+import {auth} from "@/lib/auth";
 
 export type ZodFormattedErrors = {
   [field: string]: string[] | ZodFormattedErrors; // recursive for nested objects
@@ -15,6 +16,7 @@ export type ActionResponse = {
   data?: string | Array<object> | object | number,
 }
 
+export type SessionUserType = typeof auth.$Infer.Session.user
 export type InvoiceType = z.infer<typeof invoiceSelectSchema>
 export type CustomerType = z.infer<typeof customerSelectSchema>
 export type InvoiceItems = z.infer<typeof invoiceItemsSelectSchema>

@@ -63,8 +63,14 @@ export default function InvoiceHeader({customers} : {customers: CustomerType[]})
                   )}
 
                   {customerDetail && (
-                    <div>
-                      {customerDetail.name}
+                    <div className="flex flex-col gap-1">
+                      <span>{customerDetail.name}</span>
+                      <span>
+                           {customerDetail.contact}
+                      </span>
+                      <span>
+                         {customerDetail.email}
+                      </span>
                     </div>
                   )}
 
