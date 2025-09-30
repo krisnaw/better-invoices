@@ -2,7 +2,17 @@ import {getCustomersByUserId} from "@/db/query/customer-query";
 import {auth} from "@/lib/auth";
 import {headers} from "next/headers";
 import {redirect} from "next/navigation";
-import CustomerTable from "@/app/dashboard/customers/customer-table";
+import {Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from "@/components/ui/card"
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
 
 export default async function Customer() {
   const session = await auth.api.getSession({
@@ -13,8 +23,54 @@ export default async function Customer() {
   }
   const customers = await getCustomersByUserId(session.user.id);
   return (
-      <div>
-        <CustomerTable customers={customers} />
-      </div>
+    <div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Card Title</CardTitle>
+          <CardDescription>Card Description</CardDescription>
+          <CardAction>Card Action</CardAction>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[100px]">Invoice</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Method</TableHead>
+                <TableHead className="text-right">Amount</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-medium">INV001</TableCell>
+                <TableCell>Paid</TableCell>
+                <TableCell>Credit Card</TableCell>
+                <TableCell className="text-right">$250.00</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </CardContent>
+        <CardFooter>
+
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious href="#"/>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">1</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis/>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext href="#"/>
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+
+        </CardFooter>
+      </Card>
+    </div>
   )
 }
