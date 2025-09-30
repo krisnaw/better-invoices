@@ -40,7 +40,7 @@ export function InvoiceCustomer() {
 
 
     if (!session?.user?.id) {
-      toast.error("You need to be signed in to save the invoice draft.");
+      toast.error("You need to be signed in to save the invoices draft.");
       return;
     }
 
@@ -61,7 +61,7 @@ export function InvoiceCustomer() {
 
         if (!response.ok) {
           const error = await response.json().catch(() => ({}));
-          throw new Error(error?.error ?? "Unable to save invoice draft.");
+          throw new Error(error?.error ?? "Unable to save invoices draft.");
         }
 
         const {invoice} = await response.json();

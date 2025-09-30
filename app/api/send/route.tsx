@@ -17,7 +17,7 @@ export async function POST() {
       text: "Hello world?",
       attachments: [
         {
-          filename: "invoice.pdf",
+          filename: "invoices.pdf",
           content: await buffer(invoice),
         }
       ]
@@ -30,7 +30,7 @@ export async function POST() {
     });
 
   } catch (error) {
-    console.error("Unable to send invoice email", error);
-    return NextResponse.json({ error: "Failed to send invoice" }, { status: 500 });
+    console.error("Unable to send invoices email", error);
+    return NextResponse.json({ error: "Failed to send invoices" }, { status: 500 });
   }
 }

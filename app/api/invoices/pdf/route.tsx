@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     const data = body as InvoicePdfPayload;
 
     if (!data || !data.items || data.items.length === 0) {
-      return new Response("Missing invoice data", {status: 400});
+      return new Response("Missing invoices data", {status: 400});
     }
 
     const buffer = await renderToBuffer(<InvoicePdfDocument data={data} />);
@@ -28,8 +28,8 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Failed to generate invoice PDF", error);
-    return new Response("Failed to generate invoice PDF", {status: 500});
+    console.error("Failed to generate invoices PDF", error);
+    return new Response("Failed to generate invoices PDF", {status: 500});
   }
 }
 

@@ -48,12 +48,12 @@ const initialInvoiceState: InvoiceState = {
 
 function invoiceReducer(prevState: InvoiceState, action: Action): InvoiceState {
    switch (action.type) {
-      case "update-invoice-number":
+      case "update-invoices-number":
          return {
             ...prevState,
             invoiceNumber: action.payload,
          }
-      case "update-invoice-date":
+      case "update-invoices-date":
          return {
             ...prevState,
             invoiceDate: action.payload,

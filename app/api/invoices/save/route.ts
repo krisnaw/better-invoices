@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     //     .where(eq(invoicesTable.id, Number(invoiceId)))
     //     .returning();
     //
-    //   return NextResponse.json({invoice: updated});
+    //   return NextResponse.json({invoices: updated});
     // }
 
     const [inserted] = await db
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({invoice: inserted});
   } catch (error) {
-    console.error("Failed to save invoice", error);
-    return NextResponse.json({error: "Failed to save invoice"}, {status: 500});
+    console.error("Failed to save invoices", error);
+    return NextResponse.json({error: "Failed to save invoices"}, {status: 500});
   }
 }
