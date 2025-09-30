@@ -3,6 +3,7 @@ import {drizzleAdapter} from "better-auth/adapters/drizzle";
 import {db} from "@/db/db-connection"; // your drizzle instance
 import {schema} from "@/db/schema";
 import {transporter} from "@/lib/mail-transporter";
+import {nextCookies} from "better-auth/next-js";
 
 export const auth = betterAuth({
   emailAndPassword: {
@@ -24,4 +25,7 @@ export const auth = betterAuth({
       user: schema.user,
     }
   }),
+  plugins: [
+    nextCookies()
+  ]
 });
