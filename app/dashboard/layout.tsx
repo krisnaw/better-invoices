@@ -9,15 +9,27 @@ import {
 } from "@/components/ui/breadcrumb"
 import {Separator} from "@/components/ui/separator"
 import {SidebarInset, SidebarProvider, SidebarTrigger,} from "@/components/ui/sidebar"
+import {auth} from "@/lib/auth";
+import {headers} from "next/headers";
+import {redirect} from "next/navigation";
 
-export default function Layout({
+export default async function Layout({
                                  children,
                                }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const session = await auth.api.getSession({
+    headers: await headers() // you need to pass the headers object.
+  })
+
+  if (!session) {
+    redirect("/login")
+  }
+
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar user={session.user} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2">
           <div className="flex items-center gap-2 px-4">

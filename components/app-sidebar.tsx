@@ -1,11 +1,10 @@
 "use client"
 
 import * as React from "react"
-import {Bot, Command, Frame, LifeBuoy, Map, PieChart, Send, Settings2, SquareTerminal,} from "lucide-react"
+import {ComponentProps} from "react"
+import {Bot, Command, Frame, LifeBuoy, Map, PieChart, Send, SquareTerminal,} from "lucide-react"
 
 import {NavMain} from "@/components/nav-main"
-import {NavProjects} from "@/components/nav-projects"
-import {NavSecondary} from "@/components/nav-secondary"
 import {NavUser} from "@/components/nav-user"
 import {
   Sidebar,
@@ -16,6 +15,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import {SessionUserType} from "@/lib/types";
 
 const data = {
   user: {
@@ -35,29 +35,29 @@ const data = {
       url: "/dashboard/invoices",
       icon: Bot,
     },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
+    // {
+    //   title: "Settings",
+    //   url: "#",
+    //   icon: Settings2,
+    //   items: [
+    //     {
+    //       title: "General",
+    //       url: "#",
+    //     },
+    //     {
+    //       title: "Team",
+    //       url: "#",
+    //     },
+    //     {
+    //       title: "Billing",
+    //       url: "#",
+    //     },
+    //     {
+    //       title: "Limits",
+    //       url: "#",
+    //     },
+    //   ],
+    // },
   ],
   navSecondary: [
     {
@@ -90,7 +90,11 @@ const data = {
   ],
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+type AppSidebarProps = ComponentProps<typeof Sidebar> & {
+  user?: SessionUserType
+}
+
+export function AppSidebar({ user, ...props }: AppSidebarProps) {
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -102,8 +106,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <Command className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Acme Inc</span>
-                  <span className="truncate text-xs">Enterprise</span>
+                  <span className="truncate font-medium">Better Invoice</span>
+                  <span className="truncate text-xs">Personal</span>
                 </div>
               </a>
             </SidebarMenuButton>
@@ -112,11 +116,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        {/*<NavProjects projects={data.projects} />*/}
+        {/*<NavSecondary items={data.navSecondary} className="mt-auto" />*/}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        {user && <NavUser user={user} />}
       </SidebarFooter>
     </Sidebar>
   )
