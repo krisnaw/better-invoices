@@ -1,3 +1,6 @@
+import {Input} from "@/components/ui/input";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
+
 const people = [
   { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
   { name: 'Courtney Henry', title: 'Designer', email: 'courtney.henry@example.com', role: 'Admin' },
@@ -9,57 +12,80 @@ const people = [
 
 export default function InvoiceTable() {
   return (
-    <div>
-      <div className="mt-8 flow-root overflow-hidden">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <table className="w-full text-left">
-            <thead className="bg-white">
-            <tr>
-              <th scope="col" className="relative isolate py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
-                Name
-                <div className="absolute inset-y-0 right-full -z-10 w-screen border-b border-b-gray-200" />
-                <div className="absolute inset-y-0 left-0 -z-10 w-screen border-b border-b-gray-200" />
-              </th>
-              <th
-                scope="col"
-                className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell"
-              >
-                Title
-              </th>
-              <th
-                scope="col"
-                className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 md:table-cell"
-              >
-                Email
-              </th>
-              <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                Role
-              </th>
-              <th scope="col" className="py-3.5 pl-3">
-                <span className="sr-only">Edit</span>
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            {people.map((person) => (
-              <tr key={person.email}>
-                <td className="relative py-4 pr-3 text-sm font-medium text-gray-900">
-                  {person.name}
-                  <div className="absolute right-full bottom-0 h-px w-screen bg-gray-100" />
-                  <div className="absolute bottom-0 left-0 h-px w-screen bg-gray-100" />
-                </td>
-                <td className="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">{person.title}</td>
-                <td className="hidden px-3 py-4 text-sm text-gray-500 md:table-cell">{person.email}</td>
-                <td className="px-3 py-4 text-sm text-gray-500">{person.role}</td>
-                <td className="py-4 pl-3 text-right text-sm font-medium">
-                  <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                    Edit<span className="sr-only">, {person.name}</span>
-                  </a>
-                </td>
-              </tr>
-            ))}
-            </tbody>
-          </table>
+    <div className="px-4 sm:px-6 lg:px-8">
+      <div className="sm:flex sm:items-center mt-8">
+
+        <div className="flex gap-4">
+          <Input placeholder="Search" className="w-full" />
+
+          <Select>
+            <SelectTrigger>
+              <SelectValue placeholder="Theme" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="light">Light</SelectItem>
+              <SelectItem value="dark">Dark</SelectItem>
+              <SelectItem value="system">System</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Select>
+            <SelectTrigger>
+              <SelectValue placeholder="Theme" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="light">Light</SelectItem>
+              <SelectItem value="dark">Dark</SelectItem>
+              <SelectItem value="system">System</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+      </div>
+      <div className="mt-8 flow-root">
+        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+            <div className="overflow-hidden shadow-sm outline-1 outline-black/5 sm:rounded-md">
+              <table className="relative min-w-full divide-y divide-gray-300">
+                <thead className="bg-gray-50">
+                <tr>
+                  <th scope="col" className="py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                    Name
+                  </th>
+                  <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Title
+                  </th>
+                  <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Email
+                  </th>
+                  <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Role
+                  </th>
+                  <th scope="col" className="py-3.5 pr-4 pl-3 sm:pr-6">
+                    <span className="sr-only">Edit</span>
+                  </th>
+                </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200 bg-white">
+                {people.map((person) => (
+                  <tr key={person.email}>
+                    <td className="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-6">
+                      {person.name}
+                    </td>
+                    <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500">{person.title}</td>
+                    <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500">{person.email}</td>
+                    <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500">{person.role}</td>
+                    <td className="py-4 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-6">
+                      <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                        Edit<span className="sr-only">, {person.name}</span>
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
