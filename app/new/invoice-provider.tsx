@@ -1,7 +1,6 @@
 "use client"
 
 import React from "react";
-import {CustomerType} from "@/lib/types";
 
 const uuid = crypto.randomUUID()
 
@@ -104,7 +103,6 @@ export const InvoiceContext = React.createContext<InvoiceContextType>(null as un
 
 type Props = {
    children: React.ReactNode;
-   customers: CustomerType[]
 }
 
 function calculateTotalPrice(lineItems: LineItem[]): number {

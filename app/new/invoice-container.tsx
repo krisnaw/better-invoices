@@ -9,8 +9,8 @@ import {CustomerType} from "@/lib/types";
 
 export default function InvoiceContainer({customers} : {customers: CustomerType[]}) {
    return (
-       <InvoiceProvider customers={customers}>
-          <InvoiceHeader  />
+       <InvoiceProvider>
+          <InvoiceHeader customers={customers} />
 
           <InvoiceMain/>
 

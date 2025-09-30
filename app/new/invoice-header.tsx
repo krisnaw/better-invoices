@@ -4,10 +4,13 @@ import {Textarea} from "@/components/ui/textarea";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {useContext, useState} from "react";
 import {InvoiceContext} from "@/app/new/invoice-provider";
+import {CustomerType} from "@/lib/types";
 
-export default function InvoiceHeader() {
-   const [customer, setCustomer] = useState<string>("Customer")
+export default function InvoiceHeader({customers} : {customers: CustomerType[]}) {
+   const [selectedCustomer, setSelectedCustomer] = useState<string>("")
    const {state: invoiceState, dispatch} = useContext(InvoiceContext);
+
+   const customerDetail = customers.find(customer => customer.id === Number(selectedCustomer))
 
    return (
        <div>
@@ -45,17 +48,25 @@ export default function InvoiceHeader() {
                    Customer
                 </div>
                 <div className="mt-1.5">
-                   <Select
-                       value={customer} onValueChange={(value: string) => setCustomer(value)}>
+                  {!selectedCustomer && (
+                    <Select
+                      value={selectedCustomer} onValueChange={(value: string) => setSelectedCustomer(value)}>
                       <SelectTrigger className="w-full">
-                         <SelectValue placeholder="Theme"/>
+                        <SelectValue placeholder="Select customer"/>
                       </SelectTrigger>
                       <SelectContent>
-                         <SelectItem value="light">Light</SelectItem>
-                         <SelectItem value="dark">Dark</SelectItem>
-                         <SelectItem value="system">System</SelectItem>
+                        {customers.map((customer: CustomerType) => (
+                          <SelectItem key={customer.id} value={customer.id as unknown as string}>{customer.name}</SelectItem>
+                        ))}
                       </SelectContent>
-                   </Select>
+                    </Select>
+                  )}
+
+                  {customerDetail && (
+                    <div>
+                      {customerDetail.name}
+                    </div>
+                  )}
 
                 </div>
              </div>
