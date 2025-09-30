@@ -20,10 +20,9 @@ export default function InvoiceMain() {
       dispatch({ type: "update-line-item", id: id, payload: {quantity: value} })
    }
 
-
    return (
-       <div className="px-4 py-5 sm:px-6">
-          <div className="-mx-4 mt-8 flow-root sm:mx-0">
+       <div>
+          <div className="-mx-4 mt-4 flow-root sm:mx-0">
              <table className="min-w-full">
                 <colgroup>
                    <col className="w-full sm:w-3/5"/>
@@ -67,9 +66,6 @@ export default function InvoiceMain() {
                           <td className="max-w-0 py-5 pr-3 pl-4 text-sm sm:pl-0">
                              <div className="font-medium text-gray-900 max-w-sm">
                                 <Input type="text" name="project_name" defaultValue={project.name}/>
-                             </div>
-                             <div className="mt-1 truncate text-gray-500">
-                                <Input type="text" name="project_description" defaultValue={project.description}/>
                              </div>
                           </td>
 

@@ -40,6 +40,9 @@ export function CustomerActions({ customerId }: CustomerActionsProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem asChild>
+          <Link href={`/dashboard/customers/${customerId}`}>View</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <Link href={`/dashboard/customers/${customerId}/edit`}>Edit</Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="text-destructive" asChild>

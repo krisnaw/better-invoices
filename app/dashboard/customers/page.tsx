@@ -15,6 +15,10 @@ import {
 } from "@/components/ui/pagination"
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
+import {CustomerType} from "@/lib/types";
+import {CustomerActions} from "@/components/customer/customer-actions";
+import {Input} from "@/components/ui/input";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select"
 
 export default async function Customer() {
   const session = await auth.api.getSession({
@@ -28,8 +32,10 @@ export default async function Customer() {
     <div>
       <Card>
         <CardHeader>
-          <CardTitle>Card Title</CardTitle>
-          <CardDescription>Card Description</CardDescription>
+          <CardTitle>Customer</CardTitle>
+          <CardDescription>
+            A list of all the Customers in your account including their company name, contact, and email.
+          </CardDescription>
           <CardAction>
             <Button asChild>
               <Link href="/dashboard/customers/create">
@@ -39,24 +45,53 @@ export default async function Customer() {
           </CardAction>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">Invoice</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Method</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                <TableCell className="font-medium">INV001</TableCell>
-                <TableCell>Paid</TableCell>
-                <TableCell>Credit Card</TableCell>
-                <TableCell className="text-right">$250.00</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
+
+          <div className="flex gap-4">
+            <Input />
+
+            <Select>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Theme" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="light">Light</SelectItem>
+                <SelectItem value="dark">Dark</SelectItem>
+                <SelectItem value="system">System</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="border-t border-gray-200 mt-4 pt-2">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Company</TableHead>
+                  <TableHead>Contact</TableHead>
+                  <TableHead>Email</TableHead>
+                  <TableHead className="sr-only">Action</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {customers.map((customer: CustomerType) => (
+                  <TableRow key={customer.id}>
+                    <TableCell className="font-medium">
+                      {customer.name}
+                    </TableCell>
+                    <TableCell>
+                      {customer.contact}
+                    </TableCell>
+                    <TableCell>
+                      {customer.email}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <CustomerActions customerId={customer.id} />
+                    </TableCell>
+                  </TableRow>
+                ))}
+
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
         <CardFooter>
 

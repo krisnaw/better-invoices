@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react";
+import {CustomerType} from "@/lib/types";
 
 const uuid = crypto.randomUUID()
 
@@ -48,16 +49,16 @@ const initialInvoiceState: InvoiceState = {
 
 function invoiceReducer(prevState: InvoiceState, action: Action): InvoiceState {
    switch (action.type) {
-      case "update-invoices-number":
-         return {
-            ...prevState,
-            invoiceNumber: action.payload,
-         }
-      case "update-invoices-date":
-         return {
-            ...prevState,
-            invoiceDate: action.payload,
-         }
+      // case "update-invoices-number":
+      //    return {
+      //       ...prevState,
+      //       invoiceNumber: action.payload,
+      //    }
+      // case "update-invoices-date":
+      //    return {
+      //       ...prevState,
+      //       invoiceDate: action.payload,
+      //    }
       case 'add-line-item':
          const newItems = [...prevState.lineItems, {
             id: crypto.randomUUID(),
@@ -103,6 +104,7 @@ export const InvoiceContext = React.createContext<InvoiceContextType>(null as un
 
 type Props = {
    children: React.ReactNode;
+   customers: CustomerType[]
 }
 
 function calculateTotalPrice(lineItems: LineItem[]): number {

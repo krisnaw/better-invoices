@@ -10,7 +10,7 @@ export default function InvoiceHeader() {
    const {state: invoiceState, dispatch} = useContext(InvoiceContext);
 
    return (
-       <div className="px-4 py-5 sm:px-6">
+       <div>
           <div className=" grid grid-cols-2 gap-4">
              <div className="col-span-1">
                 <div className="font-medium text-gray-900">
@@ -21,8 +21,6 @@ export default function InvoiceHeader() {
                           onChange={e => dispatch({ type: "update-invoice-number", payload: e.target.value })    }
                    />
                 </div>
-
-                <button className="onC">submit</button>
              </div>
 
              <div className="col-span-1">

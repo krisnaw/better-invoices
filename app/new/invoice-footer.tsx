@@ -5,7 +5,7 @@ export default function InvoiceFooter() {
    const {state} = useContext(InvoiceContext);
 
    return (
-       <div className="px-4 py-5 sm:px-6">
+       <div>
           Invoice Footer {state.totalPrice}
        </div>
    )

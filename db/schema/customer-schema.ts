@@ -16,8 +16,6 @@ export const customer = pgTable("customers", {
     .notNull(),
 });
 
-export type CustomerType = typeof customer.$inferSelect;
-
 export const customerInsertSchema = createInsertSchema(customer).omit({
   createdAt: true,
   updatedAt: true,
