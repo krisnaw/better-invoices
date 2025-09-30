@@ -4,6 +4,7 @@ import {useEffect, useState} from 'react'
 import Image from 'next/image'
 import {Tab, TabGroup, TabList, TabPanel, TabPanels} from '@headlessui/react'
 import clsx from 'clsx'
+import {motion} from "framer-motion";
 
 import backgroundImage from '@/public/background-features.jpg'
 import screenshotExpenses from '@/public/screenshots/expenses.png'
@@ -138,7 +139,13 @@ export function PrimaryFeature() {
                         {feature.description}
                       </p>
                     </div>
-                    <div className="mt-10 w-180 overflow-hidden rounded-xl bg-slate-50 shadow-xl shadow-blue-900/20 sm:w-auto lg:mt-0 lg:w-271.25">
+                    <motion.div
+                      initial={{opacity: 0, x: 100}}
+                      animate={{opacity: 1, x: 0}}
+                      transition={{duration: 1}}
+
+
+                      className="mt-10 w-180 overflow-hidden rounded-xl bg-slate-50 shadow-xl shadow-blue-900/20 sm:w-auto lg:mt-0 lg:w-271.25">
                       <Image
                         className="w-full"
                         src={feature.image}
@@ -146,7 +153,7 @@ export function PrimaryFeature() {
                         priority
                         sizes="(min-width: 1024px) 67.8125rem, (min-width: 640px) 100vw, 45rem"
                       />
-                    </div>
+                    </motion.div>
                   </TabPanel>
                 ))}
               </TabPanels>

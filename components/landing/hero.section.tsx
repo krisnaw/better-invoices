@@ -1,3 +1,4 @@
+"use client"
 import Image from 'next/image'
 
 import logoLaravel from '@/public/logos/laravel.svg'
@@ -8,11 +9,16 @@ import logoTransistor from '@/public/logos/transistor.svg'
 import logoTuple from '@/public/logos/tuple.svg'
 import {Container} from "@/components/landing/container";
 import {Button} from "@/components/ui/button";
+import {motion} from "framer-motion";
 
 export function HeroSection() {
   return (
     <Container className="pt-20 pb-16 text-center lg:pt-32">
-      <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
+      <motion.h1
+        initial={{opacity: 0, y: -100}}
+        animate={{opacity: 1, y: 0}}
+        transition={{duration: 1}}
+        className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
         Invoice{' '}
         <span className="relative whitespace-nowrap text-blue-600">
           <svg
@@ -26,11 +32,16 @@ export function HeroSection() {
           <span className="relative">made simple</span>
         </span>{' '}
         for small businesses.
-      </h1>
-      <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
+      </motion.h1>
+      <motion.p
+        initial={{opacity: 0, x: 100}}
+        animate={{opacity: 1, x: 0}}
+        transition={{duration: 1}}
+
+        className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
         Create beautiful invoices with ease. Our simple and intuitive interface helps
         you manage your billing professionally and efficiently.
-      </p>
+      </motion.p>
       <div className="mt-10 flex justify-center gap-x-6">
         <Button >Get 6 months free</Button>
         <Button
