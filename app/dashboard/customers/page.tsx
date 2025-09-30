@@ -13,6 +13,8 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
+import {Button} from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function Customer() {
   const session = await auth.api.getSession({
@@ -28,7 +30,13 @@ export default async function Customer() {
         <CardHeader>
           <CardTitle>Card Title</CardTitle>
           <CardDescription>Card Description</CardDescription>
-          <CardAction>Card Action</CardAction>
+          <CardAction>
+            <Button asChild>
+              <Link href="/dashboard/customers/create">
+                Add Customer
+              </Link>
+            </Button>
+          </CardAction>
         </CardHeader>
         <CardContent>
           <Table>

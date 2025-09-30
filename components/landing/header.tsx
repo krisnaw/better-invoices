@@ -5,7 +5,7 @@ import Link from 'next/link'
 import {NavLink} from "@/components/landing/nav-link";
 import {Logo} from "@/components/landing/logo";
 import {Container} from "@/components/landing/container";
-import {Button} from "@/components/ui/button";
+import {Button} from "@headlessui/react";
 
 export function Header() {
   return (
@@ -26,7 +26,7 @@ export function Header() {
             <div className="hidden md:block">
               <NavLink href="/login">Sign in</NavLink>
             </div>
-            <Button className="rounded-full" size="lg">
+            <Button className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 bg-blue-600 text-white hover:text-slate-100 hover:bg-blue-500 active:bg-blue-800 active:text-blue-100 focus-visible:outline-blue-600" >
               <span>
                 Get started <span className="hidden lg:inline">today</span>
               </span>
