@@ -1,5 +1,4 @@
 import {CustomerType} from "@/db/schema/customer-schema";
-import {Button} from "@/components/ui/button";
 import {CustomerActions} from "@/components/customer/customer-actions";
 
 const people = [
@@ -14,20 +13,7 @@ const people = [
 export default function CustomerTable({ customers} : {customers: CustomerType[]}) {
   return (
     <div className="px-4 sm:px-6 lg:px-8">
-      <div className="sm:flex sm:items-center">
-        <div className="sm:flex-auto">
-          <h1 className="text-base font-semibold text-gray-900">Customers</h1>
-          <p className="mt-2 text-sm text-gray-700">
-            A list of all the Customers in your account including their company name, contact, and email.
-          </p>
-        </div>
-        <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-          <Button>
-            Add Customer
-          </Button>
-        </div>
-      </div>
-      <div className="mt-8 flow-root">
+      <div className="flow-root">
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle">
             <table className="relative min-w-full divide-y divide-gray-300">
@@ -54,7 +40,9 @@ export default function CustomerTable({ customers} : {customers: CustomerType[]}
               {customers.map((person) => (
                 <tr key={person.email}>
                   <td className="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-6 lg:pl-8">
-                    {person.name}
+                    <a href={`/dashboard/customers/${person.id}`} className={`hover:underline`}>
+                      {person.name}
+                    </a>
                   </td>
                   <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500">{person.contact}</td>
                   <td className="px-3 py-4 text-sm whitespace-nowrap text-gray-500">{person.email}</td>
