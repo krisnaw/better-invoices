@@ -10,6 +10,13 @@ export async function sendAction(): Promise<void> {
     to: ['delivered@resend.dev'],
     subject: 'Hello world',
     react: InvoiceEmail({ firstName: 'John' }),
+    attachments: [
+      {
+        filename: 'sample.txt',
+        // Resend expects attachment content as base64.
+        content: Buffer.from('Sample attachment content').toString('base64')
+      }
+    ]
   });
   console.log(data);
 }
