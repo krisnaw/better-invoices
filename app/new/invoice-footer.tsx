@@ -6,7 +6,7 @@ export default function InvoiceFooter() {
 
    return (
        <div>
-          Invoice Footer {state.totalPrice}
+
        </div>
    )
 }

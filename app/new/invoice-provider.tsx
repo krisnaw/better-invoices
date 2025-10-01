@@ -15,6 +15,7 @@ export type LineItem = {
 type InvoiceState = {
   invoiceNumber: string
   invoiceDate: Date
+  currency: string
   customer: string
   lineItems: LineItem[]
 }
@@ -36,6 +37,7 @@ const initialInvoiceState: InvoiceState = {
   invoiceNumber: 'INV',
   invoiceDate: new Date(),
   customer: "",
+  currency: "USD",
   lineItems: [
     {
       id: uuid,
