@@ -18,14 +18,32 @@ export default function InvoiceHeader({customers}: { customers: CustomerType[] }
   return (
     <div>
       <div className=" grid grid-cols-2 gap-6">
-        <div className="col-span-1">
-          <div className="text-sm font-semibold text-gray-900">
-            Invoice number
+        <div className="col-span-1 grid grid-cols-6 gap-2">
+          <div className="col-span-1">
+            <div className="text-sm font-semibold text-gray-900">
+              Currency
+            </div>
+            <div className="mt-1.5">
+              <Select value={invoiceState.currency} onValueChange={(value: string) => dispatch({ type: "update-currency", payload: value})}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Currency" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="USD">USD</SelectItem>
+                  <SelectItem value="IDR">IDR</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
-          <div className="mt-1.5">
-            <Input value={invoiceState.invoiceNumber}
-                   onChange={e => dispatch({type: "update-invoice-number", payload: e.target.value})}
-            />
+          <div className="col-span-5">
+            <div className="text-sm font-semibold text-gray-900">
+              Invoice number
+            </div>
+            <div className="mt-1.5">
+              <Input value={invoiceState.invoiceNumber}
+                     onChange={e => dispatch({type: "update-invoice-number", payload: e.target.value})}
+              />
+            </div>
           </div>
         </div>
 
@@ -46,6 +64,7 @@ export default function InvoiceHeader({customers}: { customers: CustomerType[] }
             <Textarea className="w-full"/>
           </div>
         </div>
+
         <div className="col-span-1">
           <div className="text-sm font-semibold text-gray-900">
             Customer
@@ -64,7 +83,6 @@ export default function InvoiceHeader({customers}: { customers: CustomerType[] }
                 </SelectContent>
               </Select>
             )}
-
             {customerDetail && (
               <ul className="flex flex-col gap-1">
                 <li>{customerDetail.name}</li>
@@ -76,7 +94,6 @@ export default function InvoiceHeader({customers}: { customers: CustomerType[] }
                 </li>
               </ul>
             )}
-
           </div>
         </div>
       </div>

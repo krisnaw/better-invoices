@@ -28,7 +28,7 @@ export default function InvoiceMain() {
           <colgroup>
             <col className="w-full sm:w-3/5"/>
             <col className="sm:w-1/12"/>
-            <col className="sm:w-1/4"/>
+            <col className="sm:w-1/5"/>
             <col className="sm:w-1/4"/>
             <col className="sm:w-1/12"/>
           </colgroup>
@@ -84,7 +84,7 @@ export default function InvoiceMain() {
                          type="number" name="project_price" defaultValue={project.price}/>
                 </td>
 
-                <td className="py-5 pr-4 pl-3 text-right text-sm text-gray-900 sm:pr-2">
+                <td className="py-5 pr-4 pl-3 text-right text-base text-gray-900 sm:pr-2">
                   {formatCurrency((project.quantity * project.price), invoiceState.currency)}
                 </td>
 
@@ -114,7 +114,7 @@ export default function InvoiceMain() {
               Total
             </td>
 
-            <td colSpan={2} className="pt-6 pr-4 pl-3 text-right text-2xl text-gray-900 sm:pr-0">
+            <td colSpan={2} className="pt-6 pr-4 pl-3 text-right text-2xl text-gray-900 font-medium sm:pr-0">
               {formatCurrency(invoiceState.totalPrice, invoiceState.currency)}
             </td>
           </tr>

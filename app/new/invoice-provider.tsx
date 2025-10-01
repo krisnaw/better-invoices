@@ -28,6 +28,7 @@ type Action =
   | { type: 'update-invoice-number', payload: string }
   | { type: 'update-invoice-date', payload: Date }
   | { type: 'update-customer', payload: string }
+  | { type: 'update-currency', payload: string }
   | { type: 'add-line-item' }
   | { type: 'remove-line-item', id: string }
   | { type: 'update-line-item', id: string, payload: Partial<LineItem> }
@@ -55,6 +56,11 @@ function invoiceReducer(prevState: InvoiceState, action: Action): InvoiceState {
       return {
         ...prevState,
         invoiceNumber: action.payload,
+      }
+    case 'update-currency':
+      return {
+        ...prevState,
+        currency: action.payload,
       }
     case "update-invoice-date":
       return {
