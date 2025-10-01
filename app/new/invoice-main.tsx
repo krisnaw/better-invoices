@@ -102,17 +102,19 @@ export default function InvoiceMain() {
           </tbody>
           <tfoot>
           <tr>
+
             <td>
               <Button variant="ghost" onClick={addItem}>
                 <PlusIcon className="h-4 w-4"/>
                 Add item
               </Button>
             </td>
-            <td colSpan={2} className="pt-6 pr-4 pl-3 text-right text-lg text-gray-600 sm:pr-0">
+
+            <td colSpan={1} className="pt-6 pr-4 pl-3 text-left text-lg text-gray-600 sm:pr-0">
               Total
             </td>
 
-            <td colSpan={4} className="pt-6 pr-4 pl-3 text-right text-2xl text-gray-900 sm:pr-0">
+            <td colSpan={2} className="pt-6 pr-4 pl-3 text-right text-2xl text-gray-900 sm:pr-0">
               {formatCurrency(invoiceState.totalPrice, invoiceState.currency)}
             </td>
           </tr>

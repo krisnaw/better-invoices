@@ -17,9 +17,9 @@ export default function InvoiceHeader({customers}: { customers: CustomerType[] }
 
   return (
     <div>
-      <div className=" grid grid-cols-2 gap-4">
+      <div className=" grid grid-cols-2 gap-6">
         <div className="col-span-1">
-          <div className="font-medium text-gray-900">
+          <div className="text-sm font-semibold text-gray-900">
             Invoice number
           </div>
           <div className="mt-1.5">
@@ -30,7 +30,7 @@ export default function InvoiceHeader({customers}: { customers: CustomerType[] }
         </div>
 
         <div className="col-span-1">
-          <div className="font-medium text-gray-900">
+          <div className="text-sm font-semibold text-gray-900">
             Invoice date
           </div>
           <div className="mt-1.5">
@@ -39,7 +39,7 @@ export default function InvoiceHeader({customers}: { customers: CustomerType[] }
         </div>
 
         <div className="col-span-1">
-          <div className="font-medium text-gray-900">
+          <div className="text-sm font-semibold text-gray-900">
             From
           </div>
           <div className="mt-1.5">
@@ -47,7 +47,7 @@ export default function InvoiceHeader({customers}: { customers: CustomerType[] }
           </div>
         </div>
         <div className="col-span-1">
-          <div className="font-medium text-gray-900">
+          <div className="text-sm font-semibold text-gray-900">
             Customer
           </div>
           <div className="mt-1.5">
