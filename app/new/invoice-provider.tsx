@@ -26,6 +26,7 @@ type State = InvoiceState & {
 type Action =
   | { type: 'update-invoice-number', payload: string }
   | { type: 'update-invoice-date', payload: Date }
+  | { type: 'update-customer', payload: string }
   | { type: 'add-line-item' }
   | { type: 'remove-line-item', id: string }
   | { type: 'update-line-item', id: string, payload: Partial<LineItem> }
@@ -49,15 +50,20 @@ const initialInvoiceState: InvoiceState = {
 function invoiceReducer(prevState: InvoiceState, action: Action): InvoiceState {
   switch (action.type) {
     case 'update-invoice-number':
-       return {
-          ...prevState,
-          invoiceNumber: action.payload,
-       }
+      return {
+        ...prevState,
+        invoiceNumber: action.payload,
+      }
     case "update-invoice-date":
-       return {
-          ...prevState,
-          invoiceDate: action.payload,
-       }
+      return {
+        ...prevState,
+        invoiceDate: action.payload,
+      }
+    case 'update-customer':
+      return {
+        ...prevState,
+        customer: action.payload,
+      }
     case 'add-line-item':
       const newItems = [...prevState.lineItems, {
         id: crypto.randomUUID(),
