@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import {ComponentProps} from "react"
-import {Bot, Frame, LifeBuoy, Map, PieChart, Send, SquareTerminal,} from "lucide-react"
+import {Bot, Command, Frame, LifeBuoy, Map, PieChart, Send, SquareTerminal,} from "lucide-react"
 
 import {NavMain} from "@/components/nav-main"
 import {NavUser} from "@/components/nav-user"
@@ -16,7 +16,6 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import {SessionUserType} from "@/lib/types";
-import {Logo} from "@/components/landing/logo";
 
 const data = {
   user: {
@@ -101,8 +100,16 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg">
-              <Logo className="w-full size-10" />
+            <SidebarMenuButton size="lg" asChild>
+              <a href="#">
+                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                  <Command className="size-4" />
+                </div>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-medium">Better Invoice</span>
+                  <span className="truncate text-xs">Personal</span>
+                </div>
+              </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
