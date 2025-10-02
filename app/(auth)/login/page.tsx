@@ -2,15 +2,18 @@ import SignIn from "@/components/auth/sign-in";
 import {SlimLayout} from "@/components/landing/slim-layout";
 import Link from "next/link";
 import {Logo} from "@/components/landing/logo";
+import {auth} from "@/lib/auth";
+import {headers} from "next/headers";
+import {redirect} from "next/navigation";
 
 export default async function LoginPage() {
-  // const session = await auth.api.getSession({
-  //   headers: await headers() // you need to pass the headers object.
-  // })
-  //
-  // if (session) {
-  //   redirect("/dashboard")
-  // }
+  const session = await auth.api.getSession({
+    headers: await headers() // you need to pass the headers object.
+  })
+
+  if (session) {
+    redirect("/dashboard")
+  }
   return (
     <SlimLayout>
       <div className="flex">
