@@ -3,7 +3,7 @@
 import {db} from "@/db/db-connection";
 
 export async function getMailEventByResendId(resendId: string) {
-  return db.query.mailEventSchema.findMany({
+  return db.query.mailEventSchema.findFirst({
     where: (mailEventSchema, { eq }) => (eq(mailEventSchema.resendMailId, resendId)),
   })
 }

@@ -30,7 +30,7 @@ export async function sendInvoiceEmailAction(invoiceId: number): Promise<void> {
     await db.insert(mailEventSchema).values({
       invoiceId: invoiceId,
       resendMailId: data.id,
-      status: "processed"
+      status: "email.processed"
     })
   }
 }
