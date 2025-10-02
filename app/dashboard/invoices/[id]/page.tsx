@@ -2,6 +2,7 @@ import {auth} from "@/lib/auth";
 import {headers} from "next/headers";
 import {redirect} from "next/navigation";
 import {getInvoicesById} from "@/db/query/invoice-query";
+import {CalendarDaysIcon, CreditCard, UserCircle} from "lucide-react";
 
 const invoice = {
   subTotal: '$8,800.00',
@@ -58,12 +59,58 @@ export default async function Page({params}: { params: Promise<{ id: number }> }
     redirect("/dashboard/invoices")
   }
 
-  console.log(invoices)
-
   return (
-    <div>
+    <div className="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
 
-      <div className="y-8 shadow-xs ring-1 ring-gray-900/5 sm:mx-0 sm:rounded-lg sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:pt-16 xl:pb-20">
+      {/* Invoice summary */}
+      <div className="lg:col-start-3 lg:row-end-1">
+        <h2 className="sr-only">Summary</h2>
+        <div className="rounded-lg bg-gray-50 shadow-xs outline-1 outline-gray-900/5">
+          <dl className="flex flex-wrap">
+            <div className="flex-auto pt-6 pl-6">
+              <dt className="text-sm/6 font-semibold text-gray-900">Amount</dt>
+              <dd className="mt-1 text-base font-semibold text-gray-900">$10,560.00</dd>
+            </div>
+            <div className="flex-none self-end px-6 pt-4">
+              <dt className="sr-only">Status</dt>
+              <dd className="rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-green-600/20 ring-inset">
+                Paid
+              </dd>
+            </div>
+            <div className="mt-6 flex w-full flex-none gap-x-4 border-t border-gray-900/5 px-6 pt-6">
+              <dt className="flex-none">
+                <span className="sr-only">Client</span>
+                <UserCircle aria-hidden="true" className="h-6 w-5 text-gray-400" />
+              </dt>
+              <dd className="text-sm/6 font-medium text-gray-900">Alex Curren</dd>
+            </div>
+            <div className="mt-4 flex w-full flex-none gap-x-4 px-6">
+              <dt className="flex-none">
+                <span className="sr-only">Due date</span>
+                <CalendarDaysIcon aria-hidden="true" className="h-6 w-5 text-gray-400" />
+              </dt>
+              <dd className="text-sm/6 text-gray-500">
+                <time dateTime="2023-01-31">January 31, 2023</time>
+              </dd>
+            </div>
+            <div className="mt-4 flex w-full flex-none gap-x-4 px-6">
+              <dt className="flex-none">
+                <span className="sr-only">Status</span>
+                <CreditCard aria-hidden="true" className="h-6 w-5 text-gray-400" />
+              </dt>
+              <dd className="text-sm/6 text-gray-500">Paid with MasterCard</dd>
+            </div>
+          </dl>
+          <div className="mt-6 border-t border-gray-900/5 px-6 py-6">
+            <a href="#" className="text-sm/6 font-semibold text-gray-900">
+              Download receipt <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Invoice */}
+      <div className="-mx-4 px-4 y-8 shadow-xs ring-1 ring-gray-900/5 sm:mx-0 sm:rounded-lg sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:pt-16 xl:pb-20">
         <h2 className="text-base font-semibold text-gray-900">Invoice</h2>
         <dl className="mt-6 grid grid-cols-1 text-sm/6 sm:grid-cols-2">
           <div className="sm:pr-4">
@@ -113,16 +160,16 @@ export default async function Page({params}: { params: Promise<{ id: number }> }
           <thead className="border-b border-gray-200 text-gray-900">
           <tr>
             <th scope="col" className="px-0 py-3 font-semibold">
-              Projects
+              Items
             </th>
             <th scope="col" className="hidden py-3 pr-0 pl-8 text-right font-semibold sm:table-cell">
-              Hours
+              Quantity
             </th>
             <th scope="col" className="hidden py-3 pr-0 pl-8 text-right font-semibold sm:table-cell">
-              Rate
+              Price
             </th>
             <th scope="col" className="py-3 pr-0 pl-8 text-right font-semibold">
-              Price
+              Total
             </th>
           </tr>
           </thead>
