@@ -156,8 +156,8 @@ const InvoiceEmail = (props: any) => {
             <Section>
               <Text className="text-[14px] text-[#95a5a6] m-0 mb-[8px]">
                 Questions about your order? Contact us at{' '}
-                <Link href="mailto:support@nordicdesign.com" className="text-[#2c3e50] no-underline">
-                  support@nordicdesign.com
+                <Link href="mailto:support@krisnawijaya.com" className="text-[#2c3e50] no-underline">
+                  support@krisnawijaya.com
                 </Link>
               </Text>
 

@@ -6,7 +6,7 @@ import {mailEventSchema} from "@/db/schema/mail-event.schema";
 export async function POST(request: NextRequest) {
   const body = await request.json();
   if (body.data) {
-    const emailId = body.data.id;
+    const emailId = body.data.email_id;
     const lastEvent = await getMailEventByResendId(emailId)
     console.log(lastEvent)
     if (lastEvent) {
