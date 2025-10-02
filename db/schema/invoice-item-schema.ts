@@ -2,6 +2,7 @@ import {integer, numeric, pgTable, timestamp, varchar} from "drizzle-orm/pg-core
 import {invoicesTable} from "@/db/schema/invoice-schema";
 import {createSelectSchema} from "drizzle-zod";
 import {z} from "zod";
+import {relations} from "drizzle-orm";
 
 export const invoiceItemsTable = pgTable("invoice_items", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -19,3 +20,10 @@ export const invoiceItemsTable = pgTable("invoice_items", {
 
 export const invoiceItemsSelectSchema = createSelectSchema(invoiceItemsTable);
 export type InvoiceItemSchema = z.infer<typeof invoiceItemsSelectSchema>
+
+export const invoiceItemsRelations = relations(invoiceItemsTable, ({ one }) => ({
+  invoice: one(invoicesTable, {
+    fields: [invoiceItemsTable.invoiceId],
+    references: [invoicesTable.id],
+  }),
+}));

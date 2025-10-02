@@ -5,6 +5,7 @@ import {customer} from "@/db/schema/customer-schema";
 import {createInsertSchema, createSelectSchema} from "drizzle-zod";
 import {z} from "zod";
 import {CustomerType} from "@/lib/types";
+import {invoiceItemsTable} from "@/db/schema/invoice-item-schema";
 
 export const invoicesTable = pgTable("invoices", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -34,9 +35,10 @@ export const invoiceInsertSchema = createInsertSchema(invoicesTable).omit({
 export type InvoiceType = z.infer<typeof invoiceInsertSchema>
 export type InvoiceWithCustomer = InvoiceType & {customer: CustomerType}
 
-export const invoicesRelations = relations(invoicesTable, ({one}) => ({
+export const invoicesRelations = relations(invoicesTable, ({one, many}) => ({
   customer: one(customer, {
     fields: [invoicesTable.customerId],
     references: [customer.id],
   }),
+  items: many(invoiceItemsTable),
 }));
