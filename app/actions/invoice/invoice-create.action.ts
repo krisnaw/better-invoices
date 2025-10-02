@@ -9,7 +9,7 @@ import {invoiceItemsTable} from "@/db/schema/invoice-item-schema";
 const lineItemSchema = z.object({
   name: z.string(),
   quantity: z.number().int().nonnegative(),
-  price: z.string(),
+  price: z.number(),
 })
 
 const invoiceStateSchema = z.object({
@@ -50,7 +50,7 @@ export async function createInvoiceAction(formData: SubmitData): Promise<ActionR
         invoiceId: Number(invoice.id),
         name: item.name,
         quantity: Number(item.quantity),
-        price: item.price,
+        price: item.price as unknown as string,
       }))
 
       await tx.insert(invoiceItemsTable).values(lineItems)
