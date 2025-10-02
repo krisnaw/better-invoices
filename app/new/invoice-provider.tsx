@@ -7,7 +7,6 @@ const uuid = crypto.randomUUID()
 export type LineItem = {
   id: string
   name: string
-  description: string
   quantity: number
   price: number
 }
@@ -20,8 +19,6 @@ export type InvoiceState = {
   customer: string
   lineItems: LineItem[]
 }
-
-
 
 type State = InvoiceState & {
   totalPrice: number
@@ -46,8 +43,7 @@ const initialInvoiceState: InvoiceState = {
   lineItems: [
     {
       id: uuid,
-      name: "Product name: Provider",
-      description: `Product description: Provider`,
+      name: "Example item",
       quantity: 1,
       price: 100,
     }
@@ -79,8 +75,7 @@ function invoiceReducer(prevState: InvoiceState, action: Action): InvoiceState {
     case 'add-line-item':
       const newItems = [...prevState.lineItems, {
         id: crypto.randomUUID(),
-        name: "Product name",
-        description: `Product description`,
+        name: "Item name",
         quantity: 1,
         price: 100,
       }]

@@ -5,6 +5,7 @@ import {InvoiceContext} from "@/app/new/invoice-provider";
 import {Button} from "@/components/ui/button";
 import {createInvoiceAction} from "@/app/actions/invoice/invoice-create.action";
 import {SessionUserType} from "@/lib/types";
+import {toast} from "sonner";
 
 export default function InvoiceCard({user, children} : {user: SessionUserType, children: React.ReactNode}) {
   const {state: invoiceState, dispatch} = useContext(InvoiceContext);
@@ -16,6 +17,12 @@ export default function InvoiceCard({user, children} : {user: SessionUserType, c
     };
 
     const res = await createInvoiceAction(payload);
+    if (!res) {
+      toast.error("Something went wrong")
+    }
+
+    toast.success("Invoice created successfully")
+    return res;
 
   }
 

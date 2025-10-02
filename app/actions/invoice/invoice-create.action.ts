@@ -15,7 +15,7 @@ const lineItemSchema = z.object({
 const invoiceStateSchema = z.object({
   userId: z.string(),
   invoiceNumber: z.string(),
-  invoiceDate: z.coerce.date(),
+  invoiceDate: z.date(),
   status: z.string(),
   currency: z.string(),
   customer: z.string(),
