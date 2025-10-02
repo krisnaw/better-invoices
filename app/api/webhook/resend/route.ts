@@ -8,13 +8,16 @@ export async function POST(request: NextRequest) {
   if (body.data) {
     const emailId = body.data.id;
     const lastEvent = await getMailEventByResendId(emailId)
+    console.log(lastEvent)
     if (lastEvent) {
-      await db.insert(mailEventSchema).values({
+      const data = await db.insert(mailEventSchema).values({
         invoiceId: lastEvent.invoiceId,
         resendMailId: emailId,
         status: body.type
       })
+      console.log(data)
     }
   }
+  console.log(body)
   return NextResponse.json({ message: "Webhook received"}, {status: 200});
 }
