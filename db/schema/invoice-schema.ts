@@ -2,7 +2,9 @@ import {integer, pgTable, text, timestamp, varchar} from "drizzle-orm/pg-core";
 import {relations} from "drizzle-orm";
 import {user} from "@/db/schema/auth-schema";
 import {customer} from "@/db/schema/customer-schema";
-import {createSelectSchema} from "drizzle-zod";
+import {createInsertSchema, createSelectSchema} from "drizzle-zod";
+import {z} from "zod";
+import {CustomerType} from "@/lib/types";
 
 export const invoicesTable = pgTable("invoices", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -24,6 +26,13 @@ export const invoicesTable = pgTable("invoices", {
 });
 
 export const invoiceSelectSchema = createSelectSchema(invoicesTable);
+export const invoiceInsertSchema = createInsertSchema(invoicesTable).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+})
+export type InvoiceType = z.infer<typeof invoiceInsertSchema>
+export type InvoiceWithCustomer = InvoiceType & {customer: CustomerType}
 
 export const invoicesRelations = relations(invoicesTable, ({one}) => ({
   customer: one(customer, {

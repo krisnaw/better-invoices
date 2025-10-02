@@ -12,13 +12,16 @@ export type LineItem = {
   price: number
 }
 
-type InvoiceState = {
+export type InvoiceState = {
   invoiceNumber: string
   invoiceDate: Date
+  status: string
   currency: string
   customer: string
   lineItems: LineItem[]
 }
+
+
 
 type State = InvoiceState & {
   totalPrice: number
@@ -38,6 +41,7 @@ const initialInvoiceState: InvoiceState = {
   invoiceNumber: 'INV',
   invoiceDate: new Date(),
   customer: "",
+  status: "draft",
   currency: "USD",
   lineItems: [
     {

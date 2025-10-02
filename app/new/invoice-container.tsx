@@ -5,16 +5,21 @@ import InvoiceMain from "@/app/new/invoice-main";
 import InvoiceFooter from "@/app/new/invoice-footer";
 import React from "react";
 import InvoiceProvider from "@/app/new/invoice-provider";
-import {CustomerType} from "@/lib/types";
+import {CustomerType, SessionUserType} from "@/lib/types";
+import InvoiceCard from "@/app/new/invoice-card";
 
-export default function InvoiceContainer({customers} : {customers: CustomerType[]}) {
-   return (
-       <InvoiceProvider>
-          <InvoiceHeader customers={customers} />
+export default function InvoiceContainer({customers, user}: { customers: CustomerType[], user: SessionUserType }) {
+  return (
+    <InvoiceProvider>
 
-          <InvoiceMain/>
+      <InvoiceCard user={user}>
 
-          <InvoiceFooter/>
-       </InvoiceProvider>
-   )
+        <InvoiceHeader customers={customers}/>
+
+        <InvoiceMain/>
+
+        <InvoiceFooter/>
+      </InvoiceCard>
+    </InvoiceProvider>
+  )
 }

@@ -15,7 +15,7 @@ export default async function CreateInvoicePage() {
   const customers = await getCustomersByUserId(session.user.id);
   return (
     <div>
-      <InvoiceContainer customers={customers} />
+      <InvoiceContainer customers={customers} user={session.user} />
     </div>
   )
 }
