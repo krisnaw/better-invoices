@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/pagination";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
+import InvoiceTableRow from "@/components/invoices/invoice-table-row";
 
 export default async function InvoicePage() {
   const session = await auth.api.getSession({
@@ -59,12 +60,7 @@ export default async function InvoicePage() {
                 </TableRow>
               ) : (
                 invoices.map((invoice) => (
-                  <TableRow key={invoice.id}>
-                    <TableCell className="font-medium">{invoice.invoiceNumber}</TableCell>
-                    <TableCell>{invoice.customer?.name ?? "-"}</TableCell>
-                    <TableCell>{invoice.status}</TableCell>
-                    <TableCell className="text-right">{invoice.currency}</TableCell>
-                  </TableRow>
+                  <InvoiceTableRow key={invoice.id} invoice={invoice} />
                 ))
               )}
             </TableBody>

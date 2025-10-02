@@ -1,5 +1,9 @@
 "use client"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card"
+import {auth} from "@/lib/auth";
+import {headers} from "next/headers";
+import {redirect} from "next/navigation";
+import {getInvoicesById} from "@/db/query/invoice-query";
 
 type InvoiceItem = {
   id: string
@@ -80,17 +84,17 @@ const mockInvoices: Invoice[] = [
 const currency = (value: number) =>
   new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
 
-export default function Page({ params }: { params: { id: string } }) {
-  const invoice = mockInvoices.find((i) => i.id === params.id)
-
-  if (!invoice) {
-    return (
-      <div>
-        <h1>Invoice Not Found</h1>
-        <p>No invoice found for id: {params.id}</p>
-      </div>
-    )
+export default async function Page({ params }: { params: Promise<{ id: number }>}) {
+  const {id} = await params;
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  })
+  if (!session) {
+    redirect("/login")
   }
+
+  const invoice = await getInvoicesById(id);
+
 
   const subtotal = invoice.items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0)
   const tax = subtotal * 0.1
