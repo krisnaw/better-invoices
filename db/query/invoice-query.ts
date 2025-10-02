@@ -9,6 +9,15 @@ export async function getInvoices() {
   })
 }
 
+export async function getInvoiceByUserId(userId: string) {
+  return db.query.invoicesTable.findMany({
+    where: (invoicesTable, { eq }) => (eq(invoicesTable.userId, userId)),
+    with: {
+      customer: true,
+    }
+  })
+}
+
 
 export async function getInvoicesById(id: number) {
   return db.query.invoicesTable.findFirst({

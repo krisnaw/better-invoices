@@ -2,7 +2,7 @@ import {headers} from "next/headers"
 import {redirect} from "next/navigation"
 import {Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card"
 import {auth} from "@/lib/auth"
-import {getInvoices} from "@/db/query/invoice-query";
+import {getInvoiceByUserId} from "@/db/query/invoice-query";
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 import {
   Pagination,
@@ -24,7 +24,7 @@ export default async function InvoicePage() {
     redirect("/login")
   }
 
-  const invoices = await getInvoices();
+  const invoices = await getInvoiceByUserId(session.user.id);
 
   return (
     <div>
