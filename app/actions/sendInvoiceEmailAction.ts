@@ -18,13 +18,19 @@ export async function sendInvoiceEmailAction(invoiceId: number): Promise<void> {
         // Resend expects attachment content as base64.
         content: Buffer.from('Sample attachment content').toString('base64')
       }
+    ],
+    tags: [
+      {
+        name: 'invoice',
+        value: invoiceId.toString()
+      }
     ]
   });
   if (data) {
     await db.insert(mailEventSchema).values({
       invoiceId: invoiceId,
       resendMailId: data.id,
-      status: "send"
+      status: "processed"
     })
   }
 }
