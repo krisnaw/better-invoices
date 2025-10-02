@@ -4,7 +4,7 @@ import React from "react";
 import {TableCell, TableRow} from "@/components/ui/table";
 import {useRouter} from "next/navigation";
 import {Button} from "@/components/ui/button";
-import {sendAction} from "@/app/actions/send.action";
+import {sendInvoiceEmailAction} from "@/app/actions/sendInvoiceEmailAction";
 import {InvoiceWithCustomer} from "@/db/schema/invoice-schema";
 
 export default function InvoiceTableRow({invoice}: { invoice: InvoiceWithCustomer }) {
@@ -35,7 +35,7 @@ export default function InvoiceTableRow({invoice}: { invoice: InvoiceWithCustome
       <TableCell className="text-right">{invoice.currency}</TableCell>
       <TableCell className="text-right">
         <Button variant="outline"
-                onClick={() => sendAction()}>Send</Button>
+                onClick={() => sendInvoiceEmailAction(invoice.id)}>Send</Button>
       </TableCell>
     </TableRow>
   )

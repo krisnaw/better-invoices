@@ -2,9 +2,11 @@
 
 import {Resend} from "resend";
 import InvoiceEmail from "@/components/email/invoice.email";
+import {db} from "@/db/db-connection";
+import {mailEventSchema} from "@/db/schema/mail-event.schema";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-export async function sendAction(): Promise<void> {
+export async function sendInvoiceEmailAction(invoiceId: number): Promise<void> {
   const { data, error } = await resend.emails.send({
     from: 'Acme <info@krisnawijaya.com>',
     to: ['krisna.w2010@gmail.com'],
@@ -18,5 +20,11 @@ export async function sendAction(): Promise<void> {
       }
     ]
   });
-  console.log(data);
+  if (data) {
+    await db.insert(mailEventSchema).values({
+      invoiceId: invoiceId,
+      resendMailId: data.id,
+      status: "send"
+    })
+  }
 }
