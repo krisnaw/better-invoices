@@ -16,6 +16,7 @@ import {
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import InvoiceTableRow from "@/components/invoices/invoice-table-row";
+import {InvoiceWithCustomer} from "@/db/schema/invoice-schema";
 
 export default async function InvoicePage() {
   const session = await auth.api.getSession({
@@ -25,7 +26,7 @@ export default async function InvoicePage() {
     redirect("/login")
   }
 
-  const invoices = await getInvoiceByUserId(session.user.id);
+  const invoices = await getInvoiceByUserId(session.user.id) as InvoiceWithCustomer[]
 
   return (
     <div>
@@ -49,6 +50,7 @@ export default async function InvoicePage() {
                 <TableHead>Customer</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead className="text-right">Currency</TableHead>
+                <TableHead className="text-right">Action</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

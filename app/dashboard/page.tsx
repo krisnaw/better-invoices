@@ -2,14 +2,11 @@ import {Input} from "@/components/ui/input";
 import {Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select"
 import {Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from "@/components/ui/card"
-import {SendMail} from "@/app/dashboard/send-mail";
 
 export default function Page() {
   return (
     <div className="grid gap-4">
-      <div>
-        <SendMail />
-      </div>
+
       <div>
         <Input />
       </div>

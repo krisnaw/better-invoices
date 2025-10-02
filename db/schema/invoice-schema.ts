@@ -1,9 +1,8 @@
 import {integer, pgTable, text, timestamp, varchar} from "drizzle-orm/pg-core";
-import {relations} from "drizzle-orm";
+import {InferSelectModel, relations} from "drizzle-orm";
 import {user} from "@/db/schema/auth-schema";
 import {customer} from "@/db/schema/customer-schema";
 import {createInsertSchema, createSelectSchema} from "drizzle-zod";
-import {z} from "zod";
 import {CustomerType} from "@/lib/types";
 import {invoiceItemsTable} from "@/db/schema/invoice-item-schema";
 
@@ -32,7 +31,7 @@ export const invoiceInsertSchema = createInsertSchema(invoicesTable).omit({
   createdAt: true,
   updatedAt: true,
 })
-export type InvoiceType = z.infer<typeof invoiceInsertSchema>
+export type InvoiceType = InferSelectModel<typeof invoicesTable>;
 export type InvoiceWithCustomer = InvoiceType & {customer: CustomerType}
 
 export const invoicesRelations = relations(invoicesTable, ({one, many}) => ({
@@ -42,3 +41,4 @@ export const invoicesRelations = relations(invoicesTable, ({one, many}) => ({
   }),
   items: many(invoiceItemsTable),
 }));
+

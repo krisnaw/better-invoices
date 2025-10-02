@@ -3,20 +3,11 @@
 import React from "react";
 import {TableCell, TableRow} from "@/components/ui/table";
 import {useRouter} from "next/navigation";
+import {Button} from "@/components/ui/button";
+import {sendAction} from "@/app/actions/send.action";
+import {InvoiceWithCustomer} from "@/db/schema/invoice-schema";
 
-interface InvoiceTableRowProps {
-  invoice: {
-    id: number
-    invoiceNumber: string
-    status: string
-    currency: string
-    customer?: {
-      name: string | null
-    } | null
-  }
-}
-
-export default function InvoiceTableRow({invoice}: InvoiceTableRowProps) {
+export default function InvoiceTableRow({invoice}: { invoice: InvoiceWithCustomer }) {
   const router = useRouter();
 
   const handleNavigate = () => {
@@ -42,6 +33,10 @@ export default function InvoiceTableRow({invoice}: InvoiceTableRowProps) {
       <TableCell>{invoice.customer?.name ?? "-"}</TableCell>
       <TableCell>{invoice.status}</TableCell>
       <TableCell className="text-right">{invoice.currency}</TableCell>
+      <TableCell className="text-right">
+        <Button variant="outline"
+                onClick={() => sendAction()}>Send</Button>
+      </TableCell>
     </TableRow>
   )
 }
