@@ -25,10 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
-      >
+    <html lang="en" className="h-full scroll-smooth bg-white antialiased font-sans">
+      <body className={`${geistSans.variable} ${geistMono.variable} flex h-full flex-col`}>
       <NuqsAdapter >
         {children}
         <Toaster />

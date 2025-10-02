@@ -1,7 +1,6 @@
 "use client";
 
 import {Button} from "@/components/ui/button";
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from "@/components/ui/card";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {useActionState} from "react";
@@ -37,75 +36,54 @@ export default function SignUp() {
   })
 
   return (
-    <div className="space-y-4">
-
-      <form action={formAction}>
-
-        <Card className="min-w-sm min-h-[520px]">
-          <CardHeader>
-            <CardTitle>Freelancer Account</CardTitle>
-            <CardDescription>
-              Create a personal account to start managing your work
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="name">Full name</Label>
-                <Input
-                  id="name"
-                  placeholder="Max"
-                  name="name"
-                  required
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  name="email"
-                  placeholder="m@example.com"
-                  required
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  name="password"
-                  required
-                  autoComplete="new-password"
-                  placeholder="Password"
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="password">Confirm Password</Label>
-                <Input
-                  id="password_confirmation"
-                  type="password"
-                  name="password_confirmation"
-                  required
-                  autoComplete="new-password"
-                  placeholder="Confirm Password"
-                />
-              </div>
-              <Button type="submit" className="w-full" disabled={isPending}>
-                Create Account
-                {isPending && <Loader2 className="animate-spin"/>}
-              </Button>
-            </div>
-          </CardContent>
-          <CardFooter>
-            <div className="flex justify-center w-full border-t py-4">
-              <p className="text-center text-xs text-neutral-500">
-                Already have an account? <a href="/login">Sign in</a>
-              </p>
-            </div>
-          </CardFooter>
-        </Card>
-      </form>
-    </div>
+    <form action={formAction}>
+      <div className="grid gap-4">
+        <div className="grid gap-2">
+          <Label htmlFor="name">Full name</Label>
+          <Input
+            id="name"
+            placeholder="Max"
+            name="name"
+            required
+          />
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            type="email"
+            name="email"
+            placeholder="m@example.com"
+            required
+          />
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="password">Password</Label>
+          <Input
+            id="password"
+            type="password"
+            name="password"
+            required
+            autoComplete="new-password"
+            placeholder="Password"
+          />
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="password">Confirm Password</Label>
+          <Input
+            id="password_confirmation"
+            type="password"
+            name="password_confirmation"
+            required
+            autoComplete="new-password"
+            placeholder="Confirm Password"
+          />
+        </div>
+        <Button type="submit" className="w-full" disabled={isPending}>
+          Create Account
+          {isPending && <Loader2 className="animate-spin"/>}
+        </Button>
+      </div>
+    </form>
   );
 }

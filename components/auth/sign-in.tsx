@@ -1,7 +1,6 @@
 "use client"
 
 import {Button} from "@/components/ui/button";
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {Checkbox} from "@/components/ui/checkbox";
@@ -37,71 +36,51 @@ export default function SignIn() {
   })
 
   return (
-    <div className="space-y-4">
-      <form action={formAction}>
-        <Card className="min-w-sm">
-          <CardHeader>
-            <CardTitle className="text-lg md:text-xl">Sign In</CardTitle>
-            <CardDescription className="text-xs md:text-sm">
-              Enter your email below to login to your account
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  name="email"
-                  required
-                />
-              </div>
+    <form action={formAction}>
+      <div className="grid gap-4">
+        <div className="grid gap-2">
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            type="email"
+            placeholder="m@example.com"
+            name="email"
+            required
+          />
+        </div>
 
-              <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                  <Link href="/forgot-password" className="ml-auto inline-block text-sm underline">
-                    Forgot your password?
-                  </Link>
-                </div>
+        <div className="grid gap-2">
+          <div className="flex items-center">
+            <Label htmlFor="password">Password</Label>
+            <Link href="/forgot-password" className="ml-auto inline-block text-sm underline">
+              Forgot your password?
+            </Link>
+          </div>
 
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="password"
-                  autoComplete="password"
-                  name="password"
-                  required
-                />
-              </div>
+          <Input
+            id="password"
+            type="password"
+            placeholder="password"
+            autoComplete="password"
+            name="password"
+            required
+          />
+        </div>
 
-              <div className="flex items-center gap-2">
-                <Checkbox
-                  id="remember"
-                  name="remember"
-                  onClick={() => {setRememberMe(!rememberMe);}}
-                />
-                <Label htmlFor="remember">Remember me</Label>
-              </div>
+        <div className="flex items-center gap-2">
+          <Checkbox
+            id="remember"
+            name="remember"
+            onClick={() => {setRememberMe(!rememberMe);}}
+          />
+          <Label htmlFor="remember">Remember me</Label>
+        </div>
 
-              <Button disabled={isPending} type="submit" className="w-full">
-                Login
-                {isPending && <Loader2 className="animate-spin"/>}
-              </Button>
-            </div>
-          </CardContent>
-          <CardFooter>
-            <div className="flex justify-center w-full border-t py-4">
-              <p className="text-center text-xs text-neutral-500">
-                Don&#39;t have an account? <a href="/register">Register here</a>
-              </p>
-            </div>
-          </CardFooter>
-        </Card>
-      </form>
-
-    </div>
+        <Button disabled={isPending} type="submit" className="w-full">
+          Login
+          {isPending && <Loader2 className="animate-spin"/>}
+        </Button>
+      </div>
+    </form>
   );
 }
