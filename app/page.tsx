@@ -6,6 +6,7 @@ import {CallToAction} from "@/components/landing/call-to-action";
 import {SecondaryFeature} from "@/components/landing/secondary-feature";
 import {Testimonials} from "@/components/landing/testimonials";
 import {Pricing} from "@/components/landing/pricing";
+import {Faqs} from "@/components/landing/faqs";
 
 export default function Page() {
   return (
@@ -18,6 +19,7 @@ export default function Page() {
         <CallToAction />
         <Testimonials />
         <Pricing />
+        <Faqs />
       </main>
       <Footer />
     </div>
