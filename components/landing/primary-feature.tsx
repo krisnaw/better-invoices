@@ -16,27 +16,27 @@ import {Container} from "@/components/landing/container";
 
 const features = [
   {
-    title: 'Payroll',
+    title: 'Send polished invoices',
     description:
-      "Keep track of everyone's salaries and whether or not they've been paid. Direct deposit not supported.",
+      'Build branded invoices in seconds with saved templates, line items, and taxes that fit your workflow.',
     image: screenshotPayroll,
   },
   {
-    title: 'Claim expenses',
+    title: 'Automate follow-ups',
     description:
-      "All of your receipts organized into one place, as long as you don't mind typing in the data by hand.",
+      'Schedule gentle nudges and past-due reminders so you never chase payments manually again.',
     image: screenshotExpenses,
   },
   {
-    title: 'VAT handling',
+    title: 'Track payment status',
     description:
-      "We only sell our software to companies who don't deal with VAT at all, so technically we do all the VAT stuff they need.",
+      'See who viewed, paid, or is overdue at a glance, and keep every invoice update synced instantly.',
     image: screenshotVatReturns,
   },
   {
-    title: 'Reporting',
+    title: 'Understand cash flow',
     description:
-      'Easily export your data into an Excel spreadsheet where you can do whatever the hell you want with it.',
+      'Stay ahead with real-time revenue insights and exportable reports for your accountant or stakeholders.',
     image: screenshotReporting,
   },
 ]
@@ -78,11 +78,10 @@ export function PrimaryFeature() {
       <Container className="relative">
         <div className="max-w-2xl md:mx-auto md:text-center xl:max-w-none">
           <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl md:text-5xl">
-            Everything you need to run your books.
+            Everything you need to get paid faster.
           </h2>
           <p className="mt-6 text-lg tracking-tight text-blue-100">
-            Well everything you need if you aren’t that picky about minor
-            details like tax compliance.
+            Invoiceku keeps invoicing, reminders, and cash flow tracking in one place so you can focus on client work.
           </p>
         </div>
         <TabGroup
